@@ -7,7 +7,7 @@ const pos = (v: number) => `${(v / MAX) * 100}%`;
 /** Dot plot: one row per model, hollow mark = 10% labels, filled mark = 100% labels. */
 export function ModelChart({ models, error }: { models: Models | null; error?: string | null }) {
   return (
-    <Section title="six-model comparison · subtype macro-f1" id="models-title" aside={<TestSetTag />}>
+    <Section index={1} title="six-model comparison · subtype macro-f1" id="models-title" aside={<TestSetTag />}>
       {error ? <ErrorNote error={error} /> : !models ? <Skeleton h="h-64" /> : (
         <>
           <p className="mb-4 flex gap-6 text-[11px] text-mute">

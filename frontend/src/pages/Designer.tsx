@@ -64,6 +64,7 @@ export function Designer() {
           <input id="budget" type="range" min={1} max={K_MAX} step={1} value={k}
             onChange={(e) => setK(Number(e.target.value))} aria-valuetext={`${k} markers`}
             className="mt-2 w-full accent-[var(--acc)]" />
+          <Ticks k={k} max={K_MAX} />
         </div>
         <details className="relative">
           <summary className="cursor-pointer text-mute hover:text-fg">assay &amp; cost</summary>
@@ -89,12 +90,14 @@ export function Designer() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] print:block print:space-y-4">
-        <PanelCard panel={panel} error={panelError} costPerMarker={costNum} />
+        <PanelCard panel={panel} error={panelError} costPerMarker={costNum} onPickK={setK}
+          curve={Object.values(panels).sort((a, b) => a.k - b.k).map((p) => ({ k: p.k, f1: p.metrics.macro_f1 }))} />
         <MarkerList markers={markers.data?.markers ?? null} k={k} note={markers.data?.note} error={markers.error} />
       </div>
 
       <section className="section no-print" aria-label="Cohort">
         <div role="tablist" aria-label="Cohort views" className="mb-4 flex gap-5">
+          <span className="label text-fg" aria-hidden="true">03</span>
           {TABS.map((t) => (
             <button key={t} role="tab" type="button" aria-selected={tab === t} aria-controls={`tab-${t}`} id={`tabbtn-${t}`}
               onClick={() => setTab(t)}
@@ -119,6 +122,17 @@ export function Designer() {
         <QcCard qc={qc.data} />
         <p className="text-[11px]">method: {markers.data?.method}. {panel?.method}.</p>
       </div>
+    </div>
+  );
+}
+
+/** One hairline tick per budget step; filled up to the current k. */
+export function Ticks({ k, max }: { k: number; max: number }) {
+  return (
+    <div className="mt-1 flex justify-between px-[7px]" aria-hidden="true">
+      {Array.from({ length: max }, (_, i) => (
+        <span key={i} className="w-px" style={{ height: (i + 1) % 5 === 0 || i === 0 ? 7 : 4, background: i < k ? "var(--fg)" : "var(--line)" }} />
+      ))}
     </div>
   );
 }
