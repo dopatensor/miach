@@ -1,0 +1,1304 @@
+{
+ "disease": "brca",
+ "n_patients": 876,
+ "n_proteins": 198,
+ "splits": {
+  "train": {
+   "patients": 595,
+   "labelled": 538,
+   "subtypes": {
+    "LumA": 265,
+    "LumB": 110,
+    "Basal": 98,
+    "Her2": 46,
+    "Normal": 19
+   },
+   "unlabelled": 57,
+   "pfs_events": 79
+  },
+  "val": {
+   "patients": 105,
+   "labelled": 96,
+   "subtypes": {
+    "LumA": 46,
+    "LumB": 22,
+    "Basal": 21,
+    "Her2": 6,
+    "Normal": 1
+   },
+   "unlabelled": 9,
+   "pfs_events": 12
+  },
+  "test": {
+   "patients": 176,
+   "labelled": 163,
+   "subtypes": {
+    "LumA": 78,
+    "LumB": 35,
+    "Basal": 24,
+    "Her2": 19,
+    "Normal": 7
+   },
+   "unlabelled": 13,
+   "pfs_events": 23
+  }
+ },
+ "missingness": {
+  "overall": 0.0344,
+  "proteins_any_missing": 8,
+  "proteins_fully_missing": 3,
+  "per_protein": [
+   {
+    "protein": "14-3-3_epsilon",
+    "gene": "YWHAE",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "4E-BP1",
+    "gene": "EIF4EBP1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "4E-BP1_pS65",
+    "gene": "EIF4EBP1",
+    "block": "TSC/mTOR",
+    "missing": 0.0
+   },
+   {
+    "protein": "4E-BP1_pT37T46",
+    "gene": "EIF4EBP1",
+    "block": "TSC/mTOR",
+    "missing": 0.0
+   },
+   {
+    "protein": "53BP1",
+    "gene": "TP53BP1",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "ACC_pS79",
+    "gene": "ACACA ACACB",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "ACC1",
+    "gene": "ACACA",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Akt",
+    "gene": "AKT1 AKT2 AKT3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Akt_pS473",
+    "gene": "AKT1 AKT2 AKT3",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "Akt_pT308",
+    "gene": "AKT1 AKT2 AKT3",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "AMPK_alpha",
+    "gene": "PRKAA1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "AMPK_pT172",
+    "gene": "PRKAA1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "AR",
+    "gene": "AR",
+    "block": "Hormone receptor",
+    "missing": 0.0
+   },
+   {
+    "protein": "ASNS",
+    "gene": "ASNS",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "ATM",
+    "gene": "ATM",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bak",
+    "gene": "BAK1",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bax",
+    "gene": "BAX",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bcl-2",
+    "gene": "BCL2",
+    "block": "Hormone signaling",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bcl-xL",
+    "gene": "BCL2L1",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "Beclin",
+    "gene": "BECN1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "beta-Catenin",
+    "gene": "CTNNB1",
+    "block": "EMT",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bid",
+    "gene": "BID",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bim",
+    "gene": "BCL2L11",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "c-Jun_pS73",
+    "gene": "JUN",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "c-Kit",
+    "gene": "KIT",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "c-Met_pY1235",
+    "gene": "MET",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "c-Myc",
+    "gene": "MYC",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "C-Raf",
+    "gene": "RAF1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "C-Raf_pS338",
+    "gene": "RAF1",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "Caspase-7_cleavedD198",
+    "gene": "CASP7",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "Caveolin-1",
+    "gene": "CAV1",
+    "block": "Breast reactive",
+    "missing": 0.0
+   },
+   {
+    "protein": "CD31",
+    "gene": "PECAM1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "CD49b",
+    "gene": "ITGA2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "CDK1",
+    "gene": "CDK1",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "Chk1",
+    "gene": "CHEK1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Chk1_pS345",
+    "gene": "CHEK1",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "Chk2",
+    "gene": "CHEK2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Chk2_pT68",
+    "gene": "CHEK2",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "cIAP",
+    "gene": "BIRC2",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "Claudin-7",
+    "gene": "CLDN7",
+    "block": "EMT",
+    "missing": 0.0
+   },
+   {
+    "protein": "Collagen_VI",
+    "gene": "COL6A1",
+    "block": "EMT",
+    "missing": 0.0
+   },
+   {
+    "protein": "Cyclin_B1",
+    "gene": "CCNB1",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "Cyclin_D1",
+    "gene": "CCND1",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "Cyclin_E1",
+    "gene": "CCNE1",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "DJ-1",
+    "gene": "PARK7",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Dvl3",
+    "gene": "DVL3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "E-Cadherin",
+    "gene": "CDH1",
+    "block": "EMT",
+    "missing": 0.0
+   },
+   {
+    "protein": "eEF2",
+    "gene": "EEF2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "eEF2K",
+    "gene": "EEF2K",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "EGFR",
+    "gene": "EGFR",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "EGFR_pY1068",
+    "gene": "EGFR",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "EGFR_pY1173",
+    "gene": "EGFR",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "eIF4E",
+    "gene": "EIF4E",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "ER-alpha",
+    "gene": "ESR1",
+    "block": "Hormone receptor",
+    "missing": 0.0
+   },
+   {
+    "protein": "ER-alpha_pS118",
+    "gene": "ESR1",
+    "block": "Hormone receptor",
+    "missing": 0.0
+   },
+   {
+    "protein": "ERK2",
+    "gene": "MAPK1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Fibronectin",
+    "gene": "FN1",
+    "block": "EMT",
+    "missing": 0.0
+   },
+   {
+    "protein": "FOXO3a",
+    "gene": "FOXO3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "GAB2",
+    "gene": "GAB2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "GATA3",
+    "gene": "GATA3",
+    "block": "Hormone signaling",
+    "missing": 0.0
+   },
+   {
+    "protein": "GSK3-alpha-beta",
+    "gene": "GSK3A GSK3B",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "GSK3-alpha-beta_pS21_S9",
+    "gene": "GSK3A GSK3B",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "HER2",
+    "gene": "ERBB2",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "HER2_pY1248",
+    "gene": "ERBB2",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "HER3",
+    "gene": "ERBB3",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "HER3_pY1298",
+    "gene": "ERBB3",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "HSP70",
+    "gene": "HSPA1A",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "IGFBP2",
+    "gene": "IGFBP2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "INPP4B",
+    "gene": "INPP4B",
+    "block": "Hormone signaling",
+    "missing": 0.0
+   },
+   {
+    "protein": "IRS1",
+    "gene": "IRS1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "JNK_pT183_Y185",
+    "gene": "MAPK8",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "JNK2",
+    "gene": "MAPK9",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Ku80",
+    "gene": "XRCC5",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "Lck",
+    "gene": "LCK",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "LKB1",
+    "gene": "STK11",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "MAPK_pT202_Y204",
+    "gene": "MAPK1 MAPK3",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "MEK1",
+    "gene": "MAP2K1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "MEK1_pS217_S221",
+    "gene": "MAP2K1",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "MIG-6",
+    "gene": "ERRFI1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Mre11",
+    "gene": "MRE11A",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "mTOR",
+    "gene": "MTOR",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "mTOR_pS2448",
+    "gene": "MTOR",
+    "block": "TSC/mTOR",
+    "missing": 0.0
+   },
+   {
+    "protein": "N-Cadherin",
+    "gene": "CDH2",
+    "block": "EMT",
+    "missing": 0.0
+   },
+   {
+    "protein": "NF-kB-p65_pS536",
+    "gene": "NFKB1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "NF2",
+    "gene": "NF2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Notch1",
+    "gene": "NOTCH1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "P-Cadherin",
+    "gene": "CDH3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "p27",
+    "gene": "CDKN1B",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "p27_pT157",
+    "gene": "CDKN1B",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "p38_MAPK",
+    "gene": "MAPK14",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "p38_pT180_Y182",
+    "gene": "MAPK14",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "p53",
+    "gene": "TP53",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "p70S6K",
+    "gene": "RPS6KB1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "p70S6K_pT389",
+    "gene": "RPS6KB1",
+    "block": "TSC/mTOR",
+    "missing": 0.0
+   },
+   {
+    "protein": "p90RSK_pT359_S363",
+    "gene": "RPS6KA1",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "PAI-1",
+    "gene": "SERPINE1",
+    "block": "EMT",
+    "missing": 0.0
+   },
+   {
+    "protein": "Paxillin",
+    "gene": "PXN",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PCNA",
+    "gene": "PCNA",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "PDK1_pS241",
+    "gene": "PDK1",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "PEA15",
+    "gene": "PEA15",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PI3K-p110-alpha",
+    "gene": "PIK3CA",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "PKC-alpha",
+    "gene": "PRKCA",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PKC-alpha_pS657",
+    "gene": "PRKCA",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PKC-delta_pS664",
+    "gene": "PRKCD",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PR",
+    "gene": "PGR",
+    "block": "Hormone receptor",
+    "missing": 0.0
+   },
+   {
+    "protein": "PRAS40_pT246",
+    "gene": "AKT1S1",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "PTEN",
+    "gene": "PTEN",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "Rad50",
+    "gene": "RAD50",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "Rad51",
+    "gene": "RAD51",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "Rb_pS807_S811",
+    "gene": "RB1",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "S6",
+    "gene": "RPS6",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "S6_pS235_S236",
+    "gene": "RPS6",
+    "block": "TSC/mTOR",
+    "missing": 0.0
+   },
+   {
+    "protein": "S6_pS240_S244",
+    "gene": "RPS6",
+    "block": "TSC/mTOR",
+    "missing": 0.0
+   },
+   {
+    "protein": "Shc_pY317",
+    "gene": "SHC1",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "Smad1",
+    "gene": "SMAD1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Smad3",
+    "gene": "SMAD3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Smad4",
+    "gene": "SMAD4",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Src",
+    "gene": "SRC",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Src_pY416",
+    "gene": "SRC",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "Src_pY527",
+    "gene": "SRC",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "STAT3_pY705",
+    "gene": "STAT3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "STAT5-alpha",
+    "gene": "STAT5A",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Stathmin",
+    "gene": "STMN1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Syk",
+    "gene": "SYK",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Tuberin",
+    "gene": "TSC2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "VEGFR2",
+    "gene": "KDR",
+    "block": "RTK",
+    "missing": 0.0
+   },
+   {
+    "protein": "XRCC1",
+    "gene": "XRCC1",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "YAP",
+    "gene": "YAP1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "YAP_pS127",
+    "gene": "YAP1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "YB-1",
+    "gene": "YBX1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "YB-1_pS102",
+    "gene": "YBX1",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "4E-BP1_pT70",
+    "gene": "EIF4EBP1",
+    "block": "TSC/mTOR",
+    "missing": 0.0
+   },
+   {
+    "protein": "A-Raf_pS299",
+    "gene": "ARAF",
+    "block": "RAS/MAPK",
+    "missing": 0.0
+   },
+   {
+    "protein": "Annexin_VII",
+    "gene": "ANXA7",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "ARID1A",
+    "gene": "ARID1A",
+    "block": "Other",
+    "missing": 0.1575
+   },
+   {
+    "protein": "B-Raf",
+    "gene": "BRAF",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bad_pS112",
+    "gene": "BAD",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "Bap1-c-4",
+    "gene": "BAP1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "BRCA2",
+    "gene": "BRCA2",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "CD20",
+    "gene": "MS4A1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Cyclin_E2",
+    "gene": "CCNE2",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "ETS-1",
+    "gene": "ETS1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "eIF4G",
+    "gene": "EIF4G1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "FASN",
+    "gene": "FASN",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "FOXO3a_pS318_S321",
+    "gene": "FOXO3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "FoxM1",
+    "gene": "FOXM1",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "G6PD",
+    "gene": "G6PD",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "GAPDH",
+    "gene": "GAPDH",
+    "block": "Breast reactive",
+    "missing": 0.0
+   },
+   {
+    "protein": "GSK3_pS9",
+    "gene": "GSK3A GSK3B",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "Heregulin",
+    "gene": "NRG1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "MYH11",
+    "gene": "MYH11",
+    "block": "Breast reactive",
+    "missing": 0.0
+   },
+   {
+    "protein": "Myosin-IIa-pS1943",
+    "gene": "MYH9",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "N-Ras",
+    "gene": "NRAS",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "NDRG1_pT346",
+    "gene": "NDRG1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "p21",
+    "gene": "CDKN1A",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "p27_pT198",
+    "gene": "CDKN1B",
+    "block": "Cell cycle",
+    "missing": 0.0
+   },
+   {
+    "protein": "p90RSK",
+    "gene": "RPS6KA1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PDCD4",
+    "gene": "PDCD4",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PDK1",
+    "gene": "PDK1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PEA15_pS116",
+    "gene": "PEA15",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PI3K-p85",
+    "gene": "PIK3R1 PIK3R2",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "PKC-pan_BetaII_pS660",
+    "gene": "PRKCB",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PRDX1",
+    "gene": "PRDX1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Rab11",
+    "gene": "RAB11A RAB11B",
+    "block": "Breast reactive",
+    "missing": 0.0
+   },
+   {
+    "protein": "Rab25",
+    "gene": "RAB25",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Raptor",
+    "gene": "RPTOR",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "RBM15",
+    "gene": "RBM15",
+    "block": "Breast reactive",
+    "missing": 0.0
+   },
+   {
+    "protein": "Rictor",
+    "gene": "RICTOR",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Rictor_pT1135",
+    "gene": "RICTOR",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "SCD1",
+    "gene": "SCD1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "SF2",
+    "gene": "SRSF1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "TAZ",
+    "gene": "WWTR1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "TIGAR",
+    "gene": "TIGAR",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Transglutaminase",
+    "gene": "TGM2",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "TFRC",
+    "gene": "TFRC",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "TSC1",
+    "gene": "TSC1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Tuberin_pT1462",
+    "gene": "TSC2",
+    "block": "PI3K/AKT",
+    "missing": 0.0
+   },
+   {
+    "protein": "VHL",
+    "gene": "VHL",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "XBP1",
+    "gene": "XBP1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Acetyl-a-Tubulin-Lys40",
+    "gene": "TUBA1B",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "p62-LCK-ligand",
+    "gene": "SQSTM1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "14-3-3_beta",
+    "gene": "YWHAB",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "14-3-3_zeta",
+    "gene": "YWHAZ",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "ACVRL1",
+    "gene": "ACVRL1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "DIRAS3",
+    "gene": "DIRAS3",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "Annexin-1",
+    "gene": "ANXA1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "PREX1",
+    "gene": "PREX1",
+    "block": "Other",
+    "missing": 0.0
+   },
+   {
+    "protein": "ERCC1",
+    "gene": "ERCC1",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "MSH2",
+    "gene": "MSH2",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "MSH6",
+    "gene": "MSH6",
+    "block": "DNA damage",
+    "missing": 0.0
+   },
+   {
+    "protein": "Smac",
+    "gene": "DIABLO",
+    "block": "Apoptosis",
+    "missing": 0.0
+   },
+   {
+    "protein": "ADAR1",
+    "gene": "ADAR",
+    "block": "Other",
+    "missing": 1.0
+   },
+   {
+    "protein": "alpha-Catenin",
+    "gene": "CTNNA1",
+    "block": "Other",
+    "missing": 1.0
+   },
+   {
+    "protein": "TTF1",
+    "gene": "NKX2-1",
+    "block": "Other",
+    "missing": 1.0
+   },
+   {
+    "protein": "Caspase-3",
+    "gene": "CASP3",
+    "block": "Apoptosis",
+    "missing": 0.911
+   },
+   {
+    "protein": "Caspase-9",
+    "gene": "CASP9",
+    "block": "Apoptosis",
+    "missing": 0.911
+   },
+   {
+    "protein": "PARP1",
+    "gene": "PARP1",
+    "block": "DNA damage",
+    "missing": 0.911
+   },
+   {
+    "protein": "JAB1",
+    "gene": "COPS5",
+    "block": "Other",
+    "missing": 0.911
+   }
+  ],
+  "per_block": [
+   {
+    "block": "Apoptosis",
+    "proteins": 11,
+    "missing": 0.1656
+   },
+   {
+    "block": "Breast reactive",
+    "proteins": 5,
+    "missing": 0.0
+   },
+   {
+    "block": "Cell cycle",
+    "proteins": 11,
+    "missing": 0.0
+   },
+   {
+    "block": "DNA damage",
+    "proteins": 15,
+    "missing": 0.0607
+   },
+   {
+    "block": "EMT",
+    "proteins": 7,
+    "missing": 0.0
+   },
+   {
+    "block": "Hormone receptor",
+    "proteins": 4,
+    "missing": 0.0
+   },
+   {
+    "block": "Hormone signaling",
+    "proteins": 3,
+    "missing": 0.0
+   },
+   {
+    "block": "Other",
+    "proteins": 103,
+    "missing": 0.0395
+   },
+   {
+    "block": "PI3K/AKT",
+    "proteins": 11,
+    "missing": 0.0
+   },
+   {
+    "block": "RAS/MAPK",
+    "proteins": 8,
+    "missing": 0.0
+   },
+   {
+    "block": "RTK",
+    "proteins": 13,
+    "missing": 0.0
+   },
+   {
+    "block": "TSC/mTOR",
+    "proteins": 7,
+    "missing": 0.0
+   }
+  ]
+ },
+ "imputation": "training-set median, then z-score with training mean/sd"
+}

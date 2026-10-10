@@ -1,0 +1,817 @@
+{
+ "disease": "brca",
+ "goal": "subtype",
+ "test_n": 176,
+ "test_labelled": 163,
+ "test_events": 23,
+ "preliminary": true,
+ "panel_model": "L2 multinomial logistic regression on the top-k ranked proteins; C chosen on validation, refit on train + validation, scored once on the locked test set",
+ "c_index_note": "C-index of a subtype-derived risk score (predicted subtype probabilities x training-set progression rate per subtype); survival-specific ranking is not built yet",
+ "panels": [
+  {
+   "k": 1,
+   "markers": [
+    "Cyclin_B1"
+   ],
+   "metrics": {
+    "macro_f1": 0.2997,
+    "balanced_acc": 0.342,
+    "auroc": 0.7085,
+    "c_index": 0.6237
+   }
+  },
+  {
+   "k": 2,
+   "markers": [
+    "Cyclin_B1",
+    "AR"
+   ],
+   "metrics": {
+    "macro_f1": 0.4068,
+    "balanced_acc": 0.4391,
+    "auroc": 0.7685,
+    "c_index": 0.618
+   }
+  },
+  {
+   "k": 3,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha"
+   ],
+   "metrics": {
+    "macro_f1": 0.5031,
+    "balanced_acc": 0.5087,
+    "auroc": 0.8313,
+    "c_index": 0.5978
+   }
+  },
+  {
+   "k": 4,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS"
+   ],
+   "metrics": {
+    "macro_f1": 0.5406,
+    "balanced_acc": 0.5419,
+    "auroc": 0.8285,
+    "c_index": 0.5858
+   }
+  },
+  {
+   "k": 5,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3"
+   ],
+   "metrics": {
+    "macro_f1": 0.5373,
+    "balanced_acc": 0.541,
+    "auroc": 0.8618,
+    "c_index": 0.6108
+   }
+  },
+  {
+   "k": 6,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B"
+   ],
+   "metrics": {
+    "macro_f1": 0.5112,
+    "balanced_acc": 0.52,
+    "auroc": 0.8551,
+    "c_index": 0.6146
+   }
+  },
+  {
+   "k": 7,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2"
+   ],
+   "metrics": {
+    "macro_f1": 0.5859,
+    "balanced_acc": 0.6192,
+    "auroc": 0.8652,
+    "c_index": 0.6627
+   }
+  },
+  {
+   "k": 8,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2"
+   ],
+   "metrics": {
+    "macro_f1": 0.602,
+    "balanced_acc": 0.6261,
+    "auroc": 0.8694,
+    "c_index": 0.6636
+   }
+  },
+  {
+   "k": 9,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD"
+   ],
+   "metrics": {
+    "macro_f1": 0.6216,
+    "balanced_acc": 0.6546,
+    "auroc": 0.8661,
+    "c_index": 0.6386
+   }
+  },
+  {
+   "k": 10,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2"
+   ],
+   "metrics": {
+    "macro_f1": 0.5962,
+    "balanced_acc": 0.6161,
+    "auroc": 0.8552,
+    "c_index": 0.6348
+   }
+  },
+  {
+   "k": 11,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6"
+   ],
+   "metrics": {
+    "macro_f1": 0.6052,
+    "balanced_acc": 0.6369,
+    "auroc": 0.8695,
+    "c_index": 0.6309
+   }
+  },
+  {
+   "k": 12,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1"
+   ],
+   "metrics": {
+    "macro_f1": 0.6116,
+    "balanced_acc": 0.6312,
+    "auroc": 0.8883,
+    "c_index": 0.6353
+   }
+  },
+  {
+   "k": 13,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN"
+   ],
+   "metrics": {
+    "macro_f1": 0.625,
+    "balanced_acc": 0.6607,
+    "auroc": 0.897,
+    "c_index": 0.6406
+   }
+  },
+  {
+   "k": 14,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1"
+   ],
+   "metrics": {
+    "macro_f1": 0.612,
+    "balanced_acc": 0.6312,
+    "auroc": 0.9023,
+    "c_index": 0.6425
+   }
+  },
+  {
+   "k": 15,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR"
+   ],
+   "metrics": {
+    "macro_f1": 0.6014,
+    "balanced_acc": 0.6175,
+    "auroc": 0.903,
+    "c_index": 0.6415
+   }
+  },
+  {
+   "k": 16,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2"
+   ],
+   "metrics": {
+    "macro_f1": 0.6238,
+    "balanced_acc": 0.6615,
+    "auroc": 0.9144,
+    "c_index": 0.6401
+   }
+  },
+  {
+   "k": 17,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241"
+   ],
+   "metrics": {
+    "macro_f1": 0.6279,
+    "balanced_acc": 0.6618,
+    "auroc": 0.9133,
+    "c_index": 0.6348
+   }
+  },
+  {
+   "k": 18,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1"
+   ],
+   "metrics": {
+    "macro_f1": 0.6365,
+    "balanced_acc": 0.6729,
+    "auroc": 0.9107,
+    "c_index": 0.6362
+   }
+  },
+  {
+   "k": 19,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2"
+   ],
+   "metrics": {
+    "macro_f1": 0.6448,
+    "balanced_acc": 0.6726,
+    "auroc": 0.9257,
+    "c_index": 0.6478
+   }
+  },
+  {
+   "k": 20,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346"
+   ],
+   "metrics": {
+    "macro_f1": 0.634,
+    "balanced_acc": 0.6649,
+    "auroc": 0.9246,
+    "c_index": 0.6415
+   }
+  },
+  {
+   "k": 21,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182"
+   ],
+   "metrics": {
+    "macro_f1": 0.6304,
+    "balanced_acc": 0.6607,
+    "auroc": 0.8938,
+    "c_index": 0.6295
+   }
+  },
+  {
+   "k": 22,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248"
+   ],
+   "metrics": {
+    "macro_f1": 0.6215,
+    "balanced_acc": 0.6686,
+    "auroc": 0.9195,
+    "c_index": 0.6396
+   }
+  },
+  {
+   "k": 23,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244"
+   ],
+   "metrics": {
+    "macro_f1": 0.6757,
+    "balanced_acc": 0.7169,
+    "auroc": 0.9287,
+    "c_index": 0.6622
+   }
+  },
+  {
+   "k": 24,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244",
+    "P-Cadherin"
+   ],
+   "metrics": {
+    "macro_f1": 0.6855,
+    "balanced_acc": 0.7283,
+    "auroc": 0.9304,
+    "c_index": 0.6607
+   }
+  },
+  {
+   "k": 25,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244",
+    "P-Cadherin",
+    "S6"
+   ],
+   "metrics": {
+    "macro_f1": 0.6897,
+    "balanced_acc": 0.7341,
+    "auroc": 0.9302,
+    "c_index": 0.6579
+   }
+  },
+  {
+   "k": 26,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244",
+    "P-Cadherin",
+    "S6",
+    "PDK1"
+   ],
+   "metrics": {
+    "macro_f1": 0.6563,
+    "balanced_acc": 0.6772,
+    "auroc": 0.9262,
+    "c_index": 0.6487
+   }
+  },
+  {
+   "k": 27,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244",
+    "P-Cadherin",
+    "S6",
+    "PDK1",
+    "p90RSK"
+   ],
+   "metrics": {
+    "macro_f1": 0.6976,
+    "balanced_acc": 0.7392,
+    "auroc": 0.925,
+    "c_index": 0.6545
+   }
+  },
+  {
+   "k": 28,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244",
+    "P-Cadherin",
+    "S6",
+    "PDK1",
+    "p90RSK",
+    "IGFBP2"
+   ],
+   "metrics": {
+    "macro_f1": 0.6679,
+    "balanced_acc": 0.6975,
+    "auroc": 0.924,
+    "c_index": 0.6478
+   }
+  },
+  {
+   "k": 29,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244",
+    "P-Cadherin",
+    "S6",
+    "PDK1",
+    "p90RSK",
+    "IGFBP2",
+    "p27"
+   ],
+   "metrics": {
+    "macro_f1": 0.6584,
+    "balanced_acc": 0.6876,
+    "auroc": 0.9259,
+    "c_index": 0.6473
+   }
+  },
+  {
+   "k": 30,
+   "markers": [
+    "Cyclin_B1",
+    "AR",
+    "ER-alpha",
+    "ASNS",
+    "GATA3",
+    "INPP4B",
+    "HER2",
+    "Bcl-2",
+    "G6PD",
+    "eEF2",
+    "MSH6",
+    "FoxM1",
+    "FASN",
+    "DJ-1",
+    "PR",
+    "JNK2",
+    "PDK1_pS241",
+    "Notch1",
+    "Cyclin_E2",
+    "NDRG1_pT346",
+    "p38_pT180_Y182",
+    "HER2_pY1248",
+    "S6_pS240_S244",
+    "P-Cadherin",
+    "S6",
+    "PDK1",
+    "p90RSK",
+    "IGFBP2",
+    "p27",
+    "CDK1"
+   ],
+   "metrics": {
+    "macro_f1": 0.6826,
+    "balanced_acc": 0.7187,
+    "auroc": 0.9229,
+    "c_index": 0.642
+   }
+  }
+ ],
+ "full_model": {
+  "k": 198,
+  "model": "Elastic net (all proteins)",
+  "metrics": {
+   "macro_f1": 0.6652,
+   "balanced_acc": 0.6994,
+   "auroc": 0.9112,
+   "c_index": 0.6521
+  }
+ }
+}
