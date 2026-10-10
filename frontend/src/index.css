@@ -11,8 +11,9 @@
   --line: #222222;
   --acc: #EEE772;       /* the one accent */
   --acc-fg: #000000;
-  --warn: #E8876A;
-  --c-LumA: #6479EE; --c-LumB: #D66E30; --c-Basal: #1CA389; --c-Her2: #AA78DB; --c-Normal: #A08A12; --c-Unknown: #555555;
+  --warn: #FF6B6B;      /* errors only */
+  /* Subtypes: cyan · amber · violet · green · pink, validated on #000 (CVD + 3:1 contrast). */
+  --c-LumA: #139FB4; --c-LumB: #BC891F; --c-Basal: #977AF0; --c-Her2: #31A55F; --c-Normal: #E2589F; --c-Unknown: #444444;
   color-scheme: dark;
 }
 [data-theme="light"] {
@@ -23,8 +24,8 @@
   --line: #E2E2E2;
   --acc: #2E3F8F;
   --acc-fg: #FFFFFF;
-  --warn: #A8442A;
-  --c-LumA: #4057C0; --c-LumB: #D9682F; --c-Basal: #18A08A; --c-Her2: #B474D9; --c-Normal: #A08A00; --c-Unknown: #BBBBBB;
+  --warn: #B3261E;
+  --c-LumA: #0B8BA3; --c-LumB: #9C6F12; --c-Basal: #6E4FD8; --c-Her2: #23864A; --c-Normal: #C23C82; --c-Unknown: #BBBBBB;
   color-scheme: light;
 }
 

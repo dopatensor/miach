@@ -1,28 +1,34 @@
 import { Link } from "react-router-dom";
 import { useAsync } from "../useAsync";
 import { api } from "../api";
+import { ProteinGrid } from "../components/ProteinGrid";
 
 export function Landing() {
   const panel = useAsync(() => api.panel(8));
   const qc = useAsync(() => api.qc());
+  const markers = useAsync(() => api.markers());
   const n = (v: number | undefined) => (v == null ? "…" : String(v));
   return (
-    <div className="max-w-3xl space-y-14 py-6">
-      <section className="space-y-6">
-        <h1 className="text-2xl font-bold leading-snug sm:text-3xl">
-          from hundreds of proteins to a few markers a lab can measure.
-        </h1>
-        <p className="text-mute">
-          pick a disease, a goal and a marker budget. miach returns a small candidate biomarker panel with its held-out
-          performance and the evidence behind every marker.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link to="/designer" className="btn-acc">design a panel →</Link>
-          <Link to="/evidence" className="btn">evidence</Link>
+    <div className="space-y-14 py-6">
+      <section className="grid items-center gap-10 lg:grid-cols-[1fr_440px]">
+        <div className="space-y-6">
+          <h1 className="text-2xl font-bold leading-snug sm:text-3xl">
+            from hundreds of proteins to a few markers a lab can measure.
+          </h1>
+          <p className="text-mute">
+            pick a disease, a goal and a marker budget. miach returns a small candidate biomarker panel with its held-out
+            performance and the evidence behind every marker.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/designer" className="btn-acc">design a panel →</Link>
+            <Link to="/evidence" className="btn">evidence</Link>
+          </div>
         </div>
+        {markers.data ? <ProteinGrid markers={markers.data.markers} k={8} />
+          : <div className="skeleton aspect-[22/9]" aria-hidden="true" />}
       </section>
 
-      <section aria-labelledby="example" className="border-t border-line pt-6">
+      <section aria-labelledby="example" className="max-w-3xl border-t border-line pt-6">
         <h2 id="example" className="label">example · breast cancer subtype · 8 markers</h2>
         {panel.data ? (
           <div className="mt-3 space-y-2">
@@ -34,7 +40,7 @@ export function Landing() {
         ) : <div className="skeleton mt-3 h-24" aria-hidden="true" />}
       </section>
 
-      <section aria-labelledby="problem" className="border-t border-line pt-6">
+      <section aria-labelledby="problem" className="max-w-3xl border-t border-line pt-6">
         <h2 id="problem" className="label">the problem in three numbers</h2>
         <dl className="mt-4 grid gap-6 sm:grid-cols-3">
           {([

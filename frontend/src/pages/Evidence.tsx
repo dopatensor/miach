@@ -27,7 +27,7 @@ export function Evidence() {
       <ModelChart models={models.data} error={models.error} />
 
       <div className="grid gap-8 lg:grid-cols-2">
-        <Section title="known-driver check" id="known-title">
+        <Section index={2} title="known-driver check" id="known-title">
           {markers.error ? <ErrorNote error={markers.error} /> : !markers.data ? <Skeleton /> : (
             <>
               <p className="mb-3 text-mute">Does the ranking rediscover markers biologists already trust? Rank out of {markers.data.markers.length}.</p>
@@ -49,7 +49,7 @@ export function Evidence() {
           )}
         </Section>
 
-        <Section title="validation design" id="validation-title">
+        <Section index={3} title="validation design" id="validation-title">
           {qc.error ? <ErrorNote error={qc.error} /> : !qc.data ? <Skeleton /> : (
             <ul className="space-y-2 text-mute">
               <li>Patient-level split with a fixed seed: {qc.data.splits.train.patients} train · {qc.data.splits.val.patients} validation · <strong>{qc.data.splits.test.patients} locked test</strong>.</li>
@@ -62,7 +62,7 @@ export function Evidence() {
         </Section>
       </div>
 
-      <Section title="known bottlenecks" id="bottlenecks-title">
+      <Section index={4} title="known bottlenecks" id="bottlenecks-title">
         <div className="overflow-x-auto">
           <table className="w-full">
             <caption className="sr-only">Known limitations and how we handle them</caption>

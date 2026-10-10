@@ -7,7 +7,7 @@ export function MarkerList({ markers, k, note, error }: {
   const shown = markers?.slice(0, Math.max(k + 3, 10)) ?? [];
   const max = markers ? Math.max(...markers.map((m) => m.importance)) : 1;
   return (
-    <Section title="ranked markers" id="markers-title" aside={`top ${k} in panel`}>
+    <Section index={2} title="ranked markers" id="markers-title" aside={`top ${k} in panel`}>
       {error ? <ErrorNote error={error} /> : !markers ? <Skeleton h="h-64" /> : (
         <>
           <table className="w-full">

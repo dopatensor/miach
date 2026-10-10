@@ -147,8 +147,9 @@ the response (`note`) that survival-specific ranking is not built yet. Don't fak
 Design language: **hyper-minimal, monospace, Vantablack by default.** One font (JetBrains Mono). Dark theme
 (`#000` background, `#EDEDED` text, `#222` hairlines) is the default; a light theme is a `[light]` toggle in
 the header (stored in localStorage). No shadows, glows, gradients or rounded cards: sections are 1px hairline
-boxes. Colour is reserved for data (subtype tokens `--c-<Subtype>`, validated for colour-blind separation in
-both themes) and one accent (`--acc`: yellow `#EEE772` in dark, navy `#2E3F8F` in light). All colours are CSS
+boxes, numbered `01 02 03`. Colour is reserved for data (subtype tokens `--c-<Subtype>`: LumA cyan, LumB amber,
+Basal violet, Her2 green, Normal pink, validated for colour-blind separation in both themes; subtype names are
+also written on the map as the secondary encoding) and one accent (mismatches use a `≠` glyph, not a colour) (`--acc`: yellow `#EEE772` in dark, navy `#2E3F8F` in light). All colours are CSS
 tokens in `frontend/src/index.css`; don't hard-code hex in components. Check colour contrast (WCAG AA) and
 support keyboard navigation everywhere.
 

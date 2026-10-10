@@ -6,6 +6,7 @@ import { useAsync } from "../useAsync";
 import { useAppState } from "../state";
 import { Dot, ErrorNote, Section, Skeleton } from "../components/Card";
 import { Disclaimer } from "../components/Disclaimer";
+import { Ticks } from "./Designer";
 
 export function Patients() {
   const { k, setK } = useAppState();
@@ -39,11 +40,12 @@ export function Patients() {
           </div>
           <input id="pbudget" type="range" min={1} max={30} value={k} onChange={(e) => setK(Number(e.target.value))}
             className="mt-1 w-full accent-[var(--acc)]" aria-valuetext={`${k} markers`} />
+          <Ticks k={k} max={30} />
         </div>
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
-        <Section title={`${rows.length} of ${list.data?.patients.length ?? 176} patients`} id="plist"
+        <Section index={1} title={`${rows.length} of ${list.data?.patients.length ?? 176} patients`} id="plist"
           aside={`${nMismatch} differ from pam50`} className="order-2 lg:order-1">
           <div className="mb-4 flex flex-wrap gap-3">
             <label className="sr-only" htmlFor="q">Search TCGA id</label>
@@ -84,7 +86,7 @@ export function Patients() {
                         </button>
                       </td>
                       <td>{p.subtype ? <><Dot subtype={p.subtype} />{p.subtype}</> : <span className="text-mute">—</span>}</td>
-                      <td className={p.mismatch ? "text-warn" : ""}><Dot subtype={p.predicted} />{p.predicted}{p.mismatch && <span className="sr-only"> (differs from PAM50)</span>}</td>
+                      <td><Dot subtype={p.predicted} />{p.predicted}{p.mismatch && <><span aria-hidden="true" className="ml-2 text-acc">≠</span><span className="sr-only"> (differs from PAM50)</span></>}</td>
                       <td className="text-right">{p.confidence.toFixed(2)}</td>
                       <td className="text-right">{p.pfs_months ?? "—"}{p.pfs_event === 1 ? <span title="progression event"> ●</span> : <span className="invisible"> ●</span>}</td>
                     </tr>
@@ -93,12 +95,12 @@ export function Patients() {
               </table>
             </div>
           )}
-          <p className="mt-3 text-[11px] text-mute">● progression event · <span className="text-warn">warm</span> = panel call differs from pam50 (rna)</p>
+          <p className="mt-3 text-[11px] text-mute">● progression event · <span className="text-acc">≠</span> panel call differs from pam50 (rna)</p>
         </Section>
 
         <div className="order-1 lg:order-2 lg:sticky lg:top-6 lg:self-start">
           {!selected ? (
-            <Section title="patient"><p className="text-mute">select a patient from the list or click a ring on the patient map.</p></Section>
+            <Section index={2} title="patient"><p className="text-mute">select a patient from the list or click a ring on the patient map.</p></Section>
           ) : detail.error ? <Section title={selected}><ErrorNote error={detail.error} /></Section>
             : !detail.data ? <Section title={selected}><Skeleton h="h-80" /></Section>
             : <PatientCard d={detail.data} />}
@@ -111,10 +113,10 @@ export function Patients() {
 function PatientCard({ d }: { d: Detail }) {
   const missing = d.markers.filter((m) => m.missing).length;
   return (
-    <Section title={d.id} id="pdetail" aside="test">
+    <Section index={2} title={d.id} id="pdetail" aside="test">
       <dl className="grid grid-cols-2 gap-y-3">
         <div><dt className="label">pam50 (rna)</dt><dd className="text-lg">{d.subtype ? <><Dot subtype={d.subtype} />{d.subtype}</> : "—"}</dd></div>
-        <div><dt className="label">panel call</dt><dd className={`text-lg ${d.mismatch ? "text-warn" : ""}`}><Dot subtype={d.predicted} />{d.predicted}</dd></div>
+        <div><dt className="label">panel call</dt><dd className="text-lg"><Dot subtype={d.predicted} />{d.predicted}{d.mismatch && <span className="ml-2 text-acc" title="differs from PAM50">≠</span>}</dd></div>
         <div><dt className="label">pfs</dt><dd className="tabular-nums">{d.pfs_months != null ? `${d.pfs_months} mo` : "—"} <span className="text-mute">{d.pfs_event === 1 ? "progressed" : d.pfs_event === 0 ? "censored" : ""}</span></dd></div>
         <div><dt className="label">missing markers</dt><dd className="tabular-nums">{missing} / {d.k}</dd></div>
       </dl>

@@ -2,13 +2,15 @@ import type { Panel } from "../api";
 import { fmt } from "../api";
 import { ErrorNote, Section, Skeleton, TestSetTag } from "./Card";
 import { Disclaimer } from "./Disclaimer";
+import { BudgetCurve } from "./BudgetCurve";
 
-export function PanelCard({ panel, error, costPerMarker }: {
+export function PanelCard({ panel, error, costPerMarker, curve, onPickK }: {
   panel: Panel | null; error?: string | null; costPerMarker?: number | null;
+  curve?: { k: number; f1: number }[]; onPickK?: (k: number) => void;
 }) {
   const title = panel ? `candidate panel · ${panel.k} marker${panel.k > 1 ? "s" : ""}` : "candidate panel";
   return (
-    <Section title={title} id="panel-title" aside={<TestSetTag n={panel?.test_n} />}>
+    <Section index={1} title={title} id="panel-title" aside={<TestSetTag n={panel?.test_n} />}>
       {error ? <ErrorNote error={error} /> : !panel ? <Skeleton h="h-56" /> : (
         <div className="space-y-5" aria-live="polite">
           <ul className="flex flex-wrap gap-x-3 gap-y-1" aria-label="Panel markers">
@@ -35,6 +37,11 @@ export function PanelCard({ panel, error, costPerMarker }: {
               </div>
             ))}
           </dl>
+          {curve && curve.length > 1 && (
+            <div className="no-print border-t border-line pt-3">
+              <BudgetCurve points={curve} full={panel.full_model.metrics.macro_f1} k={panel.k} onPick={onPickK} />
+            </div>
+          )}
           {panel.note && <p className="border-l border-warn pl-3 text-mute">{panel.note}</p>}
           {costPerMarker != null && costPerMarker > 0 && (
             <p>cost per test: <span className="tabular-nums">{(costPerMarker * panel.k).toFixed(2)}</span>
