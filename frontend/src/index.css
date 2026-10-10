@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-white text-ink antialiased; }
+  :focus-visible { @apply outline outline-2 outline-offset-2 outline-navy; }
+}
+
+@layer components {
+  /* Outlined card with a solid offset block behind it (pitch-deck style). */
+  .card { @apply relative rounded-lg border-2 border-ink bg-white p-5; box-shadow: 6px 6px 0 0 var(--shadow, #2E3F8F); }
+  .chip { @apply inline-block rounded-full border border-ink px-2 py-0.5 text-xs font-medium; }
+  .btn { @apply inline-flex items-center gap-2 rounded-md border-2 border-ink px-4 py-2 font-semibold transition-transform hover:-translate-y-0.5; }
+  .btn-primary { @apply btn bg-sun; box-shadow: 4px 4px 0 0 #111111; }
+  .btn-secondary { @apply btn bg-white; }
+  .skeleton { @apply animate-pulse rounded bg-sky/70; }
+  .label { @apply text-xs font-semibold uppercase tracking-wide text-navy; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  .card { box-shadow: none; break-inside: avoid; }
+  body { font-size: 11pt; }
+}
+.print-only { display: none; }
