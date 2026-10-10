@@ -139,6 +139,7 @@ class LatentPoint(BaseModel):
     y: float
     subtype: str
     split: Literal["train", "test"]
+    id: str | None = Field(None, description="TCGA patient id; only set for locked test patients")
 
 
 class Latent(RUO):
@@ -185,4 +186,36 @@ class Predict(RUO):
     model: str
     rows: list[PredictRow]
     qc: PredictQc
+    note: str
+
+
+class PatientRow(BaseModel):
+    id: str
+    subtype: str | None = Field(description="PAM50 subtype (RNA-defined); null if not called")
+    predicted: str
+    confidence: float
+    mismatch: bool
+    pfs_months: float | None
+    pfs_event: int | None
+
+
+class PatientList(RUO):
+    split: Literal["test"] = "test"
+    k: int
+    markers: list[str]
+    patients: list[PatientRow]
+    note: str
+
+
+class PatientMarker(BaseModel):
+    protein: str
+    z: float
+    missing: bool
+
+
+class PatientDetail(PatientRow, RUO):
+    split: Literal["test"] = "test"
+    k: int
+    probabilities: dict[str, float]
+    markers: list[PatientMarker]
     note: str

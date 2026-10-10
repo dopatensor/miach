@@ -1,56 +1,58 @@
-import { Bar, BarChart, CartesianGrid, LabelList, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { Models } from "../api";
-import { Card, ErrorNote, Skeleton } from "./Card";
+import { ErrorNote, Section, Skeleton, TestSetTag } from "./Card";
 
-const C10 = "#D9682F";
-const C100 = "#4057C0";
+const MAX = 0.8;
+const pos = (v: number) => `${(v / MAX) * 100}%`;
 
+/** Dot plot: one row per model, hollow mark = 10% labels, filled mark = 100% labels. */
 export function ModelChart({ models, error }: { models: Models | null; error?: string | null }) {
   return (
-    <Card title="Six-model comparison" id="models-title"
-      aside={<span className="chip bg-sun">Locked test · n = 176 · preliminary</span>}>
-      {error ? <ErrorNote error={error} /> : !models ? <Skeleton h="h-80" /> : (
+    <Section title="six-model comparison · subtype macro-f1" id="models-title" aside={<TestSetTag />}>
+      {error ? <ErrorNote error={error} /> : !models ? <Skeleton h="h-64" /> : (
         <>
-          <p className="mb-2 text-sm">{models.metric}, training with 10% or 100% of the training labels.</p>
-          <div className="h-80 w-full" role="img" aria-label="Bar chart of subtype macro-F1 per model; values in the table below.">
-            <ResponsiveContainer>
-              <BarChart data={models.models} layout="vertical" margin={{ top: 4, right: 36, left: 8, bottom: 4 }} barGap={2}>
-                <CartesianGrid horizontal={false} stroke="#eee" />
-                <XAxis type="number" domain={[0, 0.8]} tick={{ fontSize: 11 }} />
-                <YAxis type="category" dataKey="model" width={150} tick={{ fontSize: 11, fill: "#111" }} />
-                <Tooltip formatter={(v: number) => v.toFixed(2)} cursor={{ fill: "#D4E2FF", opacity: 0.4 }} />
-                <Legend wrapperStyle={{ fontSize: 12 }} formatter={(v: string) => <span style={{ color: "#111" }}>{v}</span>} verticalAlign="top" />
-                <Bar dataKey="f1_10" name="10% labels" fill={C10} radius={[0, 4, 4, 0]} isAnimationActive={false}>
-                  <LabelList dataKey="f1_10" position="right" fontSize={10} fill="#111" formatter={(v: number) => v.toFixed(2)} />
-                </Bar>
-                <Bar dataKey="f1_100" name="100% labels" fill={C100} radius={[0, 4, 4, 0]} isAnimationActive={false}>
-                  <LabelList dataKey="f1_100" position="right" fontSize={10} fill="#111" formatter={(v: number) => v.toFixed(2)} />
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <table className="mt-3 w-full text-sm">
-            <caption className="mb-1 text-left text-xs text-ink/70">Table view · {models.source}</caption>
-            <thead><tr className="text-left text-xs text-ink/70">
-              <th scope="col">Model</th><th scope="col">Type</th><th scope="col">10% labels</th><th scope="col">100% labels</th>
-            </tr></thead>
+          <p className="mb-4 flex gap-6 text-[11px] text-mute">
+            <span><span aria-hidden="true" className="mr-1.5 inline-block h-2 w-2 border border-fg align-middle" />10% labels</span>
+            <span><span aria-hidden="true" className="mr-1.5 inline-block h-2 w-2 bg-fg align-middle" />100% labels</span>
+          </p>
+          <table className="w-full">
+            <caption className="sr-only">Subtype macro-F1 per model with 10% and 100% of training labels</caption>
+            <thead>
+              <tr className="text-left text-[11px] text-mute">
+                <th scope="col" className="pb-2 font-normal">model</th>
+                <th scope="col" className="hidden w-1/2 pb-2 font-normal md:table-cell">
+                  <div className="flex justify-between"><span>0</span><span>0.4</span><span>0.8</span></div>
+                </th>
+                <th scope="col" className="pb-2 text-right font-normal">10%</th>
+                <th scope="col" className="pb-2 text-right font-normal">100%</th>
+              </tr>
+            </thead>
             <tbody>
               {models.models.map((m) => (
-                <tr key={m.model} className={`border-t border-ink/10 ${m.production ? "font-semibold" : ""}`}>
-                  <td className="py-1">{m.model}{m.production && <span className="chip ml-2 bg-sun">production</span>}</td>
-                  <td>{m.kind === "deep" ? "deep (research)" : "linear"}</td>
-                  <td className="tabular-nums">{m.f1_10.toFixed(2)}</td>
-                  <td className="tabular-nums">{m.f1_100.toFixed(2)}</td>
+                <tr key={m.model} className="border-t border-line">
+                  <td className="py-2 pr-3">
+                    {m.model.toLowerCase()}
+                    <span className="text-mute">{m.production ? " · production" : m.kind === "deep" ? " · research" : ""}</span>
+                  </td>
+                  <td className="hidden md:table-cell">
+                    <div className="relative h-3">
+                      <div className="absolute top-1/2 h-px w-full bg-line" />
+                      <div className="absolute top-1/2 h-px bg-mute" style={{ left: pos(Math.min(m.f1_10, m.f1_100)), width: `${(Math.abs(m.f1_100 - m.f1_10) / MAX) * 100}%` }} />
+                      <div className="absolute top-0.5 h-2 w-2 -translate-x-1 border border-fg bg-bg" style={{ left: pos(m.f1_10) }} title={`10% labels: ${m.f1_10.toFixed(2)}`} />
+                      <div className="absolute top-0.5 h-2 w-2 -translate-x-1 bg-fg" style={{ left: pos(m.f1_100) }} title={`100% labels: ${m.f1_100.toFixed(2)}`} />
+                    </div>
+                  </td>
+                  <td className="text-right tabular-nums">{m.f1_10.toFixed(2)}</td>
+                  <td className="text-right tabular-nums">{m.f1_100.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p className="mt-2 text-xs text-ink/70">
-            This site's rebuild of the elastic net (own patient-level split, 100% labels) scores{" "}
+          <p className="mt-3 text-[11px] text-mute">
+            source: {models.source}. this site's rebuild of the elastic net (own split, 100% labels) scores{" "}
             {models.rebuild_check.macro_f1.toFixed(3)} on its locked test set.
           </p>
         </>
       )}
-    </Card>
+    </Section>
   );
 }

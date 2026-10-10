@@ -5,10 +5,10 @@ import { useAsync } from "../useAsync";
 export function Methods() {
   const health = useAsync(() => api.health());
   return (
-    <article className="max-w-3xl space-y-8">
+    <article className="max-w-3xl space-y-6">
       <header className="space-y-2">
-        <h1 className="text-3xl font-bold">Methods</h1>
-        <p className="text-sm text-ink/70">Artifacts built {health.data?.artifacts_built_at ?? "…"}.</p>
+        <h2 className="text-lg font-bold">methods</h2>
+        <p className="text-[11px] text-mute">Artifacts built {health.data?.artifacts_built_at ?? "…"}.</p>
       </header>
       <Section title="Data">
         <p>TCGA PanCancer Atlas breast invasive carcinoma (BRCA), reverse-phase protein array (RPPA), 198 proteins and
@@ -41,7 +41,7 @@ export function Methods() {
           rate in the training set. It is not a survival-optimised panel; that ranking is not built yet.</p>
       </Section>
       <Section title="Limitations">
-        <ul className="list-disc space-y-1 pl-5">
+        <ul className="space-y-1">
           <li>One cohort and one split; no external validation. All numbers are preliminary.</li>
           <li>Protein only. PAM50 is RNA-defined, which caps protein-only accuracy. RNA and multi-omics fusion are in development and not part of the live engine.</li>
           <li>23 progression events in the test set: survival metrics have wide uncertainty.</li>
@@ -50,7 +50,7 @@ export function Methods() {
         </ul>
       </Section>
       <Section title="References">
-        <ul className="list-disc space-y-1 pl-5">
+        <ul className="space-y-1">
           <li>Hoadley KA et al. Cell-of-origin patterns dominate the molecular classification of 10,000 tumors from 33 types of cancer. <em>Cell</em> 2018.</li>
           <li>Akbani R et al. A pan-cancer proteomic perspective on The Cancer Genome Atlas. <em>Nat Commun</em> 2014.</li>
           <li>Parker JS et al. Supervised risk predictor of breast cancer based on intrinsic subtypes (PAM50). <em>J Clin Oncol</em> 2009.</li>
@@ -65,8 +65,8 @@ export function Methods() {
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="space-y-2">
-      <h2 className="text-xl font-bold text-navy">{title}</h2>
-      <div className="space-y-2 leading-relaxed">{children}</div>
+      <h3 className="label">{title}</h3>
+      <div className="space-y-2 text-mute">{children}</div>
     </section>
   );
 }

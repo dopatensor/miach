@@ -71,7 +71,8 @@ def evaluate_panels(ranking: pd.DataFrame, arrays: dict, ks=range(1, 31)) -> pd.
     for k in ks:
         top = ranking.head(k)
         res = fit_panel(arrays, top["col"].tolist())
-        rows.append({"k": k, **res["metrics"], "C": res["C"], "markers": top["protein"].tolist()})
+        rows.append({"k": k, **res["metrics"], "C": res["C"], "markers": top["protein"].tolist(),
+                     "test_proba": res["test_proba"]})
     return pd.DataFrame(rows)
 
 

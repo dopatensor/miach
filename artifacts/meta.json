@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-10T00:00:27+00:00",
+ "built_at": "2026-10-10T00:19:05+00:00",
  "data_source": "https://media.githubusercontent.com/media/cBioPortal/datahub/master/public/brca_tcga_pan_can_atlas_2018",
- "git_commit": "dddda92",
+ "git_commit": "5e260e3",
  "proteins": [
   "14-3-3_epsilon",
   "4E-BP1",

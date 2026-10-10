@@ -1,17 +1,21 @@
 /** @type {import('tailwindcss').Config} */
+// All colours are theme tokens defined in src/index.css (dark = default, light via data-theme).
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        navy: "#2E3F8F",
-        sky: "#D4E2FF",
-        sun: "#EEE772",
-        coral: "#E47A59",
-        coralink: "#A8442A", // coral darkened for text (AA on white)
-        ink: "#111111",
+        bg: "var(--bg)",
+        fg: "var(--fg)",
+        mute: "var(--mute)",
+        line: "var(--line)",
+        raise: "var(--raise)",
+        acc: "var(--acc)",
+        accfg: "var(--acc-fg)",
+        warn: "var(--warn)",
       },
-      fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
+      fontFamily: { mono: ['"JetBrains Mono"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"] },
+      borderRadius: { DEFAULT: "2px" },
     },
   },
   plugins: [],
