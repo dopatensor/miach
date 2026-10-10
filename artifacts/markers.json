@@ -1,0 +1,2030 @@
+{
+ "disease": "brca",
+ "method": "occlusion importance (drop in true-class log-likelihood) of the elastic net, 20 bootstrap refits on training patients, scored on out-of-bag + validation patients",
+ "markers": [
+  {
+   "rank": 1,
+   "protein": "Cyclin_B1",
+   "protein_id": "CCNB1|Cyclin_B1",
+   "gene": "CCNB1",
+   "block": "Cell cycle",
+   "importance": 0.05036,
+   "importance_sd": 0.01466,
+   "stability": 1.0
+  },
+  {
+   "rank": 2,
+   "protein": "AR",
+   "protein_id": "AR|AR",
+   "gene": "AR",
+   "block": "Hormone receptor",
+   "importance": 0.03711,
+   "importance_sd": 0.00815,
+   "stability": 1.0
+  },
+  {
+   "rank": 3,
+   "protein": "ER-alpha",
+   "protein_id": "ESR1|ER-alpha",
+   "gene": "ESR1",
+   "block": "Hormone receptor",
+   "importance": 0.03703,
+   "importance_sd": 0.00952,
+   "stability": 1.0
+  },
+  {
+   "rank": 4,
+   "protein": "ASNS",
+   "protein_id": "ASNS|ASNS",
+   "gene": "ASNS",
+   "block": "Other",
+   "importance": 0.03411,
+   "importance_sd": 0.00814,
+   "stability": 1.0
+  },
+  {
+   "rank": 5,
+   "protein": "GATA3",
+   "protein_id": "GATA3|GATA3",
+   "gene": "GATA3",
+   "block": "Hormone signaling",
+   "importance": 0.03141,
+   "importance_sd": 0.00775,
+   "stability": 1.0
+  },
+  {
+   "rank": 6,
+   "protein": "INPP4B",
+   "protein_id": "INPP4B|INPP4B",
+   "gene": "INPP4B",
+   "block": "Hormone signaling",
+   "importance": 0.01828,
+   "importance_sd": 0.00619,
+   "stability": 0.8
+  },
+  {
+   "rank": 7,
+   "protein": "HER2",
+   "protein_id": "ERBB2|HER2",
+   "gene": "ERBB2",
+   "block": "RTK",
+   "importance": 0.01518,
+   "importance_sd": 0.0094,
+   "stability": 0.5
+  },
+  {
+   "rank": 8,
+   "protein": "Bcl-2",
+   "protein_id": "BCL2|Bcl-2",
+   "gene": "BCL2",
+   "block": "Hormone signaling",
+   "importance": 0.0149,
+   "importance_sd": 0.00765,
+   "stability": 0.55
+  },
+  {
+   "rank": 9,
+   "protein": "G6PD",
+   "protein_id": "G6PD|G6PD",
+   "gene": "G6PD",
+   "block": "Other",
+   "importance": 0.00968,
+   "importance_sd": 0.00449,
+   "stability": 0.2
+  },
+  {
+   "rank": 10,
+   "protein": "eEF2",
+   "protein_id": "EEF2|eEF2",
+   "gene": "EEF2",
+   "block": "Other",
+   "importance": 0.00865,
+   "importance_sd": 0.00622,
+   "stability": 0.3
+  },
+  {
+   "rank": 11,
+   "protein": "MSH6",
+   "protein_id": "MSH6|MSH6",
+   "gene": "MSH6",
+   "block": "DNA damage",
+   "importance": 0.00774,
+   "importance_sd": 0.00343,
+   "stability": 0.05
+  },
+  {
+   "rank": 12,
+   "protein": "FoxM1",
+   "protein_id": "FOXM1|FoxM1",
+   "gene": "FOXM1",
+   "block": "Cell cycle",
+   "importance": 0.00742,
+   "importance_sd": 0.00443,
+   "stability": 0.1
+  },
+  {
+   "rank": 13,
+   "protein": "FASN",
+   "protein_id": "FASN|FASN",
+   "gene": "FASN",
+   "block": "Other",
+   "importance": 0.00719,
+   "importance_sd": 0.00348,
+   "stability": 0.1
+  },
+  {
+   "rank": 14,
+   "protein": "DJ-1",
+   "protein_id": "PARK7|DJ-1",
+   "gene": "PARK7",
+   "block": "Other",
+   "importance": 0.00692,
+   "importance_sd": 0.00527,
+   "stability": 0.1
+  },
+  {
+   "rank": 15,
+   "protein": "PR",
+   "protein_id": "PGR|PR",
+   "gene": "PGR",
+   "block": "Hormone receptor",
+   "importance": 0.00692,
+   "importance_sd": 0.00448,
+   "stability": 0.2
+  },
+  {
+   "rank": 16,
+   "protein": "JNK2",
+   "protein_id": "MAPK9|JNK2",
+   "gene": "MAPK9",
+   "block": "Other",
+   "importance": 0.00483,
+   "importance_sd": 0.00273,
+   "stability": 0.0
+  },
+  {
+   "rank": 17,
+   "protein": "PDK1_pS241",
+   "protein_id": "PDK1|PDK1_pS241",
+   "gene": "PDK1",
+   "block": "PI3K/AKT",
+   "importance": 0.00451,
+   "importance_sd": 0.00374,
+   "stability": 0.0
+  },
+  {
+   "rank": 18,
+   "protein": "Notch1",
+   "protein_id": "NOTCH1|Notch1",
+   "gene": "NOTCH1",
+   "block": "Other",
+   "importance": 0.00446,
+   "importance_sd": 0.00271,
+   "stability": 0.0
+  },
+  {
+   "rank": 19,
+   "protein": "Cyclin_E2",
+   "protein_id": "CCNE2|Cyclin_E2",
+   "gene": "CCNE2",
+   "block": "Cell cycle",
+   "importance": 0.00422,
+   "importance_sd": 0.00338,
+   "stability": 0.0
+  },
+  {
+   "rank": 20,
+   "protein": "NDRG1_pT346",
+   "protein_id": "NDRG1|NDRG1_pT346",
+   "gene": "NDRG1",
+   "block": "Other",
+   "importance": 0.00414,
+   "importance_sd": 0.00237,
+   "stability": 0.0
+  },
+  {
+   "rank": 21,
+   "protein": "p38_pT180_Y182",
+   "protein_id": "MAPK14|p38_pT180_Y182",
+   "gene": "MAPK14",
+   "block": "RAS/MAPK",
+   "importance": 0.00381,
+   "importance_sd": 0.00225,
+   "stability": 0.0
+  },
+  {
+   "rank": 22,
+   "protein": "HER2_pY1248",
+   "protein_id": "ERBB2|HER2_pY1248",
+   "gene": "ERBB2",
+   "block": "RTK",
+   "importance": 0.00378,
+   "importance_sd": 0.008,
+   "stability": 0.05
+  },
+  {
+   "rank": 23,
+   "protein": "S6_pS240_S244",
+   "protein_id": "RPS6|S6_pS240_S244",
+   "gene": "RPS6",
+   "block": "TSC/mTOR",
+   "importance": 0.0034,
+   "importance_sd": 0.00347,
+   "stability": 0.0
+  },
+  {
+   "rank": 24,
+   "protein": "P-Cadherin",
+   "protein_id": "CDH3|P-Cadherin",
+   "gene": "CDH3",
+   "block": "Other",
+   "importance": 0.00293,
+   "importance_sd": 0.00359,
+   "stability": 0.0
+  },
+  {
+   "rank": 25,
+   "protein": "S6",
+   "protein_id": "RPS6|S6",
+   "gene": "RPS6",
+   "block": "Other",
+   "importance": 0.00266,
+   "importance_sd": 0.00478,
+   "stability": 0.0
+  },
+  {
+   "rank": 26,
+   "protein": "PDK1",
+   "protein_id": "PDK1|PDK1",
+   "gene": "PDK1",
+   "block": "Other",
+   "importance": 0.00251,
+   "importance_sd": 0.00253,
+   "stability": 0.0
+  },
+  {
+   "rank": 27,
+   "protein": "p90RSK",
+   "protein_id": "RPS6KA1|p90RSK",
+   "gene": "RPS6KA1",
+   "block": "Other",
+   "importance": 0.0021,
+   "importance_sd": 0.00263,
+   "stability": 0.0
+  },
+  {
+   "rank": 28,
+   "protein": "IGFBP2",
+   "protein_id": "IGFBP2|IGFBP2",
+   "gene": "IGFBP2",
+   "block": "Other",
+   "importance": 0.00163,
+   "importance_sd": 0.00237,
+   "stability": 0.0
+  },
+  {
+   "rank": 29,
+   "protein": "p27",
+   "protein_id": "CDKN1B|p27",
+   "gene": "CDKN1B",
+   "block": "PI3K/AKT",
+   "importance": 0.0013,
+   "importance_sd": 0.0016,
+   "stability": 0.0
+  },
+  {
+   "rank": 30,
+   "protein": "CDK1",
+   "protein_id": "CDK1|CDK1",
+   "gene": "CDK1",
+   "block": "Cell cycle",
+   "importance": 0.0012,
+   "importance_sd": 0.00256,
+   "stability": 0.0
+  },
+  {
+   "rank": 31,
+   "protein": "Caspase-7_cleavedD198",
+   "protein_id": "CASP7|Caspase-7_cleavedD198",
+   "gene": "CASP7",
+   "block": "Apoptosis",
+   "importance": 0.00116,
+   "importance_sd": 0.00195,
+   "stability": 0.0
+  },
+  {
+   "rank": 32,
+   "protein": "Chk2",
+   "protein_id": "CHEK2|Chk2",
+   "gene": "CHEK2",
+   "block": "Other",
+   "importance": 0.00112,
+   "importance_sd": 0.00254,
+   "stability": 0.0
+  },
+  {
+   "rank": 33,
+   "protein": "HER3",
+   "protein_id": "ERBB3|HER3",
+   "gene": "ERBB3",
+   "block": "RTK",
+   "importance": 0.00094,
+   "importance_sd": 0.0048,
+   "stability": 0.05
+  },
+  {
+   "rank": 34,
+   "protein": "Myosin-IIa-pS1943",
+   "protein_id": "MYH9|Myosin-IIa-pS1943",
+   "gene": "MYH9",
+   "block": "Other",
+   "importance": 0.0009,
+   "importance_sd": 0.00187,
+   "stability": 0.0
+  },
+  {
+   "rank": 35,
+   "protein": "Rab25",
+   "protein_id": "RAB25|Rab25",
+   "gene": "RAB25",
+   "block": "Other",
+   "importance": 0.00083,
+   "importance_sd": 0.00131,
+   "stability": 0.0
+  },
+  {
+   "rank": 36,
+   "protein": "Chk1_pS345",
+   "protein_id": "CHEK1|Chk1_pS345",
+   "gene": "CHEK1",
+   "block": "DNA damage",
+   "importance": 0.00075,
+   "importance_sd": 0.00176,
+   "stability": 0.0
+  },
+  {
+   "rank": 37,
+   "protein": "JNK_pT183_Y185",
+   "protein_id": "MAPK8|JNK_pT183_Y185",
+   "gene": "MAPK8",
+   "block": "RAS/MAPK",
+   "importance": 0.0007,
+   "importance_sd": 0.00565,
+   "stability": 0.0
+  },
+  {
+   "rank": 38,
+   "protein": "Annexin_VII",
+   "protein_id": "ANXA7|Annexin_VII",
+   "gene": "ANXA7",
+   "block": "Other",
+   "importance": 0.00057,
+   "importance_sd": 0.00108,
+   "stability": 0.0
+  },
+  {
+   "rank": 39,
+   "protein": "Cyclin_E1",
+   "protein_id": "CCNE1|Cyclin_E1",
+   "gene": "CCNE1",
+   "block": "Cell cycle",
+   "importance": 0.00053,
+   "importance_sd": 0.00119,
+   "stability": 0.0
+  },
+  {
+   "rank": 40,
+   "protein": "MAPK_pT202_Y204",
+   "protein_id": "MAPK1 MAPK3|MAPK_pT202_Y204",
+   "gene": "MAPK1 MAPK3",
+   "block": "RAS/MAPK",
+   "importance": 0.00052,
+   "importance_sd": 0.00117,
+   "stability": 0.0
+  },
+  {
+   "rank": 41,
+   "protein": "Transglutaminase",
+   "protein_id": "TGM2|Transglutaminase",
+   "gene": "TGM2",
+   "block": "Other",
+   "importance": 0.0005,
+   "importance_sd": 0.00161,
+   "stability": 0.0
+  },
+  {
+   "rank": 42,
+   "protein": "Rad51",
+   "protein_id": "RAD51|Rad51",
+   "gene": "RAD51",
+   "block": "DNA damage",
+   "importance": 0.00049,
+   "importance_sd": 0.0018,
+   "stability": 0.0
+  },
+  {
+   "rank": 43,
+   "protein": "p53",
+   "protein_id": "TP53|p53",
+   "gene": "TP53",
+   "block": "DNA damage",
+   "importance": 0.00044,
+   "importance_sd": 0.00111,
+   "stability": 0.0
+  },
+  {
+   "rank": 44,
+   "protein": "Syk",
+   "protein_id": "SYK|Syk",
+   "gene": "SYK",
+   "block": "Other",
+   "importance": 0.00037,
+   "importance_sd": 0.00081,
+   "stability": 0.0
+  },
+  {
+   "rank": 45,
+   "protein": "cIAP",
+   "protein_id": "BIRC2 |cIAP",
+   "gene": "BIRC2",
+   "block": "Apoptosis",
+   "importance": 0.00035,
+   "importance_sd": 0.00095,
+   "stability": 0.0
+  },
+  {
+   "rank": 46,
+   "protein": "LKB1",
+   "protein_id": "STK11|LKB1",
+   "gene": "STK11",
+   "block": "Other",
+   "importance": 0.00033,
+   "importance_sd": 0.00066,
+   "stability": 0.0
+  },
+  {
+   "rank": 47,
+   "protein": "Acetyl-a-Tubulin-Lys40",
+   "protein_id": "TUBA1B|Acetyl-a-Tubulin-Lys40",
+   "gene": "TUBA1B",
+   "block": "Other",
+   "importance": 0.00032,
+   "importance_sd": 0.00091,
+   "stability": 0.0
+  },
+  {
+   "rank": 48,
+   "protein": "PCNA",
+   "protein_id": "PCNA|PCNA",
+   "gene": "PCNA",
+   "block": "Cell cycle",
+   "importance": 0.00031,
+   "importance_sd": 0.00068,
+   "stability": 0.0
+  },
+  {
+   "rank": 49,
+   "protein": "p38_MAPK",
+   "protein_id": "MAPK14|p38_MAPK",
+   "gene": "MAPK14",
+   "block": "Other",
+   "importance": 0.00029,
+   "importance_sd": 0.0007,
+   "stability": 0.0
+  },
+  {
+   "rank": 50,
+   "protein": "4E-BP1_pT37T46",
+   "protein_id": "EIF4EBP1|4E-BP1_pT37T46",
+   "gene": "EIF4EBP1",
+   "block": "TSC/mTOR",
+   "importance": 0.00029,
+   "importance_sd": 0.001,
+   "stability": 0.0
+  },
+  {
+   "rank": 51,
+   "protein": "TFRC",
+   "protein_id": "TFRC|TFRC",
+   "gene": "TFRC",
+   "block": "Other",
+   "importance": 0.00029,
+   "importance_sd": 0.00085,
+   "stability": 0.0
+  },
+  {
+   "rank": 52,
+   "protein": "FOXO3a_pS318_S321",
+   "protein_id": "FOXO3|FOXO3a_pS318_S321",
+   "gene": "FOXO3",
+   "block": "Other",
+   "importance": 0.00024,
+   "importance_sd": 0.0008,
+   "stability": 0.0
+  },
+  {
+   "rank": 53,
+   "protein": "4E-BP1_pS65",
+   "protein_id": "EIF4EBP1|4E-BP1_pS65",
+   "gene": "EIF4EBP1",
+   "block": "TSC/mTOR",
+   "importance": 0.00024,
+   "importance_sd": 0.00073,
+   "stability": 0.0
+  },
+  {
+   "rank": 54,
+   "protein": "ACC1",
+   "protein_id": "ACACA|ACC1",
+   "gene": "ACACA",
+   "block": "Other",
+   "importance": 0.00023,
+   "importance_sd": 0.00072,
+   "stability": 0.0
+  },
+  {
+   "rank": 55,
+   "protein": "Src",
+   "protein_id": "SRC|Src",
+   "gene": "SRC",
+   "block": "Other",
+   "importance": 0.00021,
+   "importance_sd": 0.00051,
+   "stability": 0.0
+  },
+  {
+   "rank": 56,
+   "protein": "PI3K-p110-alpha",
+   "protein_id": "PIK3CA |PI3K-p110-alpha",
+   "gene": "PIK3CA",
+   "block": "PI3K/AKT",
+   "importance": 0.00016,
+   "importance_sd": 0.00053,
+   "stability": 0.0
+  },
+  {
+   "rank": 57,
+   "protein": "Rad50",
+   "protein_id": "RAD50|Rad50",
+   "gene": "RAD50",
+   "block": "DNA damage",
+   "importance": 0.00016,
+   "importance_sd": 0.00038,
+   "stability": 0.0
+  },
+  {
+   "rank": 58,
+   "protein": "S6_pS235_S236",
+   "protein_id": "RPS6|S6_pS235_S236",
+   "gene": "RPS6",
+   "block": "TSC/mTOR",
+   "importance": 0.00014,
+   "importance_sd": 0.00046,
+   "stability": 0.0
+  },
+  {
+   "rank": 59,
+   "protein": "c-Myc",
+   "protein_id": "MYC|c-Myc",
+   "gene": "MYC",
+   "block": "Other",
+   "importance": 0.00011,
+   "importance_sd": 0.0005,
+   "stability": 0.0
+  },
+  {
+   "rank": 60,
+   "protein": "Chk1",
+   "protein_id": "CHEK1|Chk1",
+   "gene": "CHEK1",
+   "block": "Other",
+   "importance": 0.0001,
+   "importance_sd": 0.00031,
+   "stability": 0.0
+  },
+  {
+   "rank": 61,
+   "protein": "Akt",
+   "protein_id": "AKT1 AKT2 AKT3|Akt",
+   "gene": "AKT1 AKT2 AKT3",
+   "block": "Other",
+   "importance": 8e-05,
+   "importance_sd": 0.00037,
+   "stability": 0.0
+  },
+  {
+   "rank": 62,
+   "protein": "Smad3",
+   "protein_id": "SMAD3|Smad3",
+   "gene": "SMAD3",
+   "block": "Other",
+   "importance": 8e-05,
+   "importance_sd": 0.00104,
+   "stability": 0.0
+  },
+  {
+   "rank": 63,
+   "protein": "YB-1",
+   "protein_id": "YBX1|YB-1",
+   "gene": "YBX1",
+   "block": "Other",
+   "importance": 7e-05,
+   "importance_sd": 0.00022,
+   "stability": 0.0
+  },
+  {
+   "rank": 64,
+   "protein": "p27_pT198",
+   "protein_id": "CDKN1B|p27_pT198",
+   "gene": "CDKN1B",
+   "block": "Cell cycle",
+   "importance": 6e-05,
+   "importance_sd": 0.00138,
+   "stability": 0.0
+  },
+  {
+   "rank": 65,
+   "protein": "AMPK_pT172",
+   "protein_id": "PRKAA1|AMPK_pT172",
+   "gene": "PRKAA1",
+   "block": "Other",
+   "importance": 5e-05,
+   "importance_sd": 0.00024,
+   "stability": 0.0
+  },
+  {
+   "rank": 66,
+   "protein": "IRS1",
+   "protein_id": "IRS1|IRS1",
+   "gene": "IRS1",
+   "block": "Other",
+   "importance": 5e-05,
+   "importance_sd": 0.00013,
+   "stability": 0.0
+  },
+  {
+   "rank": 67,
+   "protein": "Heregulin",
+   "protein_id": "NRG1|Heregulin",
+   "gene": "NRG1",
+   "block": "Other",
+   "importance": 5e-05,
+   "importance_sd": 0.00023,
+   "stability": 0.0
+  },
+  {
+   "rank": 68,
+   "protein": "YB-1_pS102",
+   "protein_id": "YBX1|YB-1_pS102",
+   "gene": "YBX1",
+   "block": "RAS/MAPK",
+   "importance": 4e-05,
+   "importance_sd": 0.00022,
+   "stability": 0.0
+  },
+  {
+   "rank": 69,
+   "protein": "53BP1",
+   "protein_id": "TP53BP1|53BP1",
+   "gene": "TP53BP1",
+   "block": "DNA damage",
+   "importance": 4e-05,
+   "importance_sd": 0.00035,
+   "stability": 0.0
+  },
+  {
+   "rank": 70,
+   "protein": "Collagen_VI",
+   "protein_id": "COL6A1|Collagen_VI",
+   "gene": "COL6A1",
+   "block": "EMT",
+   "importance": 3e-05,
+   "importance_sd": 0.00041,
+   "stability": 0.0
+  },
+  {
+   "rank": 71,
+   "protein": "Cyclin_D1",
+   "protein_id": "CCND1|Cyclin_D1",
+   "gene": "CCND1",
+   "block": "Cell cycle",
+   "importance": 3e-05,
+   "importance_sd": 0.00011,
+   "stability": 0.0
+  },
+  {
+   "rank": 72,
+   "protein": "p21",
+   "protein_id": "CDKN1A|p21",
+   "gene": "CDKN1A",
+   "block": "Cell cycle",
+   "importance": 2e-05,
+   "importance_sd": 0.00012,
+   "stability": 0.0
+  },
+  {
+   "rank": 73,
+   "protein": "ATM",
+   "protein_id": "ATM|ATM",
+   "gene": "ATM",
+   "block": "DNA damage",
+   "importance": 2e-05,
+   "importance_sd": 8e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 74,
+   "protein": "c-Met_pY1235",
+   "protein_id": "MET|c-Met_pY1235",
+   "gene": "MET",
+   "block": "RTK",
+   "importance": 2e-05,
+   "importance_sd": 0.00016,
+   "stability": 0.0
+  },
+  {
+   "rank": 75,
+   "protein": "EGFR",
+   "protein_id": "EGFR|EGFR",
+   "gene": "EGFR",
+   "block": "RTK",
+   "importance": 2e-05,
+   "importance_sd": 0.00552,
+   "stability": 0.0
+  },
+  {
+   "rank": 76,
+   "protein": "Smad1",
+   "protein_id": "SMAD1|Smad1",
+   "gene": "SMAD1",
+   "block": "Other",
+   "importance": 1e-05,
+   "importance_sd": 7e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 77,
+   "protein": "p90RSK_pT359_S363",
+   "protein_id": "RPS6KA1|p90RSK_pT359_S363",
+   "gene": "RPS6KA1",
+   "block": "RAS/MAPK",
+   "importance": 1e-05,
+   "importance_sd": 5e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 78,
+   "protein": "ACC_pS79",
+   "protein_id": "ACACA ACACB|ACC_pS79",
+   "gene": "ACACA ACACB",
+   "block": "Other",
+   "importance": 1e-05,
+   "importance_sd": 0.00012,
+   "stability": 0.0
+  },
+  {
+   "rank": 79,
+   "protein": "Bax",
+   "protein_id": "BAX|Bax",
+   "gene": "BAX",
+   "block": "Apoptosis",
+   "importance": 1e-05,
+   "importance_sd": 0.00012,
+   "stability": 0.0
+  },
+  {
+   "rank": 80,
+   "protein": "XBP1",
+   "protein_id": "XBP1|XBP1",
+   "gene": "XBP1",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 2e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 81,
+   "protein": "Smad4",
+   "protein_id": "SMAD4|Smad4",
+   "gene": "SMAD4",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 2e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 82,
+   "protein": "PTEN",
+   "protein_id": "PTEN|PTEN",
+   "gene": "PTEN",
+   "block": "PI3K/AKT",
+   "importance": 0.0,
+   "importance_sd": 1e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 83,
+   "protein": "beta-Catenin",
+   "protein_id": "CTNNB1|beta-Catenin",
+   "gene": "CTNNB1",
+   "block": "EMT",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 84,
+   "protein": "Bid",
+   "protein_id": "BID|Bid",
+   "gene": "BID",
+   "block": "Apoptosis",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 85,
+   "protein": "Bim",
+   "protein_id": "BCL2L11|Bim",
+   "gene": "BCL2L11",
+   "block": "Apoptosis",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 86,
+   "protein": "C-Raf_pS338",
+   "protein_id": "RAF1|C-Raf_pS338",
+   "gene": "RAF1",
+   "block": "RAS/MAPK",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 87,
+   "protein": "Claudin-7",
+   "protein_id": "CLDN7|Claudin-7",
+   "gene": "CLDN7",
+   "block": "EMT",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 88,
+   "protein": "Fibronectin",
+   "protein_id": "FN1|Fibronectin",
+   "gene": "FN1",
+   "block": "EMT",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 89,
+   "protein": "GSK3-alpha-beta",
+   "protein_id": "GSK3A GSK3B|GSK3-alpha-beta",
+   "gene": "GSK3A GSK3B",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 90,
+   "protein": "HER3_pY1298",
+   "protein_id": "ERBB3|HER3_pY1298",
+   "gene": "ERBB3",
+   "block": "RTK",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 91,
+   "protein": "HSP70",
+   "protein_id": "HSPA1A|HSP70",
+   "gene": "HSPA1A",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 92,
+   "protein": "Ku80",
+   "protein_id": "XRCC5|Ku80",
+   "gene": "XRCC5",
+   "block": "DNA damage",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 93,
+   "protein": "MEK1_pS217_S221",
+   "protein_id": "MAP2K1|MEK1_pS217_S221",
+   "gene": "MAP2K1",
+   "block": "RAS/MAPK",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 94,
+   "protein": "Mre11",
+   "protein_id": "MRE11A|Mre11",
+   "gene": "MRE11A",
+   "block": "DNA damage",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 95,
+   "protein": "STAT5-alpha",
+   "protein_id": "STAT5A|STAT5-alpha",
+   "gene": "STAT5A",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 96,
+   "protein": "CD20",
+   "protein_id": "MS4A1|CD20",
+   "gene": "MS4A1",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 97,
+   "protein": "ETS-1",
+   "protein_id": "ETS1|ETS-1",
+   "gene": "ETS1",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 98,
+   "protein": "PDCD4",
+   "protein_id": "PDCD4|PDCD4",
+   "gene": "PDCD4",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 99,
+   "protein": "Rictor_pT1135",
+   "protein_id": "RICTOR|Rictor_pT1135",
+   "gene": "RICTOR",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 100,
+   "protein": "TIGAR",
+   "protein_id": "TIGAR|TIGAR",
+   "gene": "TIGAR",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 101,
+   "protein": "14-3-3_zeta",
+   "protein_id": "YWHAZ|14-3-3_zeta",
+   "gene": "YWHAZ",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 102,
+   "protein": "DIRAS3",
+   "protein_id": "DIRAS3|DIRAS3",
+   "gene": "DIRAS3",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 103,
+   "protein": "ADAR1",
+   "protein_id": "ADAR|ADAR1",
+   "gene": "ADAR",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 104,
+   "protein": "alpha-Catenin",
+   "protein_id": "CTNNA1|alpha-Catenin",
+   "gene": "CTNNA1",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 105,
+   "protein": "TTF1",
+   "protein_id": "NKX2-1|TTF1",
+   "gene": "NKX2-1",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 106,
+   "protein": "Caspase-3",
+   "protein_id": "CASP3|Caspase-3",
+   "gene": "CASP3",
+   "block": "Apoptosis",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 107,
+   "protein": "Caspase-9",
+   "protein_id": "CASP9|Caspase-9",
+   "gene": "CASP9",
+   "block": "Apoptosis",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 108,
+   "protein": "PARP1",
+   "protein_id": "PARP1|PARP1",
+   "gene": "PARP1",
+   "block": "DNA damage",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 109,
+   "protein": "JAB1",
+   "protein_id": "COPS5|JAB1",
+   "gene": "COPS5",
+   "block": "Other",
+   "importance": 0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 110,
+   "protein": "p27_pT157",
+   "protein_id": "CDKN1B|p27_pT157",
+   "gene": "CDKN1B",
+   "block": "Cell cycle",
+   "importance": -0.0,
+   "importance_sd": 0.0,
+   "stability": 0.0
+  },
+  {
+   "rank": 111,
+   "protein": "Dvl3",
+   "protein_id": "DVL3|Dvl3",
+   "gene": "DVL3",
+   "block": "Other",
+   "importance": -0.0,
+   "importance_sd": 1e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 112,
+   "protein": "NF-kB-p65_pS536",
+   "protein_id": "NFKB1|NF-kB-p65_pS536",
+   "gene": "NFKB1",
+   "block": "Other",
+   "importance": -0.0,
+   "importance_sd": 1e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 113,
+   "protein": "ERCC1",
+   "protein_id": "ERCC1|ERCC1",
+   "gene": "ERCC1",
+   "block": "DNA damage",
+   "importance": -0.0,
+   "importance_sd": 1e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 114,
+   "protein": "14-3-3_epsilon",
+   "protein_id": "YWHAE|14-3-3_epsilon",
+   "gene": "YWHAE",
+   "block": "Other",
+   "importance": -0.0,
+   "importance_sd": 2e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 115,
+   "protein": "Smac",
+   "protein_id": "DIABLO|Smac",
+   "gene": "DIABLO",
+   "block": "Apoptosis",
+   "importance": -0.0,
+   "importance_sd": 2e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 116,
+   "protein": "4E-BP1",
+   "protein_id": "EIF4EBP1|4E-BP1",
+   "gene": "EIF4EBP1",
+   "block": "Other",
+   "importance": -0.0,
+   "importance_sd": 2e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 117,
+   "protein": "Bak",
+   "protein_id": "BAK1|Bak",
+   "gene": "BAK1",
+   "block": "Apoptosis",
+   "importance": -0.0,
+   "importance_sd": 2e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 118,
+   "protein": "Chk2_pT68",
+   "protein_id": "CHEK2|Chk2_pT68",
+   "gene": "CHEK2",
+   "block": "DNA damage",
+   "importance": -1e-05,
+   "importance_sd": 2e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 119,
+   "protein": "GSK3-alpha-beta_pS21_S9",
+   "protein_id": "GSK3A GSK3B|GSK3-alpha-beta_pS21_S9",
+   "gene": "GSK3A GSK3B",
+   "block": "PI3K/AKT",
+   "importance": -1e-05,
+   "importance_sd": 3e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 120,
+   "protein": "Raptor",
+   "protein_id": "RPTOR|Raptor",
+   "gene": "RPTOR",
+   "block": "Other",
+   "importance": -1e-05,
+   "importance_sd": 4e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 121,
+   "protein": "N-Ras",
+   "protein_id": "NRAS|N-Ras",
+   "gene": "NRAS",
+   "block": "Other",
+   "importance": -2e-05,
+   "importance_sd": 5e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 122,
+   "protein": "GAB2",
+   "protein_id": "GAB2|GAB2",
+   "gene": "GAB2",
+   "block": "Other",
+   "importance": -2e-05,
+   "importance_sd": 8e-05,
+   "stability": 0.0
+  },
+  {
+   "rank": 123,
+   "protein": "p70S6K_pT389",
+   "protein_id": "RPS6KB1|p70S6K_pT389",
+   "gene": "RPS6KB1",
+   "block": "TSC/mTOR",
+   "importance": -2e-05,
+   "importance_sd": 0.0001,
+   "stability": 0.0
+  },
+  {
+   "rank": 124,
+   "protein": "Bad_pS112",
+   "protein_id": "BAD|Bad_pS112",
+   "gene": "BAD",
+   "block": "Apoptosis",
+   "importance": -3e-05,
+   "importance_sd": 0.00011,
+   "stability": 0.0
+  },
+  {
+   "rank": 125,
+   "protein": "eEF2K",
+   "protein_id": "EEF2K|eEF2K",
+   "gene": "EEF2K",
+   "block": "Other",
+   "importance": -3e-05,
+   "importance_sd": 0.00013,
+   "stability": 0.0
+  },
+  {
+   "rank": 126,
+   "protein": "eIF4E",
+   "protein_id": "EIF4E|eIF4E",
+   "gene": "EIF4E",
+   "block": "Other",
+   "importance": -3e-05,
+   "importance_sd": 0.0004,
+   "stability": 0.0
+  },
+  {
+   "rank": 127,
+   "protein": "Tuberin",
+   "protein_id": "TSC2|Tuberin",
+   "gene": "TSC2",
+   "block": "Other",
+   "importance": -4e-05,
+   "importance_sd": 0.0002,
+   "stability": 0.0
+  },
+  {
+   "rank": 128,
+   "protein": "Paxillin",
+   "protein_id": "PXN|Paxillin",
+   "gene": "PXN",
+   "block": "Other",
+   "importance": -4e-05,
+   "importance_sd": 0.00013,
+   "stability": 0.0
+  },
+  {
+   "rank": 129,
+   "protein": "PRAS40_pT246",
+   "protein_id": "AKT1S1|PRAS40_pT246",
+   "gene": "AKT1S1",
+   "block": "PI3K/AKT",
+   "importance": -4e-05,
+   "importance_sd": 0.00016,
+   "stability": 0.0
+  },
+  {
+   "rank": 130,
+   "protein": "Tuberin_pT1462",
+   "protein_id": "TSC2|Tuberin_pT1462",
+   "gene": "TSC2",
+   "block": "PI3K/AKT",
+   "importance": -4e-05,
+   "importance_sd": 0.00018,
+   "stability": 0.0
+  },
+  {
+   "rank": 131,
+   "protein": "VHL",
+   "protein_id": "VHL|VHL",
+   "gene": "VHL",
+   "block": "Other",
+   "importance": -5e-05,
+   "importance_sd": 0.00072,
+   "stability": 0.0
+  },
+  {
+   "rank": 132,
+   "protein": "Shc_pY317",
+   "protein_id": "SHC1|Shc_pY317",
+   "gene": "SHC1",
+   "block": "RTK",
+   "importance": -6e-05,
+   "importance_sd": 0.00025,
+   "stability": 0.0
+  },
+  {
+   "rank": 133,
+   "protein": "GSK3_pS9",
+   "protein_id": "GSK3A GSK3B|GSK3_pS9",
+   "gene": "GSK3A GSK3B",
+   "block": "PI3K/AKT",
+   "importance": -6e-05,
+   "importance_sd": 0.00029,
+   "stability": 0.0
+  },
+  {
+   "rank": 134,
+   "protein": "PKC-pan_BetaII_pS660",
+   "protein_id": "PRKCB|PKC-pan_BetaII_pS660",
+   "gene": "PRKCB",
+   "block": "Other",
+   "importance": -7e-05,
+   "importance_sd": 0.00019,
+   "stability": 0.0
+  },
+  {
+   "rank": 135,
+   "protein": "MIG-6",
+   "protein_id": "ERRFI1|MIG-6",
+   "gene": "ERRFI1",
+   "block": "Other",
+   "importance": -8e-05,
+   "importance_sd": 0.00037,
+   "stability": 0.0
+  },
+  {
+   "rank": 136,
+   "protein": "Akt_pS473",
+   "protein_id": "AKT1 AKT2 AKT3|Akt_pS473",
+   "gene": "AKT1 AKT2 AKT3",
+   "block": "PI3K/AKT",
+   "importance": -9e-05,
+   "importance_sd": 0.00041,
+   "stability": 0.0
+  },
+  {
+   "rank": 137,
+   "protein": "mTOR_pS2448",
+   "protein_id": "MTOR|mTOR_pS2448",
+   "gene": "MTOR",
+   "block": "TSC/mTOR",
+   "importance": -9e-05,
+   "importance_sd": 0.00034,
+   "stability": 0.0
+  },
+  {
+   "rank": 138,
+   "protein": "YAP",
+   "protein_id": "YAP1|YAP",
+   "gene": "YAP1",
+   "block": "Other",
+   "importance": -0.0001,
+   "importance_sd": 0.0009,
+   "stability": 0.0
+  },
+  {
+   "rank": 139,
+   "protein": "RBM15",
+   "protein_id": "RBM15|RBM15",
+   "gene": "RBM15",
+   "block": "Breast reactive",
+   "importance": -0.0001,
+   "importance_sd": 0.00094,
+   "stability": 0.0
+  },
+  {
+   "rank": 140,
+   "protein": "NF2",
+   "protein_id": "NF2|NF2",
+   "gene": "NF2",
+   "block": "Other",
+   "importance": -0.0001,
+   "importance_sd": 0.00083,
+   "stability": 0.0
+  },
+  {
+   "rank": 141,
+   "protein": "PRDX1",
+   "protein_id": "PRDX1|PRDX1",
+   "gene": "PRDX1",
+   "block": "Other",
+   "importance": -0.00012,
+   "importance_sd": 0.00061,
+   "stability": 0.0
+  },
+  {
+   "rank": 142,
+   "protein": "c-Jun_pS73",
+   "protein_id": "JUN|c-Jun_pS73",
+   "gene": "JUN",
+   "block": "Other",
+   "importance": -0.00012,
+   "importance_sd": 0.00049,
+   "stability": 0.0
+  },
+  {
+   "rank": 143,
+   "protein": "FOXO3a",
+   "protein_id": "FOXO3|FOXO3a",
+   "gene": "FOXO3",
+   "block": "Other",
+   "importance": -0.00014,
+   "importance_sd": 0.00039,
+   "stability": 0.0
+  },
+  {
+   "rank": 144,
+   "protein": "Rab11",
+   "protein_id": "RAB11A RAB11B|Rab11",
+   "gene": "RAB11A RAB11B",
+   "block": "Breast reactive",
+   "importance": -0.00014,
+   "importance_sd": 0.00066,
+   "stability": 0.0
+  },
+  {
+   "rank": 145,
+   "protein": "Lck",
+   "protein_id": "LCK|Lck",
+   "gene": "LCK",
+   "block": "Other",
+   "importance": -0.00014,
+   "importance_sd": 0.00042,
+   "stability": 0.0
+  },
+  {
+   "rank": 146,
+   "protein": "PKC-delta_pS664",
+   "protein_id": "PRKCD|PKC-delta_pS664",
+   "gene": "PRKCD",
+   "block": "Other",
+   "importance": -0.00015,
+   "importance_sd": 0.00042,
+   "stability": 0.0
+  },
+  {
+   "rank": 147,
+   "protein": "TAZ",
+   "protein_id": "WWTR1|TAZ",
+   "gene": "WWTR1",
+   "block": "Other",
+   "importance": -0.00016,
+   "importance_sd": 0.00035,
+   "stability": 0.0
+  },
+  {
+   "rank": 148,
+   "protein": "ACVRL1",
+   "protein_id": "ACVRL1|ACVRL1",
+   "gene": "ACVRL1",
+   "block": "Other",
+   "importance": -0.00016,
+   "importance_sd": 0.00084,
+   "stability": 0.0
+  },
+  {
+   "rank": 149,
+   "protein": "4E-BP1_pT70",
+   "protein_id": "EIF4EBP1|4E-BP1_pT70",
+   "gene": "EIF4EBP1",
+   "block": "TSC/mTOR",
+   "importance": -0.00017,
+   "importance_sd": 0.00079,
+   "stability": 0.0
+  },
+  {
+   "rank": 150,
+   "protein": "mTOR",
+   "protein_id": "MTOR|mTOR",
+   "gene": "MTOR",
+   "block": "Other",
+   "importance": -0.00017,
+   "importance_sd": 0.00075,
+   "stability": 0.0
+  },
+  {
+   "rank": 151,
+   "protein": "CD49b",
+   "protein_id": "ITGA2|CD49b",
+   "gene": "ITGA2",
+   "block": "Other",
+   "importance": -0.00017,
+   "importance_sd": 0.00069,
+   "stability": 0.0
+  },
+  {
+   "rank": 152,
+   "protein": "MEK1",
+   "protein_id": "MAP2K1|MEK1",
+   "gene": "MAP2K1",
+   "block": "Other",
+   "importance": -0.00018,
+   "importance_sd": 0.00081,
+   "stability": 0.0
+  },
+  {
+   "rank": 153,
+   "protein": "N-Cadherin",
+   "protein_id": "CDH2|N-Cadherin",
+   "gene": "CDH2",
+   "block": "EMT",
+   "importance": -0.00021,
+   "importance_sd": 0.00092,
+   "stability": 0.0
+  },
+  {
+   "rank": 154,
+   "protein": "BRCA2",
+   "protein_id": "BRCA2|BRCA2",
+   "gene": "BRCA2",
+   "block": "DNA damage",
+   "importance": -0.00024,
+   "importance_sd": 0.00085,
+   "stability": 0.0
+  },
+  {
+   "rank": 155,
+   "protein": "Beclin",
+   "protein_id": "BECN1|Beclin",
+   "gene": "BECN1",
+   "block": "Other",
+   "importance": -0.00025,
+   "importance_sd": 0.0011,
+   "stability": 0.0
+  },
+  {
+   "rank": 156,
+   "protein": "A-Raf_pS299",
+   "protein_id": "ARAF|A-Raf_pS299",
+   "gene": "ARAF",
+   "block": "RAS/MAPK",
+   "importance": -0.00025,
+   "importance_sd": 0.00163,
+   "stability": 0.0
+  },
+  {
+   "rank": 157,
+   "protein": "Bap1-c-4",
+   "protein_id": "BAP1|Bap1-c-4",
+   "gene": "BAP1",
+   "block": "Other",
+   "importance": -0.00027,
+   "importance_sd": 0.00081,
+   "stability": 0.0
+  },
+  {
+   "rank": 158,
+   "protein": "Src_pY527",
+   "protein_id": "SRC|Src_pY527",
+   "gene": "SRC",
+   "block": "RTK",
+   "importance": -0.00028,
+   "importance_sd": 0.00094,
+   "stability": 0.0
+  },
+  {
+   "rank": 159,
+   "protein": "Stathmin",
+   "protein_id": "STMN1|Stathmin",
+   "gene": "STMN1",
+   "block": "Other",
+   "importance": -0.0003,
+   "importance_sd": 0.00169,
+   "stability": 0.0
+  },
+  {
+   "rank": 160,
+   "protein": "14-3-3_beta",
+   "protein_id": "YWHAB|14-3-3_beta",
+   "gene": "YWHAB",
+   "block": "Other",
+   "importance": -0.00031,
+   "importance_sd": 0.00115,
+   "stability": 0.0
+  },
+  {
+   "rank": 161,
+   "protein": "CD31",
+   "protein_id": "PECAM1|CD31",
+   "gene": "PECAM1",
+   "block": "Other",
+   "importance": -0.00032,
+   "importance_sd": 0.0007,
+   "stability": 0.0
+  },
+  {
+   "rank": 162,
+   "protein": "ERK2",
+   "protein_id": "MAPK1|ERK2",
+   "gene": "MAPK1",
+   "block": "Other",
+   "importance": -0.00032,
+   "importance_sd": 0.00075,
+   "stability": 0.0
+  },
+  {
+   "rank": 163,
+   "protein": "SCD1",
+   "protein_id": "SCD1|SCD1",
+   "gene": "SCD1",
+   "block": "Other",
+   "importance": -0.00034,
+   "importance_sd": 0.00144,
+   "stability": 0.0
+  },
+  {
+   "rank": 164,
+   "protein": "PAI-1",
+   "protein_id": "SERPINE1|PAI-1",
+   "gene": "SERPINE1",
+   "block": "EMT",
+   "importance": -0.00035,
+   "importance_sd": 0.00116,
+   "stability": 0.0
+  },
+  {
+   "rank": 165,
+   "protein": "E-Cadherin",
+   "protein_id": "CDH1|E-Cadherin",
+   "gene": "CDH1",
+   "block": "EMT",
+   "importance": -0.00035,
+   "importance_sd": 0.0011,
+   "stability": 0.0
+  },
+  {
+   "rank": 166,
+   "protein": "GAPDH",
+   "protein_id": "GAPDH|GAPDH",
+   "gene": "GAPDH",
+   "block": "Breast reactive",
+   "importance": -0.00038,
+   "importance_sd": 0.00232,
+   "stability": 0.0
+  },
+  {
+   "rank": 167,
+   "protein": "TSC1",
+   "protein_id": "TSC1|TSC1",
+   "gene": "TSC1",
+   "block": "Other",
+   "importance": -0.0004,
+   "importance_sd": 0.00103,
+   "stability": 0.0
+  },
+  {
+   "rank": 168,
+   "protein": "AMPK_alpha",
+   "protein_id": "PRKAA1|AMPK_alpha",
+   "gene": "PRKAA1",
+   "block": "Other",
+   "importance": -0.00042,
+   "importance_sd": 0.00166,
+   "stability": 0.0
+  },
+  {
+   "rank": 169,
+   "protein": "PI3K-p85",
+   "protein_id": "PIK3R1 PIK3R2|PI3K-p85",
+   "gene": "PIK3R1 PIK3R2",
+   "block": "PI3K/AKT",
+   "importance": -0.00044,
+   "importance_sd": 0.00112,
+   "stability": 0.0
+  },
+  {
+   "rank": 170,
+   "protein": "Annexin-1",
+   "protein_id": "ANXA1|Annexin-1",
+   "gene": "ANXA1",
+   "block": "Other",
+   "importance": -0.00046,
+   "importance_sd": 0.00129,
+   "stability": 0.0
+  },
+  {
+   "rank": 171,
+   "protein": "XRCC1",
+   "protein_id": "XRCC1|XRCC1",
+   "gene": "XRCC1",
+   "block": "DNA damage",
+   "importance": -0.00056,
+   "importance_sd": 0.00145,
+   "stability": 0.0
+  },
+  {
+   "rank": 172,
+   "protein": "VEGFR2",
+   "protein_id": "KDR|VEGFR2",
+   "gene": "KDR",
+   "block": "RTK",
+   "importance": -0.00063,
+   "importance_sd": 0.00127,
+   "stability": 0.0
+  },
+  {
+   "rank": 173,
+   "protein": "ER-alpha_pS118",
+   "protein_id": "ESR1|ER-alpha_pS118",
+   "gene": "ESR1",
+   "block": "Hormone receptor",
+   "importance": -0.00067,
+   "importance_sd": 0.00242,
+   "stability": 0.0
+  },
+  {
+   "rank": 174,
+   "protein": "Src_pY416",
+   "protein_id": "SRC|Src_pY416",
+   "gene": "SRC",
+   "block": "RTK",
+   "importance": -0.00068,
+   "importance_sd": 0.00231,
+   "stability": 0.0
+  },
+  {
+   "rank": 175,
+   "protein": "MSH2",
+   "protein_id": "MSH2|MSH2",
+   "gene": "MSH2",
+   "block": "DNA damage",
+   "importance": -0.00076,
+   "importance_sd": 0.00288,
+   "stability": 0.0
+  },
+  {
+   "rank": 176,
+   "protein": "Akt_pT308",
+   "protein_id": "AKT1 AKT2 AKT3|Akt_pT308",
+   "gene": "AKT1 AKT2 AKT3",
+   "block": "PI3K/AKT",
+   "importance": -0.00081,
+   "importance_sd": 0.00129,
+   "stability": 0.0
+  },
+  {
+   "rank": 177,
+   "protein": "Bcl-xL",
+   "protein_id": "BCL2L1|Bcl-xL",
+   "gene": "BCL2L1",
+   "block": "Apoptosis",
+   "importance": -0.00084,
+   "importance_sd": 0.00191,
+   "stability": 0.0
+  },
+  {
+   "rank": 178,
+   "protein": "EGFR_pY1068",
+   "protein_id": "EGFR|EGFR_pY1068",
+   "gene": "EGFR",
+   "block": "RTK",
+   "importance": -0.00085,
+   "importance_sd": 0.0034,
+   "stability": 0.0
+  },
+  {
+   "rank": 179,
+   "protein": "STAT3_pY705",
+   "protein_id": "STAT3|STAT3_pY705",
+   "gene": "STAT3",
+   "block": "Other",
+   "importance": -0.00094,
+   "importance_sd": 0.00439,
+   "stability": 0.0
+  },
+  {
+   "rank": 180,
+   "protein": "Rb_pS807_S811",
+   "protein_id": "RB1|Rb_pS807_S811",
+   "gene": "RB1",
+   "block": "Cell cycle",
+   "importance": -0.00094,
+   "importance_sd": 0.00324,
+   "stability": 0.0
+  },
+  {
+   "rank": 181,
+   "protein": "B-Raf",
+   "protein_id": "BRAF|B-Raf",
+   "gene": "BRAF",
+   "block": "Other",
+   "importance": -0.00103,
+   "importance_sd": 0.00305,
+   "stability": 0.0
+  },
+  {
+   "rank": 182,
+   "protein": "C-Raf",
+   "protein_id": "RAF1|C-Raf",
+   "gene": "RAF1",
+   "block": "Other",
+   "importance": -0.00105,
+   "importance_sd": 0.00513,
+   "stability": 0.0
+  },
+  {
+   "rank": 183,
+   "protein": "PREX1",
+   "protein_id": "PREX1|PREX1",
+   "gene": "PREX1",
+   "block": "Other",
+   "importance": -0.00106,
+   "importance_sd": 0.00384,
+   "stability": 0.0
+  },
+  {
+   "rank": 184,
+   "protein": "ARID1A",
+   "protein_id": "ARID1A|ARID1A",
+   "gene": "ARID1A",
+   "block": "Other",
+   "importance": -0.00107,
+   "importance_sd": 0.00211,
+   "stability": 0.0
+  },
+  {
+   "rank": 185,
+   "protein": "eIF4G",
+   "protein_id": "EIF4G1|eIF4G",
+   "gene": "EIF4G1",
+   "block": "Other",
+   "importance": -0.00117,
+   "importance_sd": 0.00342,
+   "stability": 0.0
+  },
+  {
+   "rank": 186,
+   "protein": "PKC-alpha",
+   "protein_id": "PRKCA |PKC-alpha",
+   "gene": "PRKCA",
+   "block": "Other",
+   "importance": -0.00128,
+   "importance_sd": 0.00218,
+   "stability": 0.0
+  },
+  {
+   "rank": 187,
+   "protein": "Rictor",
+   "protein_id": "RICTOR|Rictor",
+   "gene": "RICTOR",
+   "block": "Other",
+   "importance": -0.00148,
+   "importance_sd": 0.00416,
+   "stability": 0.0
+  },
+  {
+   "rank": 188,
+   "protein": "MYH11",
+   "protein_id": "MYH11|MYH11",
+   "gene": "MYH11",
+   "block": "Breast reactive",
+   "importance": -0.00178,
+   "importance_sd": 0.00243,
+   "stability": 0.0
+  },
+  {
+   "rank": 189,
+   "protein": "p62-LCK-ligand",
+   "protein_id": "SQSTM1|p62-LCK-ligand",
+   "gene": "SQSTM1",
+   "block": "Other",
+   "importance": -0.00181,
+   "importance_sd": 0.00345,
+   "stability": 0.0
+  },
+  {
+   "rank": 190,
+   "protein": "SF2",
+   "protein_id": "SRSF1|SF2",
+   "gene": "SRSF1",
+   "block": "Other",
+   "importance": -0.00182,
+   "importance_sd": 0.00335,
+   "stability": 0.0
+  },
+  {
+   "rank": 191,
+   "protein": "PEA15",
+   "protein_id": "PEA15|PEA15",
+   "gene": "PEA15",
+   "block": "Other",
+   "importance": -0.00183,
+   "importance_sd": 0.00302,
+   "stability": 0.0
+  },
+  {
+   "rank": 192,
+   "protein": "YAP_pS127",
+   "protein_id": "YAP1|YAP_pS127",
+   "gene": "YAP1",
+   "block": "Other",
+   "importance": -0.00186,
+   "importance_sd": 0.00522,
+   "stability": 0.0
+  },
+  {
+   "rank": 193,
+   "protein": "EGFR_pY1173",
+   "protein_id": "EGFR|EGFR_pY1173",
+   "gene": "EGFR",
+   "block": "RTK",
+   "importance": -0.00204,
+   "importance_sd": 0.00269,
+   "stability": 0.0
+  },
+  {
+   "rank": 194,
+   "protein": "Caveolin-1",
+   "protein_id": "CAV1|Caveolin-1",
+   "gene": "CAV1",
+   "block": "Breast reactive",
+   "importance": -0.00231,
+   "importance_sd": 0.00442,
+   "stability": 0.0
+  },
+  {
+   "rank": 195,
+   "protein": "PEA15_pS116",
+   "protein_id": "PEA15|PEA15_pS116",
+   "gene": "PEA15",
+   "block": "Other",
+   "importance": -0.00237,
+   "importance_sd": 0.00402,
+   "stability": 0.0
+  },
+  {
+   "rank": 196,
+   "protein": "c-Kit",
+   "protein_id": "KIT|c-Kit",
+   "gene": "KIT",
+   "block": "RTK",
+   "importance": -0.00306,
+   "importance_sd": 0.00536,
+   "stability": 0.0
+  },
+  {
+   "rank": 197,
+   "protein": "PKC-alpha_pS657",
+   "protein_id": "PRKCA |PKC-alpha_pS657",
+   "gene": "PRKCA",
+   "block": "Other",
+   "importance": -0.00344,
+   "importance_sd": 0.0053,
+   "stability": 0.0
+  },
+  {
+   "rank": 198,
+   "protein": "p70S6K",
+   "protein_id": "RPS6KB1|p70S6K",
+   "gene": "RPS6KB1",
+   "block": "Other",
+   "importance": -0.00481,
+   "importance_sd": 0.00564,
+   "stability": 0.0
+  }
+ ],
+ "known_markers": [
+  {
+   "protein": "ER-alpha",
+   "gene": "ESR1",
+   "rank": 3,
+   "of": 198,
+   "role": "Defines luminal subtypes (oestrogen receptor)."
+  },
+  {
+   "protein": "PR",
+   "gene": "PGR",
+   "rank": 15,
+   "of": 198,
+   "role": "Progesterone receptor; luminal marker, correlated with ER-alpha."
+  },
+  {
+   "protein": "HER2",
+   "gene": "ERBB2",
+   "rank": 7,
+   "of": 198,
+   "role": "Defines the HER2-enriched subtype (ERBB2 amplification)."
+  },
+  {
+   "protein": "GATA3",
+   "gene": "GATA3",
+   "rank": 5,
+   "of": 198,
+   "role": "Luminal lineage transcription factor."
+  },
+  {
+   "protein": "Cyclin_B1",
+   "gene": "CCNB1",
+   "rank": 1,
+   "of": 198,
+   "role": "Proliferation; separates LumB and Basal from LumA."
+  },
+  {
+   "protein": "AR",
+   "gene": "AR",
+   "rank": 2,
+   "of": 198,
+   "role": "Androgen receptor; luminal / apocrine signal."
+  }
+ ]
+}

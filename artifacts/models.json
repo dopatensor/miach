@@ -1,0 +1,62 @@
+{
+ "preliminary": true,
+ "metric": "subtype macro-F1, locked test set (n = 176)",
+ "settings": {
+  "labels": [
+   "10%",
+   "100%"
+  ],
+  "seed": 0,
+  "split": "595 train / 105 val / 176 test (patient level)",
+  "pretraining_pool": "7,084 tumours, 31 TCGA cancer types (deep models only)"
+ },
+ "source": "omics_mvp research comparison (run_compare.py)",
+ "models": [
+  {
+   "model": "Elastic net (raw proteins)",
+   "kind": "linear",
+   "f1_10": 0.56,
+   "f1_100": 0.63,
+   "production": true
+  },
+  {
+   "model": "PCA + probe",
+   "kind": "linear",
+   "f1_10": 0.52,
+   "f1_100": 0.59,
+   "production": false
+  },
+  {
+   "model": "VAE + probe",
+   "kind": "deep",
+   "f1_10": 0.49,
+   "f1_100": 0.55,
+   "production": false
+  },
+  {
+   "model": "VAE + heads",
+   "kind": "deep",
+   "f1_10": 0.47,
+   "f1_100": 0.56,
+   "production": false
+  },
+  {
+   "model": "Reconstruction control",
+   "kind": "deep",
+   "f1_10": 0.32,
+   "f1_100": 0.58,
+   "production": false
+  },
+  {
+   "model": "Pathway JEPA",
+   "kind": "deep",
+   "f1_10": 0.39,
+   "f1_100": 0.57,
+   "production": false
+  }
+ ],
+ "rebuild_check": {
+  "model": "Elastic net (raw proteins), this build, 100% labels",
+  "macro_f1": 0.6652
+ }
+}
