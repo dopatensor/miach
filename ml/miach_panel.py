@@ -77,4 +77,4 @@ def fit_panel(arrays: dict, cols: list[int]) -> dict:
     proba_all = model.predict_proba(arrays["X_test"][:, cols])
     risk = proba_all @ np.asarray(arrays["subtype_hazard"])
     metrics["c_index"] = c_index(arrays["t_test"], arrays["e_test"], risk)
-    return {"metrics": metrics, "C": best_C, "val_macro_f1": best_f1}
+    return {"metrics": metrics, "C": best_C, "val_macro_f1": best_f1, "test_proba": proba_all}

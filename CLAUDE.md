@@ -47,7 +47,7 @@ consistent with these, and label them **preliminary** until a full run replaces 
 │  2-D map (PCA)          → latent.json         │                              │ JSON
 │  QC + comparison table  → qc.json, models.json│      ┌───────────────────────▼─────────────────────┐
 └──────────────────────────────────────────────┘      │ frontend (React + Vite + TS)                 │
-                                                       │  Landing · Designer · Evidence · Methods     │
+                                                       │  Landing · Designer · Patients · Evidence    │
                                                        └─────────────────────────────────────────────┘
 ```
 
@@ -85,7 +85,7 @@ miach/
 │   ├── app/routers/         # dataset.py, markers.py, panel.py, models.py, predict.py
 │   └── tests/
 ├── frontend/
-│   ├── src/pages/           # Landing, Designer, Evidence, Methods
+│   ├── src/pages/           # Landing, Designer, Patients, Evidence (+ Methods section)
 │   ├── src/components/      # PanelCard, MarkerList, LatentMap, QcCard, ModelChart, Disclaimer
 │   └── src/api.ts           # typed client generated from /openapi.json or hand-written to match schemas
 └── Dockerfile
@@ -113,7 +113,8 @@ Outputs (all JSON unless noted):
 | `qc.json` | patients per split, subtype counts, survival events, missingness per protein and per pathway block |
 | `markers.json` | full ranking with importance ± sd, stability, pathway block, gene; plus known-marker ranks |
 | `panels.json` | metrics and marker lists for k = 1..30, plus the full-model reference (all 198 proteins) |
-| `latent.json` | 2-D PCA coordinates of train + test patients with subtype and split |
+| `latent.json` | 2-D PCA coordinates of train + test patients with subtype and split (TCGA id on test points only) |
+| `patients.json` | locked test patients: subtype, PFS, z-scores of the top-30 markers, per-k probabilities and calls |
 | `models.json` | the six-model comparison table above, with `"preliminary": true` and run settings |
 | `model.joblib` | fitted scaler + elastic-net subtype model on all 198 proteins (for `/api/predict`) |
 | `meta.json` | build time, data source URL, protein list, class list, git commit |
@@ -134,6 +135,8 @@ All responses carry `"research_use_only": true`. Errors use FastAPI's default `{
 | `POST /api/panel/custom` `{markers:[protein…]}` | same shape, refit live on the given markers (≤ 30) |
 | `GET /api/latent?disease=brca` | `[{x, y, subtype, split}]` |
 | `GET /api/models` | contents of `models.json` |
+| `GET /api/patients?disease=brca&k=8` | the 176 **locked test** patients: `{id, subtype, predicted, confidence, mismatch, pfs_months, pfs_event}` from the top-k panel |
+| `GET /api/patients/{id}?k=8` | one test patient: subtype probabilities + z-scores of the k panel markers (missing flagged) |
 | `POST /api/predict` (CSV upload) | per-row subtype probabilities + QC: matched/missing proteins. Research use only. |
 
 `goal=survival` in the MVP: return the same subtype-ranked panel with its C-index highlighted, and say in
@@ -141,9 +144,13 @@ the response (`note`) that survival-specific ranking is not built yet. Don't fak
 
 ## Frontend screens
 
-Design language follows the pitch deck: navy `#2E3F8F`, light blue `#D4E2FF`, yellow `#EEE772`,
-coral `#E47A59`, ink `#111111`; outlined cards with a solid offset "shadow" block behind them; generous
-whitespace. Check colour contrast (WCAG AA) and support keyboard navigation everywhere.
+Design language: **hyper-minimal, monospace, Vantablack by default.** One font (JetBrains Mono). Dark theme
+(`#000` background, `#EDEDED` text, `#222` hairlines) is the default; a light theme is a `[light]` toggle in
+the header (stored in localStorage). No shadows, glows, gradients or rounded cards: sections are 1px hairline
+boxes. Colour is reserved for data (subtype tokens `--c-<Subtype>`, validated for colour-blind separation in
+both themes) and one accent (`--acc`: yellow `#EEE772` in dark, navy `#2E3F8F` in light). All colours are CSS
+tokens in `frontend/src/index.css`; don't hard-code hex in components. Check colour contrast (WCAG AA) and
+support keyboard navigation everywhere.
 
 1. **Landing:** one-line value prop, the problem in three numbers, CTA "Design a panel", disclaimer.
 2. **Designer** (the demo; build this first):
@@ -156,8 +163,15 @@ whitespace. Check colour contrast (WCAG AA) and support keyboard navigation ever
    - Optional **cost per test**: the user enters their lab's cost per marker; multiply by k. Never invent prices.
    - **Export** button: print-styled panel report (markers, metrics, method, disclaimer, date).
    - Moving the slider must update the panel card instantly (precomputed data).
-3. **Evidence:** the six-model chart, bottleneck table, known-driver check, validation design.
-4. **Methods:** data source, split, metrics, how markers are ranked, limitations, references.
+3. **Patients:** the 176 locked test patients only (never training patients): searchable list with PAM50 vs
+   panel call (mismatches flagged), confidence and PFS; a detail view with subtype probabilities and each panel
+   marker's z-score against the cohort. Shares the marker budget with the Designer; rings on the 2-D map link here.
+4. **Evidence & methods** (one page; `/methods` redirects): the six-model chart, bottleneck table, known-driver
+   check, validation design, then data source, split, metrics, ranking, limitations, references.
+
+Navigation is three items: designer · patients · evidence. The Designer's controls sit in one bar
+(disease, goal, budget slider, export; assay type and cost behind "assay & cost"), with the panel card and
+marker list side by side and the map / QC / method as tabs below.
 
 ## Honesty rules (non-negotiable)
 

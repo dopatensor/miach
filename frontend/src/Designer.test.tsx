@@ -1,6 +1,9 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { Designer } from "./pages/Designer";
+import { Patients } from "./pages/Patients";
+import { AppStateProvider } from "./state";
+import patientsArt from "../../artifacts/patients.json";
 import panels from "../../artifacts/panels.json";
 import markers from "../../artifacts/markers.json";
 import qc from "../../artifacts/qc.json";
@@ -20,6 +23,18 @@ function mockFetch(url: string) {
       test_set: "locked", method: panels.panel_model, c_index_note: panels.c_index_note, note: null, custom: false,
       research_use_only: true,
     };
+  } else if (u.pathname === "/api/patients") {
+    const k = Number(u.searchParams.get("k"));
+    body = {
+      k, markers: [], note: "", research_use_only: true,
+      patients: patientsArt.patients.map((p, i) => {
+        const c = patientsArt.classes[patientsArt.calls[k - 1][i]];
+        return {
+          id: p.id, subtype: p.subtype, predicted: c, confidence: Math.max(...patientsArt.predictions[k - 1][i]),
+          mismatch: p.subtype != null && p.subtype !== c, pfs_months: p.pfs_months, pfs_event: p.pfs_event,
+        };
+      }),
+    };
   } else if (u.pathname === "/api/markers") body = { ...markers, note: "" };
   else if (u.pathname === "/api/dataset/qc") body = qc;
   else if (u.pathname === "/api/diseases") body = { diseases: [{ id: "brca", name: "Breast cancer", enabled: true }] };
@@ -35,13 +50,13 @@ beforeEach(() => {
 });
 
 test("moving the slider updates the panel card", async () => {
-  render(<MemoryRouter><Designer /></MemoryRouter>);
-  await screen.findByRole("heading", { name: /Candidate panel · 8 markers/ });
+  render(<AppStateProvider><MemoryRouter><Designer /></MemoryRouter></AppStateProvider>);
+  await screen.findByRole("heading", { name: /candidate panel · 8 markers/ });
   const k8 = panels.panels.find((p) => p.k === 8)!.metrics.macro_f1.toFixed(2);
   expect(screen.getAllByText(k8).length).toBeGreaterThan(0);
 
-  fireEvent.change(screen.getByLabelText("Marker budget"), { target: { value: "3" } });
-  await waitFor(() => screen.getByRole("heading", { name: /Candidate panel · 3 markers/ }));
+  fireEvent.change(screen.getByLabelText("marker budget"), { target: { value: "3" } });
+  await waitFor(() => screen.getByRole("heading", { name: /candidate panel · 3 markers/ }));
   const k3 = panels.panels.find((p) => p.k === 3)!;
   expect(screen.getAllByText(k3.metrics.macro_f1.toFixed(2)).length).toBeGreaterThan(0);
   const list = screen.getByRole("list", { name: "Panel markers" });
@@ -49,8 +64,17 @@ test("moving the slider updates the panel card", async () => {
 });
 
 test("cost per test multiplies the user's price by k", async () => {
-  render(<MemoryRouter><Designer /></MemoryRouter>);
+  render(<AppStateProvider><MemoryRouter><Designer /></MemoryRouter></AppStateProvider>);
   await screen.findByRole("heading", { name: /8 markers/ });
-  fireEvent.change(screen.getByLabelText(/Cost per marker/), { target: { value: "12.5" } });
+  fireEvent.change(screen.getByLabelText(/cost per marker/), { target: { value: "12.5" } });
   expect(await screen.findByText("100.00")).toBeInTheDocument();
+});
+
+test("patients page lists only the 176 locked test patients and filters mismatches", async () => {
+  render(<AppStateProvider><MemoryRouter initialEntries={["/patients"]}><Patients /></MemoryRouter></AppStateProvider>);
+  expect(await screen.findByRole("heading", { name: "176 of 176 patients" })).toBeInTheDocument();
+  const nMismatch = patientsArt.patients.filter((p, i) =>
+    p.subtype != null && p.subtype !== patientsArt.classes[patientsArt.calls[7][i]]).length;
+  fireEvent.click(screen.getByLabelText("mismatches only"));
+  expect(await screen.findByRole("heading", { name: `${nMismatch} of 176 patients` })).toBeInTheDocument();
 });

@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 
-export function Card({ title, children, shadow = "#2E3F8F", className = "", aside, id }: {
-  title?: ReactNode; children: ReactNode; shadow?: string; className?: string; aside?: ReactNode; id?: string;
+export function Section({ title, children, className = "", aside, id }: {
+  title?: ReactNode; children: ReactNode; className?: string; aside?: ReactNode; id?: string;
 }) {
   return (
-    <section className={`card ${className}`} style={{ ["--shadow" as string]: shadow }} aria-labelledby={id}>
+    <section className={`section ${className}`} aria-labelledby={id}>
       {title && (
-        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id={id} className="text-lg font-bold">{title}</h2>
-          {aside}
+        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id={id} className="label">{title}</h2>
+          {aside && <span className="text-[11px] text-mute">{aside}</span>}
         </div>
       )}
       {children}
@@ -17,9 +17,18 @@ export function Card({ title, children, shadow = "#2E3F8F", className = "", asid
 }
 
 export function Skeleton({ h = "h-32" }: { h?: string }) {
-  return <div className={`skeleton w-full ${h}`} aria-hidden="true" />;
+  return <div className={`skeleton ${h}`} aria-hidden="true" />;
 }
 
 export function ErrorNote({ error }: { error: string }) {
-  return <p role="alert" className="text-sm text-coralink">Could not load: {error}</p>;
+  return <p role="alert" className="text-warn">could not load: {error}</p>;
+}
+
+export function Dot({ subtype }: { subtype: string | null }) {
+  return <span aria-hidden="true" className="mr-2 inline-block h-2 w-2 align-middle"
+    style={{ background: `var(--c-${subtype ?? "Unknown"})` }} />;
+}
+
+export function TestSetTag({ n = 176 }: { n?: number }) {
+  return <span>locked test · n = {n} · preliminary</span>;
 }

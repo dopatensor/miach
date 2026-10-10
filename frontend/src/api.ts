@@ -74,7 +74,7 @@ export interface Panel {
   custom: boolean;
 }
 
-export interface LatentPoint { x: number; y: number; subtype: string; split: "train" | "test" }
+export interface LatentPoint { x: number; y: number; subtype: string; split: "train" | "test"; id: string | null }
 export interface Latent { method: string; explained_variance: number[]; points: LatentPoint[] }
 
 export interface ModelRow { model: string; kind: "linear" | "deep"; f1_10: number; f1_100: number; production: boolean }
@@ -84,6 +84,23 @@ export interface Models {
   source: string;
   models: ModelRow[];
   rebuild_check: { model: string; macro_f1: number };
+}
+
+export interface PatientRow {
+  id: string;
+  subtype: string | null;
+  predicted: string;
+  confidence: number;
+  mismatch: boolean;
+  pfs_months: number | null;
+  pfs_event: number | null;
+}
+export interface PatientList { k: number; markers: string[]; patients: PatientRow[]; note: string }
+export interface PatientDetail extends PatientRow {
+  k: number;
+  probabilities: Record<string, number>;
+  markers: { protein: string; z: number; missing: boolean }[];
+  note: string;
 }
 
 export interface Health { status: string; artifacts_built_at: string }
@@ -103,17 +120,15 @@ export const api = {
     get<Panel>(`/api/panel?disease=${disease}&goal=${goal}&k=${k}`),
   latent: (disease = "brca") => get<Latent>(`/api/latent?disease=${disease}`),
   models: () => get<Models>("/api/models"),
+  patients: (k: number, disease = "brca") => get<PatientList>(`/api/patients?disease=${disease}&k=${k}`),
+  patient: (id: string, k: number, disease = "brca") =>
+    get<PatientDetail>(`/api/patients/${encodeURIComponent(id)}?disease=${disease}&k=${k}`),
 };
 
 export const SUBTYPES = ["LumA", "LumB", "Basal", "Her2", "Normal"] as const;
-// Categorical palette, validated for CVD separation and 3:1 contrast (dataviz validate_palette.js).
-export const SUBTYPE_COLORS: Record<string, string> = {
-  LumA: "#4057C0",
-  LumB: "#D9682F",
-  Basal: "#18A08A",
-  Her2: "#B474D9",
-  Normal: "#A08A00",
-  Unknown: "#BBBBBB",
-};
+// Categorical subtype colours are theme tokens (src/index.css); both themes pass the CVD/contrast check.
+export const SUBTYPE_COLORS: Record<string, string> = Object.fromEntries(
+  ["LumA", "LumB", "Basal", "Her2", "Normal", "Unknown"].map((s) => [s, `var(--c-${s})`]),
+);
 
 export const fmt = (v: number | null | undefined, d = 2) => (v == null ? "—" : v.toFixed(d));

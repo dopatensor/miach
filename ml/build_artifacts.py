@@ -41,8 +41,9 @@ def _r(x, nd=4):
     return None if x is None or (isinstance(x, float) and np.isnan(x)) else round(float(x), nd)
 
 
-def _dump(path: Path, obj) -> None:
-    path.write_text(json.dumps(obj, indent=1, allow_nan=False) + "\n")
+def _dump(path: Path, obj, compact: bool = False) -> None:
+    kw = {"separators": (",", ":")} if compact else {"indent": 1}
+    path.write_text(json.dumps(obj, allow_nan=False, **kw) + "\n")
 
 
 def subtype_hazard(ds) -> list[float]:
@@ -163,15 +164,43 @@ def main(out: Path, n_boot: int) -> None:
     })
     print(panels[["k", "macro_f1", "balanced_acc", "c_index"]].round(3).to_string(index=False))
 
+    # --- Patients (locked test split only) --------------------------------
+    rppa, _ = data.load_raw()
+    top30 = ranking.head(30)
+    raw_missing = rppa.loc[te.ids].isna().to_numpy()
+    patients = []
+    for i, pid in enumerate(te.ids):
+        patients.append({
+            "id": pid,
+            "subtype": ds.classes[te.y[i]] if te.y[i] >= 0 else None,
+            "pfs_months": _r(te.pfs_time[i], 1),
+            "pfs_event": None if te.pfs_event[i] < 0 else int(te.pfs_event[i]),
+            "z": [_r(te.X[i, c], 3) for c in top30["col"]],
+            "missing": [p for p, c in zip(top30["protein"], top30["col"]) if raw_missing[i, c]],
+        })
+    _dump(out / "patients.json", {
+        "split": "test",
+        "classes": ds.classes,
+        "markers": top30["protein"].tolist(),
+        "patients": patients,
+        # predictions[k-1][i] = subtype probabilities of patient i from the top-k panel model
+        "predictions": [[[_r(v, 3) for v in row] for row in r.test_proba] for r in panels.itertuples()],
+        # calls[k-1][i] = predicted class index, taken before rounding so ties cannot flip it
+        "calls": [[int(row.argmax()) for row in r.test_proba] for r in panels.itertuples()],
+        "note": "Locked test patients only. Values are training-set z-scores; missing values were imputed "
+                "with the training median.",
+    }, compact=True)
+
     # --- 2-D map ----------------------------------------------------------
     pca = PCA(n_components=2, random_state=0).fit(ds.train.X)
     pts = []
     for name in ("train", "test"):
         s = splits[name]
         xy = pca.transform(s.X)
-        for (x, y), lab in zip(xy, s.y):
+        for (x, y), lab, pid in zip(xy, s.y, s.ids):
             pts.append({"x": _r(x, 3), "y": _r(y, 3),
-                        "subtype": ds.classes[lab] if lab >= 0 else "Unknown", "split": name})
+                        "subtype": ds.classes[lab] if lab >= 0 else "Unknown", "split": name,
+                        "id": pid if name == "test" else None})
     _dump(out / "latent.json", {
         "method": "PCA fitted on training patients (z-scored proteins)",
         "explained_variance": [_r(v) for v in pca.explained_variance_ratio_],

@@ -32,6 +32,8 @@ class Store:
         self.panels = load("panels.json")
         self.latent = load("latent.json")
         self.models = load("models.json")
+        self.patients = load("patients.json")
+        self.patient_index = {p["id"]: i for i, p in enumerate(self.patients["patients"])}
         with np.load(path / "arrays.npz") as z:
             self.arrays = {k: z[k] for k in z.files}
         self.model = joblib.load(path / "model.joblib")
