@@ -1,0 +1,20 @@
+{
+ "known": {
+  "ESR1": 2,
+  "PGR": 43,
+  "ERBB2": 23,
+  "GATA3": 1
+ },
+ "top10": [
+  "GATA3",
+  "ER-alpha",
+  "ASNS",
+  "Bcl-2",
+  "NDRG1_pT346",
+  "FoxM1",
+  "Rab11",
+  "PKC-pan_BetaII_pS660",
+  "EGFR",
+  "MSH6"
+ ]
+}

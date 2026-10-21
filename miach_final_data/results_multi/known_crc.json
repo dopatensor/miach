@@ -1,0 +1,19 @@
+{
+ "known": {
+  "MSH2": 182,
+  "MSH6": 142,
+  "MLH1": null
+ },
+ "top10": [
+  "Caspase-7_cleavedD198",
+  "Stathmin",
+  "Smad4",
+  "AMPK_pT172",
+  "IGFBP2",
+  "PRDX1",
+  "TFRC",
+  "c-Myc",
+  "ATM",
+  "CD20"
+ ]
+}

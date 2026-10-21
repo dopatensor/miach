@@ -1,0 +1,19 @@
+{
+ "known": {
+  "NKX2-1": 18,
+  "TP63": null,
+  "KRT5": null
+ },
+ "top10": [
+  "TIGAR",
+  "GAB2",
+  "Smad4",
+  "PR",
+  "mTOR",
+  "Caveolin-1",
+  "VHL",
+  "PI3K-p110-alpha",
+  "JNK_pT183_Y185",
+  "ETS-1"
+ ]
+}
