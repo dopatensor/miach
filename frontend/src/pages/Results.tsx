@@ -3,14 +3,14 @@ import { useAsync } from "../useAsync";
 import { ErrorNote, Section, Skeleton } from "../components/Card";
 import { Disclaimer } from "../components/Disclaimer";
 
-const OV_NOTE = "Survival only: no public subtype labels";
+export const OV_NOTE = "Survival only: no public subtype labels";
 
-function row(d: R, encoder: string, cancer: string, fraction: number): ResultRow | undefined {
+export function row(d: R, encoder: string, cancer: string, fraction: number): ResultRow | undefined {
   return d.rows.find((r) => r.encoder === encoder && r.cancer === cancer && r.fraction === fraction);
 }
 
 // Encoder with the highest value of `get` for one cancer (ties: first in file order).
-function best(d: R, cancer: string, get: (enc: string) => number | null | undefined): string | null {
+export function best(d: R, cancer: string, get: (enc: string) => number | null | undefined): string | null {
   let top: string | null = null, v = -Infinity;
   for (const e of d.encoders) {
     const x = get(e);
@@ -19,7 +19,7 @@ function best(d: R, cancer: string, get: (enc: string) => number | null | undefi
   return top;
 }
 
-function Cell({ main, sub, ci, isBest }: { main: string; sub?: string; ci?: string; isBest: boolean }) {
+export function Cell({ main, sub, ci, isBest }: { main: string; sub?: string; ci?: string; isBest: boolean }) {
   return (
     <td className={`py-1.5 pr-3 tabular-nums ${isBest ? "font-bold text-fg" : "text-mute"}`}>
       <span className={isBest ? "underline decoration-acc decoration-2 underline-offset-4" : ""}>{main}</span>
@@ -120,6 +120,12 @@ export function Results() {
       </header>
       {error ? <ErrorNote error={error} /> : !data ? <><Skeleton h="h-48" /><Skeleton h="h-48" /></> : (
         <>
+          <p className="max-w-3xl border-l-2 border-acc pl-3 text-[12px] text-mute">
+            <span className="text-fg">separate run.</span> These come from the four-cancer run (ml/run_multi.py): its own
+            patient-level split per cancer, deep encoders pretrained once on a pan-cancer pool that excludes all four
+            locked test sets, metrics averaged over label-subsampling seeds. The Designer's breast panel comes from the
+            original breast-only build, so breast numbers here differ slightly from the Designer and Evidence pages.
+          </p>
           <Section index={1} title="classification · macro-F1" id="cls-title" aside="locked test set · preliminary">
             <p className="mb-3 text-mute">100% of training labels, 10% in [brackets]. Higher is better.</p>
             <ClassificationTable d={data} />

@@ -254,3 +254,12 @@ class Results(RUO):
     encoders: list[str]
     rows: list[ResultRow]
     known: dict[str, KnownRanks]
+
+
+class CancerMarkers(RUO):
+    preliminary: Literal[True] = True
+    cancer: Cancer
+    method: str
+    markers: list[MarkerRow] = Field(description="Empty when the cancer has no classification labels (ovarian)")
+    known: KnownRanks | None
+    note: str | None

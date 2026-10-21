@@ -119,6 +119,15 @@ export interface Results {
   known: Record<string, { known: Record<string, number | null>; top10: string[] }>;
 }
 
+export interface CancerMarkers {
+  preliminary: true;
+  cancer: Cancer;
+  method: string;
+  markers: MarkerRow[];
+  known: { known: Record<string, number | null>; top10: string[] } | null;
+  note: string | null;
+}
+
 export const ENCODER_LABELS: Record<string, string> = {
   raw: "elastic net (raw proteins)", pca: "PCA", vae: "VAE", jepa: "pathway JEPA", recon: "reconstruction control",
 };
@@ -141,6 +150,7 @@ export const api = {
   latent: (disease = "brca") => get<Latent>(`/api/latent?disease=${disease}`),
   models: () => get<Models>("/api/models"),
   results: () => get<Results>("/api/results"),
+  cancerMarkers: (cancer: string) => get<CancerMarkers>(`/api/results/markers?cancer=${cancer}`),
   patients: (k: number, disease = "brca") => get<PatientList>(`/api/patients?disease=${disease}&k=${k}`),
   patient: (id: string, k: number, disease = "brca") =>
     get<PatientDetail>(`/api/patients/${encodeURIComponent(id)}?disease=${disease}&k=${k}`),

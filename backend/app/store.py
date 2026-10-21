@@ -40,6 +40,31 @@ def _num(v: str) -> float | None:
     return None if math.isnan(x) else x
 
 
+# run_multi.py ranks markers with --marker-boot (default 5); stability values are multiples of 1/5.
+MULTI_MARKER_BOOT = 5
+
+
+def load_multi_markers(path: Path = RESULTS_MULTI) -> dict:
+    """markers_<cancer>.csv -> ranking rows. Ovarian has no file (no subtype labels to rank against)."""
+    out = {}
+    for c in CANCERS:
+        f = path / f"markers_{c['id']}.csv"
+        if not f.exists():
+            continue
+        with open(f, newline="") as fh:
+            out[c["id"]] = [{
+                "rank": int(r["rank"]),
+                "protein": r["protein"].split("|")[-1],
+                "protein_id": r["protein"],
+                "gene": r["gene"],
+                "block": r["block"].replace("_", " "),
+                "importance": float(r["importance"]),
+                "importance_sd": float(r["importance_sd"]),
+                "stability": float(r["stability_top8"]),
+            } for r in csv.DictReader(fh)]
+    return out
+
+
 def load_results(path: Path = RESULTS_MULTI) -> dict:
     with open(path / "multi_metrics.csv", newline="") as f:
         rows = [{"encoder": r["encoder"], "cancer": r["cancer"], **{k: _num(r[k]) for k in RESULT_FIELDS}}
@@ -79,6 +104,7 @@ class Store:
         # Accept "ESR1|ER-alpha" style ids too.
         self.col_by_name.update({pid: i for i, pid in enumerate(self.meta["protein_ids"])})
         self.results = load_results()
+        self.multi_markers = load_multi_markers()
         self._refit = lru_cache(maxsize=256)(self._refit_uncached)
 
     def refit(self, cols: tuple[int, ...]) -> dict:

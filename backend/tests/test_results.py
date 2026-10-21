@@ -25,3 +25,19 @@ def test_ovarian_is_survival_only(client):
     assert ov["task"] is None
     assert all(r["macro_f1"] is None for r in body["rows"] if r["cancer"] == "ov")
     assert "ov" not in body["known"]
+
+
+def test_cancer_markers_match_csv(client):
+    for cancer in ("brca", "lung", "crc"):
+        body = client.get(f"/api/results/markers?cancer={cancer}").json()
+        with open(RESULTS_MULTI / f"markers_{cancer}.csv") as f:
+            first = next(csv.DictReader(f))
+        assert len(body["markers"]) == 198
+        assert body["markers"][0]["protein_id"] == first["protein"]
+        assert math.isclose(body["markers"][0]["importance"], float(first["importance"]))
+
+
+def test_ovarian_markers_empty_not_error(client):
+    body = client.get("/api/results/markers?cancer=ov").json()
+    assert body["markers"] == [] and body["known"] is None and "Survival only" in body["note"]
+    assert client.get("/api/results/markers?cancer=gbm").status_code == 404
