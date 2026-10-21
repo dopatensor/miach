@@ -6,6 +6,7 @@ const links = [
   ["/designer", "designer"],
   ["/patients", "patients"],
   ["/results", "results"],
+  ["/jepa", "jepa"],
   ["/evidence", "evidence"],
 ] as const;
 

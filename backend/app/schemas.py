@@ -246,6 +246,14 @@ class KnownRanks(BaseModel):
     top10: list[str]
 
 
+class EmbeddingHealth(BaseModel):
+    emb_std: float
+    rel_std: float
+    eff_rank: float
+    dim: int
+    collapsed: bool
+
+
 class Results(RUO):
     preliminary: Literal[True] = True
     test_set: str
@@ -254,6 +262,7 @@ class Results(RUO):
     encoders: list[str]
     rows: list[ResultRow]
     known: dict[str, KnownRanks]
+    health: dict[str, EmbeddingHealth] = Field(default_factory=dict, description="Per encoder, breast locked test set")
 
 
 class CancerMarkers(RUO):

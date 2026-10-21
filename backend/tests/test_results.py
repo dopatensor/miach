@@ -41,3 +41,9 @@ def test_ovarian_markers_empty_not_error(client):
     body = client.get("/api/results/markers?cancer=ov").json()
     assert body["markers"] == [] and body["known"] is None and "Survival only" in body["note"]
     assert client.get("/api/results/markers?cancer=gbm").status_code == 404
+
+
+def test_results_health(client):
+    h = client.get("/api/results").json()["health"]
+    assert set(h) == {"raw", "pca", "vae", "jepa", "recon"}
+    assert h["jepa"]["dim"] == 128

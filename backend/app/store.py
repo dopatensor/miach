@@ -78,6 +78,8 @@ def load_results(path: Path = RESULTS_MULTI) -> dict:
         "encoders": list(dict.fromkeys(r["encoder"] for r in rows)),
         "rows": rows,
         "known": known,
+        # Embedding health on the breast locked test set (ml/run_multi.py, E.collapse_stats).
+        "health": json.loads((path / "health.json").read_text())["health"] if (path / "health.json").exists() else {},
     }
 
 

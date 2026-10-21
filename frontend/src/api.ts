@@ -117,6 +117,7 @@ export interface Results {
   encoders: string[];
   rows: ResultRow[];
   known: Record<string, { known: Record<string, number | null>; top10: string[] }>;
+  health: Record<string, { emb_std: number; rel_std: number; eff_rank: number; dim: number; collapsed: boolean }>;
 }
 
 export interface CancerMarkers {
