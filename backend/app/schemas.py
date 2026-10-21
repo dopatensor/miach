@@ -219,3 +219,38 @@ class PatientDetail(PatientRow, RUO):
     probabilities: dict[str, float]
     markers: list[PatientMarker]
     note: str
+
+
+class ResultRow(BaseModel):
+    encoder: str
+    cancer: str
+    fraction: float
+    macro_f1: float | None
+    f1_lo: float | None
+    f1_hi: float | None
+    balanced_acc: float | None
+    c_index: float
+    c_lo: float
+    c_hi: float
+
+
+class Cancer(BaseModel):
+    id: str
+    name: str
+    task: str | None = Field(None, description="Classification task; None = survival only")
+    survival: str
+
+
+class KnownRanks(BaseModel):
+    known: dict[str, int | None] = Field(description="Gene -> rank of 198 (None = not measured / not ranked)")
+    top10: list[str]
+
+
+class Results(RUO):
+    preliminary: Literal[True] = True
+    test_set: str
+    source: str
+    cancers: list[Cancer]
+    encoders: list[str]
+    rows: list[ResultRow]
+    known: dict[str, KnownRanks]

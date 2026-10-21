@@ -5,6 +5,7 @@ import { Disclaimer } from "./Disclaimer";
 const links = [
   ["/designer", "designer"],
   ["/patients", "patients"],
+  ["/results", "results"],
   ["/evidence", "evidence"],
 ] as const;
 

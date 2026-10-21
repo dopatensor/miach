@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from .routers import dataset, markers, models, panel, patients, predict
+from .routers import dataset, markers, models, panel, patients, predict, results
 from .store import ROOT, get_store
 
 FRONTEND_DIST = Path(os.environ.get("MIACH_FRONTEND_DIST", ROOT / "frontend" / "dist"))
@@ -34,7 +34,7 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
-for r in (dataset.router, markers.router, panel.router, patients.router, models.router, predict.router):
+for r in (dataset.router, markers.router, panel.router, patients.router, models.router, predict.router, results.router):
     app.include_router(r)
 
 if FRONTEND_DIST.is_dir():
