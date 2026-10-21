@@ -5,6 +5,7 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY frontend/ ./
 COPY artifacts/ /app/artifacts/
+COPY ml/results_multi/ /app/ml/results_multi/
 RUN npm run build
 
 FROM python:3.12-slim

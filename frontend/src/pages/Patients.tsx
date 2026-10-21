@@ -44,7 +44,7 @@ export function Patients() {
         </div>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
         <Section index={1} title={`${rows.length} of ${list.data?.patients.length ?? 176} patients`} id="plist"
           aside={`${nMismatch} differ from pam50`} className="order-2 lg:order-1">
           <div className="mb-4 flex flex-wrap gap-3">

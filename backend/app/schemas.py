@@ -263,6 +263,8 @@ class Results(RUO):
     rows: list[ResultRow]
     known: dict[str, KnownRanks]
     health: dict[str, EmbeddingHealth] = Field(default_factory=dict, description="Per encoder, breast locked test set")
+    markers: list[MarkerRow] | None = Field(None, description="Only with ?cancer=: markers_<cancer>.csv ranking")
+    note: str | None = None
 
 
 class CancerMarkers(RUO):

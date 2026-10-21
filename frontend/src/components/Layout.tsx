@@ -8,6 +8,7 @@ const links = [
   ["/results", "results"],
   ["/jepa", "jepa"],
   ["/evidence", "evidence"],
+  ["/how", "how it works"],
 ] as const;
 
 export function Layout() {
@@ -20,9 +21,9 @@ export function Layout() {
       <header className="no-print border-b border-line">
         <nav className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3" aria-label="Main">
           <NavLink to="/" className="font-bold tracking-tight">miach</NavLink>
-          <ul className="flex flex-1 gap-4">
+          <ul className="flex min-w-0 flex-1 flex-wrap gap-x-4 gap-y-1">
             {links.map(([to, label]) => (
-              <li key={to}>
+              <li key={to} className="whitespace-nowrap">
                 <NavLink to={to}
                   className={({ isActive }) => (isActive ? "text-fg underline decoration-acc decoration-2 underline-offset-[6px]" : "text-mute hover:text-fg")}>
                   {label}

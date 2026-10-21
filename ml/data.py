@@ -1,121 +1,155 @@
-"""Download TCGA BRCA RPPA + clinical data and build patient-level splits.
+"""Download TCGA protein (RPPA) and clinical data, match patients, lock the splits.
 
-Missing values are imputed with the training-set median, then every protein is
-z-scored with training-set parameters only. Proteins entirely missing in the
-training set are imputed to 0 (the training mean after z-scoring).
+Everything downstream works on the same z-scored matrices produced here, with
+NaN kept for missing values so each encoder decides how to handle them.
 """
 from __future__ import annotations
 
+import pickle
+import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
-import config
+import config as C
 
 
+# ----------------------------------------------------------------- download
+def _download(study: str, fname: str) -> pd.DataFrame | None:
+    C.RAW_DIR.mkdir(parents=True, exist_ok=True)
+    path = C.RAW_DIR / f"{study}_{fname}"
+    if not path.exists():
+        url = f"{C.DATAHUB}/{study}_tcga_pan_can_atlas_2018/{fname}"
+        try:
+            print(f"  downloading {study}/{fname}")
+            urllib.request.urlretrieve(url, path)
+        except urllib.error.HTTPError as e:
+            print(f"  skip {study}/{fname}: HTTP {e.code}")
+            return None
+    return pd.read_csv(path, sep="\t", comment="#", low_memory=False)
+
+
+def load_rppa(study: str) -> pd.DataFrame | None:
+    """Return a samples x proteins frame indexed by patient ID (primary tumours only)."""
+    df = _download(study, "data_rppa.txt")
+    if df is None:
+        return None
+    df = df.set_index(df.columns[0]).T
+    df.index = df.index.astype(str)
+    df = df[df.index.str[13:15] == "01"]                  # primary tumour samples
+    df.index = df.index.str[:12]                           # sample -> patient ID
+    df = df[~df.index.duplicated(keep="first")]
+    return df.apply(pd.to_numeric, errors="coerce")
+
+
+def load_clinical(study: str) -> pd.DataFrame:
+    df = _download(study, "data_clinical_patient.txt").set_index("PATIENT_ID")
+    out = pd.DataFrame(index=df.index)
+    out["subtype"] = df["SUBTYPE"].str.replace(f"{study.upper()}_", "", regex=False)
+    status = df[C.SURVIVAL_STATUS_COL].astype(str)
+    out["event"] = np.where(status.str.startswith("1"), 1.0,
+                            np.where(status.str.startswith("0"), 0.0, np.nan))
+    out["time"] = pd.to_numeric(df[C.SURVIVAL_TIME_COL], errors="coerce")
+    return out
+
+
+# ----------------------------------------------------------------- dataset
 @dataclass
 class Split:
-    ids: list[str]
-    X: np.ndarray          # z-scored, imputed proteins (n x p)
-    y: np.ndarray          # class index, -1 where subtype unknown
-    pfs_time: np.ndarray   # months, NaN if unknown
-    pfs_event: np.ndarray  # 1 progression, 0 censored, -1 unknown
-
-    @property
-    def labelled(self) -> np.ndarray:
-        return self.y >= 0
+    X: np.ndarray            # z-scored, NaN = missing
+    subtype: np.ndarray      # object array of str or None
+    time: np.ndarray
+    event: np.ndarray
+    patients: np.ndarray
 
 
 @dataclass
 class Dataset:
     proteins: list[str]
-    genes: list[str]
-    classes: list[str]
+    X_pre: np.ndarray         # pan-cancer pretraining pool (BRCA test patients excluded)
+    pre_study: np.ndarray
     train: Split
     val: Split
     test: Split
-    mean: np.ndarray       # training-set z-score parameters (after imputation)
-    std: np.ndarray
-    median: np.ndarray     # training-set imputation values (raw scale)
-    missing_raw: pd.Series = field(repr=False)  # fraction missing per protein, all patients
-    source_url: str = ""
+    classes: list[str] = field(default_factory=list)
+
+    @property
+    def genes(self) -> list[str]:
+        return [p.split("|")[0] for p in self.proteins]
 
 
-def _download(name: str) -> str:
-    config.CACHE_DIR.mkdir(exist_ok=True)
-    path = config.CACHE_DIR / name
-    if not path.exists():
-        url = f"{config.DATAHUB}/{config.STUDY}/{name}"
-        print(f"downloading {url}")
-        urllib.request.urlretrieve(url, path)
-    return str(path)
+def build_dataset(studies: list[str] | None = None, use_cache: bool = True) -> Dataset:
+    studies = studies or C.PANCAN_STUDIES
+    C.CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache = C.CACHE_DIR / f"dataset_{len(studies)}studies.pkl"
+    if use_cache and cache.exists():
+        return pickle.loads(cache.read_bytes())
 
+    print("Loading breast cancer data")
+    brca = load_rppa(C.TARGET_STUDY)
+    proteins = list(brca.columns)
+    clin = load_clinical(C.TARGET_STUDY).reindex(brca.index)
 
-def load_raw() -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Returns (rppa: patients x proteins, clinical indexed by patient)."""
-    rppa = pd.read_csv(_download("data_rppa.txt"), sep="\t", index_col=0).T
-    rppa.index = [s[:12] for s in rppa.index]
-    rppa = rppa[~rppa.index.duplicated()]
-    clin = pd.read_csv(_download("data_clinical_patient.txt"), sep="\t", comment="#")
-    clin = clin.set_index("PATIENT_ID").reindex(rppa.index)
-    return rppa, clin
+    # Locked, stratified, patient-level test split. Unlabelled patients form their own stratum.
+    strata = clin["subtype"].fillna("unlabelled").values
+    idx = np.arange(len(brca))
+    tr_idx, te_idx = train_test_split(idx, test_size=C.TEST_FRACTION,
+                                      random_state=C.SPLIT_SEED, stratify=strata)
+    tr_idx, va_idx = train_test_split(tr_idx, test_size=C.VAL_FRACTION,
+                                      random_state=C.SPLIT_SEED, stratify=strata[tr_idx])
+    test_patients = set(brca.index[te_idx])
 
+    print("Loading pan-cancer pretraining pool")
+    frames, labels = [], []
+    for s in studies:
+        df = brca if s == C.TARGET_STUDY else load_rppa(s)
+        if df is None:
+            continue
+        df = df.reindex(columns=proteins)               # BRCA panel; absent proteins -> NaN
+        df = df[~df.index.isin(test_patients)]          # never pretrain on test patients
+        frames.append(df)
+        labels += [s] * len(df)
+    pre = pd.concat(frames)
 
-def _split_ids(ids: list[str]) -> tuple[list[str], list[str], list[str]]:
-    rng = np.random.default_rng(config.SEED)
-    perm = list(rng.permutation(sorted(ids)))
-    test = perm[: config.N_TEST]
-    val = perm[config.N_TEST : config.N_TEST + config.N_VAL]
-    train = perm[config.N_TEST + config.N_VAL :]
-    return train, val, test
+    # z-score with statistics from the pretraining pool only (test excluded).
+    mu, sd = pre.mean(), pre.std().replace(0, 1.0)
+    z = lambda d: ((d - mu) / sd).to_numpy(dtype=np.float32)
 
+    def make(ix):
+        d = brca.iloc[ix]
+        c = clin.iloc[ix]
+        sub = c["subtype"].astype(object).where(c["subtype"].notna(), None).to_numpy()
+        return Split(z(d), sub, c["time"].to_numpy(), c["event"].to_numpy(), d.index.to_numpy())
 
-def build_dataset() -> Dataset:
-    rppa, clin = load_raw()
-    proteins = list(rppa.columns)
-    genes = [p.split("|")[0] for p in proteins]
-
-    subtype = clin["SUBTYPE"].str.replace("BRCA_", "", regex=False)
-    y_all = subtype.map({c: i for i, c in enumerate(config.CLASSES)}).fillna(-1).astype(int)
-    pfs_time = pd.to_numeric(clin["PFS_MONTHS"], errors="coerce")
-    pfs_event = clin["PFS_STATUS"].map(lambda s: int(str(s)[0]) if isinstance(s, str) else -1)
-
-    train_ids, val_ids, test_ids = _split_ids(list(rppa.index))
-    raw_train = rppa.loc[train_ids]
-    median = raw_train.median().fillna(0.0).to_numpy()
-    imputed_train = raw_train.fillna(pd.Series(median, index=proteins))
-    mean = imputed_train.mean().to_numpy()
-    std = imputed_train.std(ddof=0).replace(0, 1.0).fillna(1.0).to_numpy()
-
-    def make(ids: list[str]) -> Split:
-        raw = rppa.loc[ids].to_numpy(dtype=float)
-        X = transform(raw, median, mean, std)
-        return Split(
-            ids=ids,
-            X=X,
-            y=y_all.loc[ids].to_numpy(),
-            pfs_time=pfs_time.loc[ids].to_numpy(dtype=float),
-            pfs_event=pfs_event.loc[ids].to_numpy(dtype=int),
-        )
-
-    return Dataset(
+    ds = Dataset(
         proteins=proteins,
-        genes=genes,
-        classes=list(config.CLASSES),
-        train=make(train_ids),
-        val=make(val_ids),
-        test=make(test_ids),
-        mean=mean,
-        std=std,
-        median=median,
-        missing_raw=rppa.isna().mean(),
-        source_url=f"{config.DATAHUB}/{config.STUDY}",
+        X_pre=z(pre),
+        pre_study=np.array(labels),
+        train=make(tr_idx), val=make(va_idx), test=make(te_idx),
+        classes=sorted(clin["subtype"].dropna().unique()),
     )
+    cache.write_bytes(pickle.dumps(ds))
+    return ds
 
 
-def transform(raw: np.ndarray, median: np.ndarray, mean: np.ndarray, std: np.ndarray) -> np.ndarray:
-    """Impute with training medians, then z-score with training parameters."""
-    raw = np.where(np.isnan(raw), median, raw)
-    return (raw - mean) / std
+def describe(ds: Dataset) -> str:
+    lines = [
+        f"Proteins: {len(ds.proteins)}",
+        f"Pretraining pool: {len(ds.X_pre)} tumours from {len(set(ds.pre_study))} cancer types "
+        f"({np.isnan(ds.X_pre).mean():.1%} missing)",
+    ]
+    for name in ("train", "val", "test"):
+        s = getattr(ds, name)
+        lab = pd.Series([x for x in s.subtype if x is not None]).value_counts().to_dict()
+        surv = np.isfinite(s.time) & np.isfinite(s.event)
+        lines.append(f"BRCA {name}: {len(s.X)} patients, subtypes {lab}, "
+                     f"survival {surv.sum()} ({np.nansum(s.event[surv]):.0f} events)")
+    return "\n".join(lines)
+
+
+if __name__ == "__main__":
+    import data  # import by module name so the cache pickles `data.Dataset`, not `__main__.Dataset`
+    print(data.describe(data.build_dataset()))

@@ -19,11 +19,11 @@ import joblib
 import numpy as np
 from sklearn.decomposition import PCA
 
-import data
-from encoders import get_encoder
+import build_data as data
+from encoders.raw import RawElasticNet
 from miach_panel import c_index, classification_metrics
-from panel import evaluate_panels, known_marker_ranks, rank_markers
-from pathways import block_of, split_id
+from build_panel import evaluate_panels, known_marker_ranks, rank_markers
+from build_pathways import block_of, split_id
 
 # Six-model comparison measured by the omics_mvp research pipeline (locked test, n = 176).
 # Deep models are not rebuilt here; they are a research track shown on the Evidence page only.
@@ -110,7 +110,7 @@ def main(out: Path, n_boot: int) -> None:
 
     # --- Production model (elastic net on all proteins) -------------------
     print("fitting elastic net ...")
-    enc = get_encoder("raw").fit(ds)
+    enc = RawElasticNet().fit(ds)
     te = ds.test
     proba = enc.predict_proba(te.X[te.labelled])
     full = classification_metrics(te.y[te.labelled], proba, len(ds.classes))

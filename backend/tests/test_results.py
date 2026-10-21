@@ -1,6 +1,8 @@
 import csv
 import math
 
+import pytest
+
 from app.store import RESULTS_MULTI
 
 
@@ -47,3 +49,37 @@ def test_results_health(client):
     h = client.get("/api/results").json()["health"]
     assert set(h) == {"raw", "pca", "vae", "jepa", "recon"}
     assert h["jepa"]["dim"] == 128
+
+
+@pytest.mark.parametrize("cancer", ["brca", "lung", "crc", "ov"])
+def test_results_per_cancer(client, cancer):
+    r = client.get(f"/api/results?cancer={cancer}")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["research_use_only"] is True
+    assert [c["id"] for c in body["cancers"]] == [cancer]
+    assert body["rows"] and all(x["cancer"] == cancer for x in body["rows"])
+    with open(RESULTS_MULTI / "multi_metrics.csv") as f:
+        assert len(body["rows"]) == sum(r["cancer"] == cancer for r in csv.DictReader(f))
+    if cancer == "ov":
+        assert body["markers"] == [] and "Survival only" in body["note"]
+        assert all(x["macro_f1"] is None for x in body["rows"])   # no classification rows
+        assert body["known"] == {}
+    else:
+        assert len(body["markers"]) == 198 and body["note"] is None
+        assert all(x["macro_f1"] is not None for x in body["rows"])
+
+
+def test_results_unknown_cancer_is_404(client):
+    assert client.get("/api/results?cancer=gbm").status_code == 404
+
+
+def test_backend_never_imports_torch_or_encoders():
+    # Fresh interpreter: start the app (loads model.joblib with ml/ on sys.path) and check modules.
+    import subprocess
+    import sys
+    code = ("from fastapi.testclient import TestClient; from app.main import app; import sys\n"
+            "with TestClient(app) as c: c.get('/api/results'); c.get('/api/panel?k=8'); c.post('/api/panel/custom', json={'markers': ['GATA3']})\n"
+            "bad = [m for m in sys.modules if m == 'torch' or m.startswith('torch.') or m == 'encoders' or m.startswith('encoders.')]\n"
+            "assert not bad, bad")
+    subprocess.run([sys.executable, "-c", code], check=True, cwd=str(RESULTS_MULTI.parents[1] / "backend"))

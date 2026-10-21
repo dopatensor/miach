@@ -8,7 +8,7 @@ const BOTTLENECKS: [string, string, string][] = [
   ["Small data favours simple models", "~600 labelled training tumours; the elastic net beat every deep encoder.", "Elastic net in production; deep models stay a research track."],
   ["Protein-only ceiling", "PAM50 is defined from RNA; 198 proteins cannot fully reproduce an RNA label.", "RNA and multi-omics fusion are in development, not in the live engine."],
   ["Survival underpowered", "Only 23 progression events in the locked test set.", "C-index shown for reference; survival-specific ranking not built yet."],
-  ["JEPA shortcut / dimensional collapse", "The pathway JEPA learned a low-rank shortcut and under-performed (0.39 at 10% labels).", "Kept off the product flow."],
+  ["JEPA shortcut / dimensional collapse", "The pathway JEPA learned a low-rank shortcut and under-performed (0.39 at 10% labels, original breast-only run).", "Kept off the product flow."],
   ["Correlated markers share credit", "PR ranks low because ER-alpha carries much of the same signal.", "Stability and the known-driver check are shown with every ranking."],
   ["Pretrained-model leakage & licences", "Foundation models may have seen TCGA, and some licences forbid commercial use.", "No pretrained model in production until checked."],
 ];
