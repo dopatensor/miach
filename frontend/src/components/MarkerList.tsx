@@ -1,13 +1,15 @@
 import type { MarkerRow } from "../api";
 import { ErrorNote, Section, Skeleton } from "./Card";
 
-export function MarkerList({ markers, k, note, error }: {
+export function MarkerList({ markers, k, note, error, aside, footnote }: {
   markers: MarkerRow[] | null; k: number; note?: string; error?: string | null;
+  /** Overrides for a ranking with no panel (k = 0): header aside and the stability footnote. */
+  aside?: string; footnote?: string;
 }) {
   const shown = markers?.slice(0, Math.max(k + 3, 10)) ?? [];
   const max = markers ? Math.max(...markers.map((m) => m.importance)) : 1;
   return (
-    <Section index={2} title="ranked markers" id="markers-title" aside={`top ${k} in panel`}>
+    <Section index={2} title="ranked markers" id="markers-title" aside={aside ?? `top ${k} in panel`}>
       {error ? <ErrorNote error={error} /> : !markers ? <Skeleton h="h-64" /> : (
         <>
           <table className="w-full">
@@ -23,7 +25,7 @@ export function MarkerList({ markers, k, note, error }: {
             </thead>
             <tbody>
               {shown.map((m) => {
-                const inPanel = m.rank <= k;
+                const inPanel = k > 0 && m.rank <= k;
                 return (
                   <tr key={m.protein} className={`border-t border-line ${inPanel ? "" : "text-mute"}`}>
                     <td className="py-1.5 tabular-nums">{m.rank}</td>
@@ -40,7 +42,7 @@ export function MarkerList({ markers, k, note, error }: {
               })}
             </tbody>
           </table>
-          <p className="mt-3 text-[11px] text-mute">stability = share of 20 bootstrap refits with the protein in the top 8. {note}</p>
+          <p className="mt-3 text-[11px] text-mute">{footnote ?? "stability = share of 20 bootstrap refits with the protein in the top 8."} {note}</p>
         </>
       )}
     </Section>

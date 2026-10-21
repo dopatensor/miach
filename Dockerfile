@@ -14,6 +14,7 @@ COPY backend/requirements.txt backend/requirements.txt
 RUN pip install --no-cache-dir -r backend/requirements.txt
 COPY backend/app backend/app
 COPY ml/miach_panel.py ml/miach_panel.py
+COPY ml/results_multi/ ml/results_multi/
 COPY artifacts/ artifacts/
 COPY --from=web /app/frontend/dist frontend/dist
 WORKDIR /app/backend

@@ -7,6 +7,22 @@ import patientsArt from "../../artifacts/patients.json";
 import panels from "../../artifacts/panels.json";
 import markers from "../../artifacts/markers.json";
 import qc from "../../artifacts/qc.json";
+import metricsCsv from "../../ml/results_multi/multi_metrics.csv?raw";
+import lungCsv from "../../ml/results_multi/markers_lung.csv?raw";
+import knownLung from "../../ml/results_multi/known_lung.json";
+
+function parseCsv(text: string) {
+  const [head, ...lines] = text.trim().split("\n");
+  const keys = head.split(",");
+  return lines.map((l) => Object.fromEntries(l.split(",").map((v, i) => [keys[i], v])));
+}
+const num = (v: string) => (v === "" ? null : Number(v));
+const CANCERS = [
+  { id: "brca", name: "Breast", task: "PAM50 subtype (5 classes)", survival: "PFS" },
+  { id: "lung", name: "Lung", task: "Adenocarcinoma vs squamous (2 classes)", survival: "OS" },
+  { id: "crc", name: "Colorectal", task: "Molecular subtype CIN/GS/MSI/POLE (4 classes)", survival: "PFS" },
+  { id: "ov", name: "Ovarian", task: null, survival: "OS" },
+];
 
 // The API is mocked with the real build artifacts (same data the backend serves).
 function mockFetch(url: string) {
@@ -37,7 +53,17 @@ function mockFetch(url: string) {
     };
   } else if (u.pathname === "/api/markers") body = { ...markers, note: "" };
   else if (u.pathname === "/api/dataset/qc") body = qc;
-  else if (u.pathname === "/api/diseases") body = { diseases: [{ id: "brca", name: "Breast cancer", enabled: true }] };
+  else if (u.pathname === "/api/results") {
+    const rows = parseCsv(metricsCsv).map((r) => ({ ...Object.fromEntries(Object.entries(r).map(([k, v]) => [k, num(v)])), encoder: r.encoder, cancer: r.cancer }));
+    body = { cancers: CANCERS, encoders: [...new Set(rows.map((r) => r.encoder))], rows, known: { lung: knownLung }, test_set: "locked", source: "", preliminary: true };
+  } else if (u.pathname === "/api/results/markers") {
+    const c = u.searchParams.get("cancer");
+    const markers = c === "lung" ? parseCsv(lungCsv).map((r) => ({
+      rank: Number(r.rank), protein: r.protein.split("|")[1], protein_id: r.protein, gene: r.gene, block: r.block,
+      importance: Number(r.importance), importance_sd: Number(r.importance_sd), stability: Number(r.stability_top8),
+    })) : [];
+    body = { cancer: CANCERS.find((x) => x.id === c), method: "elastic net", markers, known: c === "lung" ? knownLung : null, note: null };
+  } else if (u.pathname === "/api/diseases") body = { diseases: [{ id: "brca", name: "Breast cancer", enabled: true }] };
   else return Promise.resolve(new Response("not found", { status: 404 }));
   return Promise.resolve(new Response(JSON.stringify(body), { status: 200 }));
 }
@@ -77,4 +103,21 @@ test("patients page lists only the 176 locked test patients and filters mismatch
     p.subtype != null && p.subtype !== patientsArt.classes[patientsArt.calls[7][i]]).length;
   fireEvent.click(screen.getByLabelText("mismatches only"));
   expect(await screen.findByRole("heading", { name: `${nMismatch} of 176 patients` })).toBeInTheDocument();
+});
+
+test("cancer selector: lung shows precomputed results and ranking, no fake panel", async () => {
+  render(<AppStateProvider><MemoryRouter><Designer /></MemoryRouter></AppStateProvider>);
+  await screen.findByRole("option", { name: /lung · results only/ });
+  fireEvent.change(screen.getByLabelText("disease"), { target: { value: "lung" } });
+  expect(await screen.findByText(/No panel computed for lung yet/)).toBeInTheDocument();
+  expect(screen.queryByLabelText("marker budget")).toBeNull();
+  expect(screen.queryByRole("heading", { name: /candidate panel/ })).toBeNull();
+  expect(await screen.findByText(parseCsv(lungCsv)[0].protein.split("|")[1])).toBeInTheDocument();
+
+  fireEvent.change(screen.getByLabelText("disease"), { target: { value: "ov" } });
+  expect(await screen.findByText(/No panel computed for ovarian yet/)).toBeInTheDocument();
+  expect(screen.queryByRole("table", { name: /marker ranking/i })).toBeNull();
+
+  fireEvent.change(screen.getByLabelText("disease"), { target: { value: "brca" } });
+  expect(await screen.findByRole("heading", { name: /candidate panel · 8 markers/ })).toBeInTheDocument();
 });

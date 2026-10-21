@@ -103,6 +103,36 @@ export interface PatientDetail extends PatientRow {
   note: string;
 }
 
+export interface ResultRow {
+  encoder: string; cancer: string; fraction: number;
+  macro_f1: number | null; f1_lo: number | null; f1_hi: number | null; balanced_acc: number | null;
+  c_index: number; c_lo: number; c_hi: number;
+}
+export interface Cancer { id: string; name: string; task: string | null; survival: string }
+export interface Results {
+  preliminary: true;
+  test_set: string;
+  source: string;
+  cancers: Cancer[];
+  encoders: string[];
+  rows: ResultRow[];
+  known: Record<string, { known: Record<string, number | null>; top10: string[] }>;
+  health: Record<string, { emb_std: number; rel_std: number; eff_rank: number; dim: number; collapsed: boolean }>;
+}
+
+export interface CancerMarkers {
+  preliminary: true;
+  cancer: Cancer;
+  method: string;
+  markers: MarkerRow[];
+  known: { known: Record<string, number | null>; top10: string[] } | null;
+  note: string | null;
+}
+
+export const ENCODER_LABELS: Record<string, string> = {
+  raw: "elastic net (raw proteins)", pca: "PCA", vae: "VAE", jepa: "pathway JEPA", recon: "reconstruction control",
+};
+
 export interface Health { status: string; artifacts_built_at: string }
 
 async function get<T>(path: string): Promise<T> {
@@ -120,6 +150,8 @@ export const api = {
     get<Panel>(`/api/panel?disease=${disease}&goal=${goal}&k=${k}`),
   latent: (disease = "brca") => get<Latent>(`/api/latent?disease=${disease}`),
   models: () => get<Models>("/api/models"),
+  results: () => get<Results>("/api/results"),
+  cancerMarkers: (cancer: string) => get<CancerMarkers>(`/api/results/markers?cancer=${cancer}`),
   patients: (k: number, disease = "brca") => get<PatientList>(`/api/patients?disease=${disease}&k=${k}`),
   patient: (id: string, k: number, disease = "brca") =>
     get<PatientDetail>(`/api/patients/${encodeURIComponent(id)}?disease=${disease}&k=${k}`),

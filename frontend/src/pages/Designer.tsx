@@ -8,6 +8,7 @@ import { LatentMap } from "../components/LatentMap";
 import { MarkerList } from "../components/MarkerList";
 import { PanelCard } from "../components/PanelCard";
 import { Disclaimer } from "../components/Disclaimer";
+import { CancerResults } from "../components/CancerResults";
 
 const K_MAX = 30;
 const TABS = ["map", "qc", "method"] as const;
@@ -21,7 +22,8 @@ export function Designer() {
   const [panels, setPanels] = useState<Record<number, Panel>>({});
   const [panelError, setPanelError] = useState<string | null>(null);
 
-  const diseases = useAsync(() => api.diseases());
+  const [cancer, setCancer] = useState("brca");
+  const results = useAsync(() => api.results());
   const qc = useAsync(() => api.qc());
   const markers = useAsync(() => api.markers());
   const latent = useAsync(() => api.latent());
@@ -49,12 +51,13 @@ export function Designer() {
         <h1 className="sr-only">Design a panel</h1>
         <div>
           <label htmlFor="disease" className="label block">disease</label>
-          <select id="disease" defaultValue="brca" className="mt-1 border border-line bg-bg px-2 py-1">
-            {(diseases.data ?? [{ id: "brca", name: "Breast cancer", enabled: true }]).map((d) => (
-              <option key={d.id} value={d.id} disabled={!d.enabled}>{d.name.toLowerCase()}{d.enabled ? "" : " (soon)"}</option>
+          <select id="disease" value={cancer} onChange={(e) => setCancer(e.target.value)} className="mt-1 border border-line bg-bg px-2 py-1">
+            {(results.data?.cancers ?? [{ id: "brca", name: "Breast" }]).map((c) => (
+              <option key={c.id} value={c.id}>{c.name.toLowerCase()}{c.id === "brca" ? " · live panel" : " · results only"}</option>
             ))}
           </select>
         </div>
+        {cancer === "brca" && <>
         <Segmented label="goal" value={goal} options={["subtype", "survival"]} onChange={(v) => setGoal(v as Goal)} />
         <div className="min-w-[220px] flex-1">
           <div className="flex items-baseline justify-between">
@@ -81,7 +84,10 @@ export function Designer() {
           </div>
         </details>
         <button type="button" className="btn-acc" onClick={() => window.print()} disabled={!panel}>export</button>
+        </>}
       </div>
+
+      {cancer !== "brca" ? <CancerResults cancer={cancer} results={results.data} /> : <>
 
       <div className="print-only">
         <h1 className="text-lg font-bold">miach · candidate panel report</h1>
@@ -122,6 +128,7 @@ export function Designer() {
         <QcCard qc={qc.data} />
         <p className="text-[11px]">method: {markers.data?.method}. {panel?.method}.</p>
       </div>
+      </>}
     </div>
   );
 }

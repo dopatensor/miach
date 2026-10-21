@@ -10,6 +10,9 @@ GETS = [
     ("/api/panel?disease=brca&goal=subtype&k=8", schemas.Panel),
     ("/api/latent?disease=brca", schemas.Latent),
     ("/api/models", schemas.Models),
+    ("/api/results", schemas.Results),
+    ("/api/results/markers?cancer=lung", schemas.CancerMarkers),
+    ("/api/results/markers?cancer=ov", schemas.CancerMarkers),
 ]
 
 
