@@ -9,3 +9,7 @@ ml/.cache/
 # Research outputs and downloaded data (never commit data)
 ml/data/
 ml/results/
+
+# Pen-drive bundle (make_usb_bundle.py)
+miach-usb/
+miach-usb.zip
