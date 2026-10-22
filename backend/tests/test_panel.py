@@ -52,3 +52,35 @@ def test_custom_rejects_unknown_and_too_many(client):
 
 def test_disabled_disease_404(client):
     assert client.get("/api/panel", params={"disease": "luad"}).status_code == 404
+
+
+import json
+import pathlib
+
+import pytest
+
+ART = pathlib.Path(__file__).resolve().parents[2] / "artifacts"
+
+
+@pytest.mark.parametrize("disease", ["lung", "crc"])
+@pytest.mark.parametrize("k", [1, 8, 20, 30])
+def test_multi_panel_matches_artifact(client, disease, k):
+    art = json.loads((ART / f"panels_{disease}.json").read_text())
+    row = next(p for p in art["panels"] if p["k"] == k)
+    body = client.get(f"/api/panel?disease={disease}&k={k}").json()
+    assert body["research_use_only"] is True and body["disease"] == disease
+    assert body["markers"] == row["markers"] and body["metrics"] == row["metrics"]
+    assert body["test_n"] == art["test_n"] and body["full_model"] == art["full_model"]
+    assert body["marker_details"][0]["rank"] == 1
+
+
+def test_multi_panel_survival_note_and_breast_unchanged(client):
+    s = client.get("/api/panel?disease=lung&goal=survival&k=8").json()
+    assert "not built yet" in s["note"] and s["survival_endpoint"] == "OS"
+    b = client.get("/api/panel?k=8").json()
+    assert b["label_name"] == "PAM50 call" and b["survival_endpoint"] == "PFS" and b["test_n"] == 176
+
+
+def test_no_panel_for_ovarian_or_unknown(client):
+    assert client.get("/api/panel?disease=ov&k=8").status_code == 404
+    assert client.get("/api/panel?disease=gbm&k=8").status_code == 404

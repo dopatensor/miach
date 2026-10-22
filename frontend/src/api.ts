@@ -72,7 +72,13 @@ export interface Panel {
   c_index_note: string;
   note: string | null;
   custom: boolean;
+  label_name: string;         // breast: "PAM50 call"
+  survival_endpoint: string;  // "PFS" | "OS"
+  event_word: string;         // "progression" | "death"
 }
+
+/** Cancers with precomputed panels k = 1..30 (breast build + ml/build_multi_panels.py). Ovarian has none. */
+export const PANEL_CANCERS = ["brca", "lung", "crc"];
 
 export interface LatentPoint { x: number; y: number; subtype: string; split: "train" | "test"; id: string | null }
 export interface Latent { method: string; explained_variance: number[]; points: LatentPoint[] }

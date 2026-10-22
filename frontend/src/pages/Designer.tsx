@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Goal, Panel } from "../api";
-import { api } from "../api";
+import { api, PANEL_CANCERS } from "../api";
 import { useAsync } from "../useAsync";
 import { useAppState } from "../state";
 import { QcCard } from "../components/QcCard";
@@ -23,21 +23,26 @@ export function Designer() {
   const [panelError, setPanelError] = useState<string | null>(null);
 
   const [cancer, setCancer] = useState("brca");
+  const live = PANEL_CANCERS.includes(cancer);
   const results = useAsync(() => api.results());
+  // Lung / colorectal ranking comes from the four-cancer run (markers_<cancer>.csv); breast keeps its own build.
+  const multiMarkers = useAsync(() => (cancer === "brca" || !live ? Promise.resolve(null) : api.cancerMarkers(cancer)), [cancer]);
+  const cancerName = results.data?.cancers.find((c) => c.id === cancer)?.name.toLowerCase() ?? cancer;
   const qc = useAsync(() => api.qc());
   const markers = useAsync(() => api.markers());
   const latent = useAsync(() => api.latent());
 
   // Precomputed panels for every k, fetched once so the slider is instant.
   useEffect(() => {
-    let live = true;
+    let active = true;
     setPanels({});
     setPanelError(null);
-    Promise.all(Array.from({ length: K_MAX }, (_, i) => api.panel(i + 1, goal)))
-      .then((ps) => live && setPanels(Object.fromEntries(ps.map((p) => [p.k, p]))))
-      .catch((e) => live && setPanelError(String(e)));
-    return () => { live = false; };
-  }, [goal]);
+    if (!PANEL_CANCERS.includes(cancer)) return;
+    Promise.all(Array.from({ length: K_MAX }, (_, i) => api.panel(i + 1, goal, cancer)))
+      .then((ps) => active && setPanels(Object.fromEntries(ps.map((p) => [p.k, p]))))
+      .catch((e) => active && setPanelError(String(e)));
+    return () => { active = false; };
+  }, [goal, cancer]);
 
   const panel = panels[k] ?? null;
   const costNum = useMemo(() => {
@@ -53,11 +58,11 @@ export function Designer() {
           <label htmlFor="disease" className="label block">disease</label>
           <select id="disease" value={cancer} onChange={(e) => setCancer(e.target.value)} className="mt-1 border border-line bg-bg px-2 py-1">
             {(results.data?.cancers ?? [{ id: "brca", name: "Breast" }]).map((c) => (
-              <option key={c.id} value={c.id}>{c.name.toLowerCase()}{c.id === "brca" ? " · live panel" : " · results only"}</option>
+              <option key={c.id} value={c.id}>{c.name.toLowerCase()}{PANEL_CANCERS.includes(c.id) ? " · live panel" : " · results only"}</option>
             ))}
           </select>
         </div>
-        {cancer === "brca" && <>
+        {live && <>
         <Segmented label="goal" value={goal} options={["subtype", "survival"]} onChange={(v) => setGoal(v as Goal)} />
         <div className="min-w-[220px] flex-1">
           <div className="flex items-baseline justify-between">
@@ -87,20 +92,24 @@ export function Designer() {
         </>}
       </div>
 
-      {cancer !== "brca" ? <CancerResults cancer={cancer} results={results.data} /> : <>
+      {!live ? <CancerResults cancer={cancer} results={results.data} /> : <>
 
       <div className="print-only">
         <h1 className="text-lg font-bold">miach · candidate panel report</h1>
-        <p>{new Date().toISOString().slice(0, 10)} · breast cancer (TCGA BRCA, RPPA) · goal {goal} · assay {assay} · {k} markers</p>
+        <p>{new Date().toISOString().slice(0, 10)} · {cancer === "brca" ? "breast cancer (TCGA BRCA, RPPA)" : `${cancerName} cancer (TCGA, RPPA; four-cancer split)`} · goal {goal} · assay {assay} · {k} markers</p>
         <Disclaimer />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] print:block print:space-y-4">
         <PanelCard panel={panel} error={panelError} costPerMarker={costNum} onPickK={setK}
           curve={Object.values(panels).sort((a, b) => a.k - b.k).map((p) => ({ k: p.k, f1: p.metrics.macro_f1 }))} />
-        <MarkerList markers={markers.data?.markers ?? null} k={k} note={markers.data?.note} error={markers.error} />
+        {cancer === "brca"
+          ? <MarkerList markers={markers.data?.markers ?? null} k={k} note={markers.data?.note} error={markers.error} />
+          : <MarkerList markers={multiMarkers.data?.markers ?? null} k={k} error={multiMarkers.error}
+              footnote={multiMarkers.data ? `${multiMarkers.data.method}.` : undefined} />}
       </div>
 
+      {cancer !== "brca" ? <div className="no-print"><CancerResults cancer={cancer} results={results.data} panelLive /></div> : <>
       <section className="section no-print" aria-label="Cohort">
         <div role="tablist" aria-label="Cohort views" className="mb-4 flex gap-5">
           <span className="label text-fg" aria-hidden="true">03</span>
@@ -128,6 +137,10 @@ export function Designer() {
         <QcCard qc={qc.data} />
         <p className="text-[11px]">method: {markers.data?.method}. {panel?.method}.</p>
       </div>
+      </>}
+      {cancer !== "brca" && (
+        <p className="print-only text-[11px]">method: {multiMarkers.data?.method}. {panel?.method}.</p>
+      )}
       </>}
     </div>
   );

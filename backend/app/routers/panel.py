@@ -30,13 +30,37 @@ def _response(store: Store, goal: str, markers: list[str], metrics: dict, custom
     }
 
 
+def _multi_response(store: Store, disease: str, goal: str, k: int) -> dict:
+    """Precomputed lung / colorectal panel (ml/build_multi_panels.py, four-cancer split)."""
+    p = store.multi_panels[disease]
+    row = p["panel_by_k"][k]
+    ranking = {m["protein"]: m for m in store.multi_markers.get(disease, [])}
+    details = [{"protein": n, "gene": ranking[n]["gene"] if n in ranking else "",
+                "block": ranking[n]["block"] if n in ranking else "other",
+                "rank": ranking[n]["rank"] if n in ranking else None} for n in row["markers"]]
+    return {
+        "disease": disease, "goal": goal, "k": k, "markers": row["markers"], "marker_details": details,
+        "metrics": row["metrics"], "full_model": p["full_model"], "test_n": p["test_n"],
+        "test_labelled": p["test_labelled"], "test_events": p["test_events"], "method": p["panel_model"],
+        "c_index_note": p["c_index_note"],
+        "note": (f"Survival-specific marker ranking is not built yet. This is the {p['label_name'].split()[0]}-ranked "
+                 f"panel; its C-index ({p['test_events']} {p['event_word']} events in the test set) is shown for "
+                 f"reference.") if goal == "survival" else None,
+        "custom": False, "label_name": p["label_name"], "survival_endpoint": p["survival_endpoint"],
+        "event_word": p["event_word"],
+    }
+
+
 @router.get("/panel", response_model=Panel)
 def panel(
-    disease: str = Depends(check_disease),
+    disease: str = "brca",
     goal: Literal["subtype", "survival"] = "subtype",
     k: int = Query(8, ge=1, le=30),
     store: Store = Depends(get_store),
 ):
+    if disease in store.multi_panels:
+        return _multi_response(store, disease, goal, k)
+    check_disease(disease)
     row = store.panel_by_k[k]
     return _response(store, goal, row["markers"], row["metrics"], custom=False)
 

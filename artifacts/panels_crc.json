@@ -1,0 +1,830 @@
+{
+ "disease": "crc",
+ "goal": "subtype",
+ "task": "Molecular subtype CIN/GS/MSI/POLE (4 classes)",
+ "classes": [
+  "CIN",
+  "GS",
+  "MSI",
+  "POLE"
+ ],
+ "label_name": "subtype label",
+ "survival_endpoint": "PFS",
+ "event_word": "progression",
+ "test_n": 93,
+ "test_labelled": 73,
+ "test_events": 30,
+ "train_n": 246,
+ "val_n": 44,
+ "preliminary": true,
+ "panel_model": "L2 logistic regression on the top-k ranked proteins (four-cancer ranking); C chosen on a validation split carved from the training patients, refit on train + validation, scored once on the locked test set. The all-proteins reference uses this same procedure; the Results page's elastic net on all proteins (3-fold CV probe) scored 0.51",
+ "c_index_note": "C-index (PFS) of a class-derived risk score (predicted class probabilities x training-set progression rate per class); survival-specific ranking is not built yet",
+ "panels": [
+  {
+   "k": 1,
+   "markers": [
+    "Caspase-7_cleavedD198"
+   ],
+   "metrics": {
+    "macro_f1": 0.3067,
+    "balanced_acc": 0.3061,
+    "auroc": 0.6348,
+    "c_index": 0.5778
+   }
+  },
+  {
+   "k": 2,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin"
+   ],
+   "metrics": {
+    "macro_f1": 0.3468,
+    "balanced_acc": 0.3611,
+    "auroc": 0.6453,
+    "c_index": 0.5401
+   }
+  },
+  {
+   "k": 3,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4"
+   ],
+   "metrics": {
+    "macro_f1": 0.3094,
+    "balanced_acc": 0.3164,
+    "auroc": 0.6502,
+    "c_index": 0.5238
+   }
+  },
+  {
+   "k": 4,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172"
+   ],
+   "metrics": {
+    "macro_f1": 0.3407,
+    "balanced_acc": 0.3459,
+    "auroc": 0.6376,
+    "c_index": 0.5441
+   }
+  },
+  {
+   "k": 5,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2"
+   ],
+   "metrics": {
+    "macro_f1": 0.3561,
+    "balanced_acc": 0.3447,
+    "auroc": 0.6942,
+    "c_index": 0.4367
+   }
+  },
+  {
+   "k": 6,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1"
+   ],
+   "metrics": {
+    "macro_f1": 0.3103,
+    "balanced_acc": 0.2947,
+    "auroc": 0.6934,
+    "c_index": 0.4541
+   }
+  },
+  {
+   "k": 7,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC"
+   ],
+   "metrics": {
+    "macro_f1": 0.3636,
+    "balanced_acc": 0.3625,
+    "auroc": 0.6578,
+    "c_index": 0.4384
+   }
+  },
+  {
+   "k": 8,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc"
+   ],
+   "metrics": {
+    "macro_f1": 0.3044,
+    "balanced_acc": 0.3027,
+    "auroc": 0.6518,
+    "c_index": 0.4605
+   }
+  },
+  {
+   "k": 9,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM"
+   ],
+   "metrics": {
+    "macro_f1": 0.291,
+    "balanced_acc": 0.2724,
+    "auroc": 0.6216,
+    "c_index": 0.4425
+   }
+  },
+  {
+   "k": 10,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20"
+   ],
+   "metrics": {
+    "macro_f1": 0.2841,
+    "balanced_acc": 0.2675,
+    "auroc": 0.6207,
+    "c_index": 0.4443
+   }
+  },
+  {
+   "k": 11,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta"
+   ],
+   "metrics": {
+    "macro_f1": 0.3138,
+    "balanced_acc": 0.3201,
+    "auroc": 0.6292,
+    "c_index": 0.4739
+   }
+  },
+  {
+   "k": 12,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198"
+   ],
+   "metrics": {
+    "macro_f1": 0.3219,
+    "balanced_acc": 0.3152,
+    "auroc": 0.6099,
+    "c_index": 0.4733
+   }
+  },
+  {
+   "k": 13,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389"
+   ],
+   "metrics": {
+    "macro_f1": 0.2787,
+    "balanced_acc": 0.2603,
+    "auroc": 0.6075,
+    "c_index": 0.4727
+   }
+  },
+  {
+   "k": 14,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27"
+   ],
+   "metrics": {
+    "macro_f1": 0.3034,
+    "balanced_acc": 0.288,
+    "auroc": 0.6193,
+    "c_index": 0.4512
+   }
+  },
+  {
+   "k": 15,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL"
+   ],
+   "metrics": {
+    "macro_f1": 0.2804,
+    "balanced_acc": 0.2652,
+    "auroc": 0.6505,
+    "c_index": 0.4535
+   }
+  },
+  {
+   "k": 16,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6"
+   ],
+   "metrics": {
+    "macro_f1": 0.2955,
+    "balanced_acc": 0.275,
+    "auroc": 0.6295,
+    "c_index": 0.4547
+   }
+  },
+  {
+   "k": 17,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15"
+   ],
+   "metrics": {
+    "macro_f1": 0.307,
+    "balanced_acc": 0.2929,
+    "auroc": 0.6461,
+    "c_index": 0.453
+   }
+  },
+  {
+   "k": 18,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6"
+   ],
+   "metrics": {
+    "macro_f1": 0.3234,
+    "balanced_acc": 0.3179,
+    "auroc": 0.6702,
+    "c_index": 0.4297
+   }
+  },
+  {
+   "k": 19,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR"
+   ],
+   "metrics": {
+    "macro_f1": 0.3125,
+    "balanced_acc": 0.2929,
+    "auroc": 0.66,
+    "c_index": 0.4477
+   }
+  },
+  {
+   "k": 20,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta"
+   ],
+   "metrics": {
+    "macro_f1": 0.3015,
+    "balanced_acc": 0.2831,
+    "auroc": 0.7054,
+    "c_index": 0.4379
+   }
+  },
+  {
+   "k": 21,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53"
+   ],
+   "metrics": {
+    "macro_f1": 0.2998,
+    "balanced_acc": 0.288,
+    "auroc": 0.7442,
+    "c_index": 0.4512
+   }
+  },
+  {
+   "k": 22,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax"
+   ],
+   "metrics": {
+    "macro_f1": 0.3444,
+    "balanced_acc": 0.3326,
+    "auroc": 0.7915,
+    "c_index": 0.4535
+   }
+  },
+  {
+   "k": 23,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2"
+   ],
+   "metrics": {
+    "macro_f1": 0.337,
+    "balanced_acc": 0.3277,
+    "auroc": 0.7889,
+    "c_index": 0.4541
+   }
+  },
+  {
+   "k": 24,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2",
+    "FASN"
+   ],
+   "metrics": {
+    "macro_f1": 0.3264,
+    "balanced_acc": 0.3228,
+    "auroc": 0.7657,
+    "c_index": 0.4448
+   }
+  },
+  {
+   "k": 25,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2",
+    "FASN",
+    "Cyclin_E2"
+   ],
+   "metrics": {
+    "macro_f1": 0.3304,
+    "balanced_acc": 0.3326,
+    "auroc": 0.7942,
+    "c_index": 0.4518
+   }
+  },
+  {
+   "k": 26,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2",
+    "FASN",
+    "Cyclin_E2",
+    "AR"
+   ],
+   "metrics": {
+    "macro_f1": 0.3501,
+    "balanced_acc": 0.3576,
+    "auroc": 0.7965,
+    "c_index": 0.453
+   }
+  },
+  {
+   "k": 27,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2",
+    "FASN",
+    "Cyclin_E2",
+    "AR",
+    "Paxillin"
+   ],
+   "metrics": {
+    "macro_f1": 0.3534,
+    "balanced_acc": 0.3576,
+    "auroc": 0.8046,
+    "c_index": 0.4512
+   }
+  },
+  {
+   "k": 28,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2",
+    "FASN",
+    "Cyclin_E2",
+    "AR",
+    "Paxillin",
+    "p27_pT157"
+   ],
+   "metrics": {
+    "macro_f1": 0.3611,
+    "balanced_acc": 0.3602,
+    "auroc": 0.8129,
+    "c_index": 0.446
+   }
+  },
+  {
+   "k": 29,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2",
+    "FASN",
+    "Cyclin_E2",
+    "AR",
+    "Paxillin",
+    "p27_pT157",
+    "Rad50"
+   ],
+   "metrics": {
+    "macro_f1": 0.4455,
+    "balanced_acc": 0.6481,
+    "auroc": 0.8083,
+    "c_index": 0.4315
+   }
+  },
+  {
+   "k": 30,
+   "markers": [
+    "Caspase-7_cleavedD198",
+    "Stathmin",
+    "Smad4",
+    "AMPK_pT172",
+    "IGFBP2",
+    "PRDX1",
+    "TFRC",
+    "c-Myc",
+    "ATM",
+    "CD20",
+    "14-3-3_zeta",
+    "p27_pT198",
+    "p70S6K_pT389",
+    "p27",
+    "Bcl-xL",
+    "S6",
+    "RBM15",
+    "MIG-6",
+    "mTOR",
+    "14-3-3_beta",
+    "p53",
+    "Bax",
+    "Bcl-2",
+    "FASN",
+    "Cyclin_E2",
+    "AR",
+    "Paxillin",
+    "p27_pT157",
+    "Rad50",
+    "p38_MAPK"
+   ],
+   "metrics": {
+    "macro_f1": 0.4365,
+    "balanced_acc": 0.6432,
+    "auroc": 0.8143,
+    "c_index": 0.4355
+   }
+  }
+ ],
+ "full_model": {
+  "k": 198,
+  "model": "L2 logistic regression (all proteins, same procedure)",
+  "metrics": {
+   "macro_f1": 0.3943,
+   "balanced_acc": 0.4177,
+   "auroc": 0.8082,
+   "c_index": 0.4048
+  }
+ },
+ "source": "ml/build_multi_panels.py (cancers.build_multi split, markers_<cancer>.csv ranking)"
+}

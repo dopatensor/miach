@@ -127,6 +127,9 @@ class Panel(RUO):
     c_index_note: str
     note: str | None = None
     custom: bool = False
+    label_name: str = Field("PAM50 call", description="What a labelled test patient has (breast: PAM50 call)")
+    survival_endpoint: str = "PFS"
+    event_word: str = "progression"
 
 
 class CustomPanelRequest(BaseModel):
