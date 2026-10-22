@@ -127,6 +127,9 @@ class Panel(RUO):
     c_index_note: str
     note: str | None = None
     custom: bool = False
+    label_name: str = Field("PAM50 call", description="What a labelled test patient has (breast: PAM50 call)")
+    survival_endpoint: str = "PFS"
+    event_word: str = "progression"
 
 
 class CustomPanelRequest(BaseModel):
@@ -263,6 +266,8 @@ class Results(RUO):
     rows: list[ResultRow]
     known: dict[str, KnownRanks]
     health: dict[str, EmbeddingHealth] = Field(default_factory=dict, description="Per encoder, breast locked test set")
+    markers: list[MarkerRow] | None = Field(None, description="Only with ?cancer=: markers_<cancer>.csv ranking")
+    note: str | None = None
 
 
 class CancerMarkers(RUO):

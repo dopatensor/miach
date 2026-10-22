@@ -18,7 +18,7 @@ export function PanelCard({ panel, error, costPerMarker, curve, onPickK }: {
           </ul>
           <div className="flex flex-wrap items-end gap-x-6 gap-y-2">
             <div>
-              <div className="label">{panel.goal === "survival" ? "c-index (pfs)" : "macro-f1"}</div>
+              <div className="label">{panel.goal === "survival" ? `c-index (${panel.survival_endpoint.toLowerCase()})` : "macro-f1"}</div>
               <div className="text-6xl font-bold tabular-nums leading-none">
                 {fmt(panel.goal === "survival" ? panel.metrics.c_index : panel.metrics.macro_f1)}
               </div>
@@ -33,7 +33,7 @@ export function PanelCard({ panel, error, costPerMarker, curve, onPickK }: {
               <div key={key}>
                 <dt className="label">{label}</dt>
                 <dd className="text-xl tabular-nums">{fmt(panel.metrics[key])}</dd>
-                <dd className="text-[11px] text-mute">all 198: {fmt(panel.full_model.metrics[key])}</dd>
+                <dd className="text-[11px] text-mute">all {panel.full_model.k}: {fmt(panel.full_model.metrics[key])}</dd>
               </div>
             ))}
           </dl>
@@ -49,8 +49,8 @@ export function PanelCard({ panel, error, costPerMarker, curve, onPickK }: {
           )}
           <details className="text-[11px] text-mute">
             <summary className="cursor-pointer hover:text-fg">how these numbers were made</summary>
-            <p className="mt-1">{panel.method}. Subtype metrics use the {panel.test_labelled} test patients with a PAM50 call.</p>
-            <p className="mt-1">{panel.c_index_note}. {panel.test_events} progression events in the test set.</p>
+            <p className="mt-1">{panel.method}. Subtype metrics use the {panel.test_labelled} test patients with a {panel.label_name}.</p>
+            <p className="mt-1">{panel.c_index_note}. {panel.test_events} {panel.event_word} events in the test set.</p>
           </details>
           <Disclaimer compact />
         </div>

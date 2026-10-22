@@ -1,37 +1,64 @@
-"""Protein -> pathway block, following the TCGA RPPA pathway scores
-(Akbani et al., Nat Commun 2014). Each protein gets one block; proteins not in
-those pathway definitions are "Other"."""
+"""Group RPPA proteins into pathway blocks. The JEPA hides whole blocks and
+predicts their representation, so it learns pathway-level structure instead of
+memorising single noisy proteins.
 
-BLOCKS: dict[str, list[str]] = {
-    "Hormone receptor": ["ER-alpha", "ER-alpha_pS118", "PR", "AR"],
-    "Hormone signaling": ["GATA3", "INPP4B", "Bcl-2"],
-    "RTK": ["HER2", "HER2_pY1248", "HER3", "HER3_pY1298", "EGFR", "EGFR_pY1068", "EGFR_pY1173",
-            "Shc_pY317", "Src_pY416", "Src_pY527", "c-Met_pY1235", "c-Kit", "VEGFR2"],
-    "PI3K/AKT": ["Akt_pS473", "Akt_pT308", "GSK3-alpha-beta_pS21_S9", "GSK3_pS9", "PRAS40_pT246",
-                 "Tuberin_pT1462", "p27", "PTEN", "PI3K-p110-alpha", "PI3K-p85", "PDK1_pS241"],
-    "TSC/mTOR": ["4E-BP1_pS65", "4E-BP1_pT37T46", "4E-BP1_pT70", "mTOR_pS2448", "p70S6K_pT389",
-                 "S6_pS235_S236", "S6_pS240_S244"],
-    "RAS/MAPK": ["A-Raf_pS299", "C-Raf_pS338", "JNK_pT183_Y185", "MAPK_pT202_Y204",
-                 "MEK1_pS217_S221", "p38_pT180_Y182", "p90RSK_pT359_S363", "YB-1_pS102"],
-    "Cell cycle": ["CDK1", "Cyclin_B1", "Cyclin_E1", "Cyclin_E2", "p27_pT157", "p27_pT198", "PCNA",
-                   "FoxM1", "Cyclin_D1", "Rb_pS807_S811", "p21"],
-    "DNA damage": ["53BP1", "BRCA2", "ATM", "Chk1_pS345", "Chk2_pT68", "Ku80", "Mre11", "p53",
-                   "Rad50", "Rad51", "XRCC1", "MSH2", "MSH6", "ERCC1", "PARP1"],
-    "Apoptosis": ["Bak", "Bax", "Bid", "Bim", "Caspase-7_cleavedD198", "Bad_pS112", "Bcl-xL", "cIAP",
-                  "Caspase-3", "Caspase-9", "Smac"],
-    "EMT": ["Fibronectin", "N-Cadherin", "Collagen_VI", "Claudin-7", "E-Cadherin", "beta-Catenin",
-            "PAI-1"],
-    "Breast reactive": ["Caveolin-1", "MYH11", "Rab11", "GAPDH", "RBM15"],
+Groupings are a pragmatic, hand-curated approximation of standard RPPA pathway
+annotations (e.g. Akbani et al., Nat Commun 2014). Swap in Reactome later if wanted.
+"""
+from __future__ import annotations
+
+import numpy as np
+
+BLOCKS: dict[str, set[str]] = {
+    "hormone_lineage": {"ESR1", "PGR", "AR", "GATA3", "INPP4B", "XBP1", "NKX2-1"},
+    "rtk": {"EGFR", "ERBB2", "ERBB3", "NRG1", "KIT", "MET", "KDR", "ERRFI1", "IGFBP2",
+            "IRS1", "GAB2", "SHC1", "SRC", "ACVRL1", "PECAM1"},
+    "pi3k_mtor": {"AKT1", "AKT2", "AKT3", "PIK3CA", "PIK3R1", "PIK3R2", "PTEN", "MTOR",
+                  "RPTOR", "RICTOR", "TSC1", "TSC2", "AKT1S1", "RPS6", "RPS6KB1",
+                  "EIF4EBP1", "EIF4E", "EIF4G1", "PDK1", "GSK3A", "GSK3B", "FOXO3",
+                  "PRKAA1", "STK11", "EEF2", "EEF2K", "PDCD4"},
+    "mapk": {"MAPK1", "MAPK3", "MAP2K1", "RAF1", "ARAF", "BRAF", "NRAS", "MAPK8", "MAPK9",
+             "MAPK14", "JUN", "RPS6KA1", "PEA15", "YBX1", "DIRAS3", "PREX1", "PRKCA",
+             "PRKCB", "PRKCD", "ETS1"},
+    "dna_repair": {"ATM", "CHEK1", "CHEK2", "TP53BP1", "XRCC1", "XRCC5", "MRE11A", "RAD50",
+                   "RAD51", "BRCA2", "PARP1", "ERCC1", "MSH2", "MSH6", "TP53", "BAP1",
+                   "ARID1A"},
+    "cell_cycle": {"CDK1", "CCNB1", "CCND1", "CCNE1", "CCNE2", "CDKN1A", "CDKN1B", "RB1",
+                   "PCNA", "FOXM1", "STMN1", "MYC"},
+    "apoptosis": {"BAK1", "BAX", "BCL2", "BCL2L1", "BCL2L11", "BID", "BAD", "BIRC2",
+                  "CASP3", "CASP7", "CASP9", "DIABLO", "BECN1", "SQSTM1"},
+    "adhesion_emt": {"CDH1", "CDH2", "CDH3", "CTNNB1", "CTNNA1", "CLDN7", "FN1", "COL6A1",
+                     "SERPINE1", "PXN", "CAV1", "ITGA2", "TGM2", "MYH11", "MYH9", "ANXA1",
+                     "ANXA7", "RAB11A", "RAB11B", "RAB25", "TUBA1B"},
+    "developmental": {"YAP1", "WWTR1", "NF2", "DVL3", "NOTCH1", "SMAD1", "SMAD3", "SMAD4"},
+    "metabolism_stress": {"ACACA", "ACACB", "FASN", "SCD1", "G6PD", "GAPDH", "ASNS",
+                          "TIGAR", "PARK7", "PRDX1", "HSPA1A", "NDRG1", "VHL", "TFRC"},
+    "immune": {"LCK", "SYK", "MS4A1", "STAT3", "STAT5A", "NFKB1"},
 }
-
-_LOOKUP = {p: block for block, ps in BLOCKS.items() for p in ps}
-
-
-def split_id(protein_id: str) -> tuple[str, str]:
-    """'ESR1|ER-alpha' -> ('ESR1', 'ER-alpha')."""
-    gene, _, name = protein_id.partition("|")
-    return gene.strip(), name.strip()
+OTHER = "other"
 
 
-def block_of(protein_id: str) -> str:
-    return _LOOKUP.get(split_id(protein_id)[1], "Other")
+def gene_symbols(protein: str) -> list[str]:
+    """'AKT1 AKT2 AKT3|Akt_pS473' -> ['AKT1', 'AKT2', 'AKT3']"""
+    return protein.split("|")[0].split()
+
+
+def assign_blocks(proteins: list[str]) -> tuple[np.ndarray, list[str]]:
+    """Return an integer block id per protein and the list of block names."""
+    names = list(BLOCKS) + [OTHER]
+    ids = []
+    for p in proteins:
+        genes = set(gene_symbols(p))
+        hit = next((i for i, (_, members) in enumerate(BLOCKS.items()) if genes & members),
+                   len(names) - 1)
+        ids.append(hit)
+    return np.array(ids), names
+
+
+if __name__ == "__main__":
+    import data
+    ds = data.build_dataset()
+    ids, names = assign_blocks(ds.proteins)
+    for i, n in enumerate(names):
+        members = [ds.proteins[j].split("|")[1] for j in np.where(ids == i)[0]]
+        print(f"{n:18s} {len(members):3d}  {', '.join(members[:8])}{' ...' if len(members) > 8 else ''}")

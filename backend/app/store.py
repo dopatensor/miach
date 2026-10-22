@@ -107,6 +107,14 @@ class Store:
         self.col_by_name.update({pid: i for i, pid in enumerate(self.meta["protein_ids"])})
         self.results = load_results()
         self.multi_markers = load_multi_markers()
+        # Precomputed panels k = 1..30 for other cancers (ml/build_multi_panels.py), keyed by disease.
+        self.multi_panels = {}
+        for c in CANCERS:
+            f = path / f"panels_{c['id']}.json"
+            if c["id"] != "brca" and f.exists():
+                d = json.loads(f.read_text())
+                d["panel_by_k"] = {p["k"]: p for p in d["panels"]}
+                self.multi_panels[c["id"]] = d
         self._refit = lru_cache(maxsize=256)(self._refit_uncached)
 
     def refit(self, cols: tuple[int, ...]) -> dict:

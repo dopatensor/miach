@@ -23,7 +23,10 @@ def classification_metrics(y: np.ndarray, proba: np.ndarray, n_classes: int) -> 
     pred = proba.argmax(axis=1)
     labels = list(range(n_classes))
     try:
-        auroc = float(roc_auc_score(y, proba, multi_class="ovr", average="macro", labels=labels))
+        if n_classes == 2:  # binary: score of the second class (the multi-class form rejects 2 columns)
+            auroc = float(roc_auc_score(y, proba[:, 1]))
+        else:
+            auroc = float(roc_auc_score(y, proba, multi_class="ovr", average="macro", labels=labels))
     except ValueError:
         auroc = float("nan")
     return {

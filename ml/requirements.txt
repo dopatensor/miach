@@ -3,3 +3,6 @@ pandas>=2.1
 scikit-learn>=1.4
 scipy>=1.11
 joblib>=1.3
+# Research encoders only (encoders/vae.py, encoders/transformer.py; run_compare.py, run_multi.py).
+# Not needed for build_artifacts.py and never installed in the backend image.
+torch>=2.2

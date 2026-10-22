@@ -6,18 +6,35 @@ from ..store import CANCERS, MULTI_MARKER_BOOT, Store, get_store
 router = APIRouter(prefix="/api", tags=["results"])
 
 
+SURVIVAL_ONLY = "Survival only: no public subtype labels, so there is no subtype marker ranking."
+
+
+def _cancer_meta(cancer: str) -> dict:
+    meta = next((c for c in CANCERS if c["id"] == cancer), None)
+    if meta is None:
+        raise HTTPException(404, f"unknown cancer {cancer!r}; use one of {[c['id'] for c in CANCERS]}")
+    return meta
+
+
 @router.get("/results", response_model=Results)
-def results(store: Store = Depends(get_store)):
-    """Four-cancer encoder comparison on each cancer's locked test set (ml/results_multi)."""
-    return store.results
+def results(cancer: str | None = None, store: Store = Depends(get_store)):
+    """Four-cancer encoder comparison on each cancer's locked test set (ml/results_multi).
+
+    With ?cancer=, only that cancer's rows, known ranks and its marker ranking (markers_<cancer>.csv)."""
+    if cancer is None:
+        return store.results
+    meta = _cancer_meta(cancer)
+    r = store.results
+    markers = store.multi_markers.get(cancer, [])
+    return {**r, "cancers": [meta], "rows": [x for x in r["rows"] if x["cancer"] == cancer],
+            "known": {k: v for k, v in r["known"].items() if k == cancer},
+            "markers": markers, "note": None if markers else SURVIVAL_ONLY}
 
 
 @router.get("/results/markers", response_model=CancerMarkers)
 def cancer_markers(cancer: str, store: Store = Depends(get_store)):
     """Precomputed marker ranking for one of the four cancers (markers_<cancer>.csv)."""
-    meta = next((c for c in CANCERS if c["id"] == cancer), None)
-    if meta is None:
-        raise HTTPException(404, f"unknown cancer {cancer!r}; use one of {[c['id'] for c in CANCERS]}")
+    meta = _cancer_meta(cancer)
     rows = store.multi_markers.get(cancer, [])
     return CancerMarkers(
         cancer=meta,
@@ -25,5 +42,5 @@ def cancer_markers(cancer: str, store: Store = Depends(get_store)):
                 f"stability = share of {MULTI_MARKER_BOOT} bootstrap refits with the protein in the top 8"),
         markers=rows,
         known=store.results["known"].get(cancer),
-        note=None if rows else "Survival only: no public subtype labels, so there is no subtype marker ranking.",
+        note=None if rows else SURVIVAL_ONLY,
     )

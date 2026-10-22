@@ -10,6 +10,7 @@ import qc from "../../artifacts/qc.json";
 import metricsCsv from "../../ml/results_multi/multi_metrics.csv?raw";
 import lungCsv from "../../ml/results_multi/markers_lung.csv?raw";
 import knownLung from "../../ml/results_multi/known_lung.json";
+import panelsLung from "../../artifacts/panels_lung.json";
 
 function parseCsv(text: string) {
   const [head, ...lines] = text.trim().split("\n");
@@ -28,7 +29,19 @@ const CANCERS = [
 function mockFetch(url: string) {
   const u = new URL(url, "http://x");
   let body: unknown;
-  if (u.pathname === "/api/panel") {
+  if (u.pathname === "/api/panel" && u.searchParams.get("disease") === "lung") {
+    const k = Number(u.searchParams.get("k"));
+    const row = panelsLung.panels.find((p) => p.k === k)!;
+    body = {
+      disease: "lung", goal: u.searchParams.get("goal"), k, markers: row.markers,
+      marker_details: row.markers.map((m, i) => ({ protein: m, gene: "", block: "other", rank: i + 1 })),
+      metrics: row.metrics, full_model: panelsLung.full_model, test_n: panelsLung.test_n,
+      test_labelled: panelsLung.test_labelled, test_events: panelsLung.test_events, preliminary: true,
+      test_set: "locked", method: panelsLung.panel_model, c_index_note: panelsLung.c_index_note, note: null, custom: false,
+      label_name: panelsLung.label_name, survival_endpoint: panelsLung.survival_endpoint, event_word: panelsLung.event_word,
+      research_use_only: true,
+    };
+  } else if (u.pathname === "/api/panel") {
     const k = Number(u.searchParams.get("k"));
     const row = panels.panels.find((p) => p.k === k)!;
     body = {
@@ -37,6 +50,7 @@ function mockFetch(url: string) {
       metrics: row.metrics, full_model: panels.full_model, test_n: panels.test_n,
       test_labelled: panels.test_labelled, test_events: panels.test_events, preliminary: true,
       test_set: "locked", method: panels.panel_model, c_index_note: panels.c_index_note, note: null, custom: false,
+      label_name: "PAM50 call", survival_endpoint: "PFS", event_word: "progression",
       research_use_only: true,
     };
   } else if (u.pathname === "/api/patients") {
@@ -105,19 +119,29 @@ test("patients page lists only the 176 locked test patients and filters mismatch
   expect(await screen.findByRole("heading", { name: `${nMismatch} of 176 patients` })).toBeInTheDocument();
 });
 
-test("cancer selector: lung shows precomputed results and ranking, no fake panel", async () => {
+test("cancer selector: lung gets a live precomputed panel; ovarian stays results only", async () => {
   render(<AppStateProvider><MemoryRouter><Designer /></MemoryRouter></AppStateProvider>);
-  await screen.findByRole("option", { name: /lung · results only/ });
+  await screen.findByRole("option", { name: /lung · live panel/ });
+  expect(screen.getByRole("option", { name: /ovarian · results only/ })).toBeInTheDocument();
+
   fireEvent.change(screen.getByLabelText("disease"), { target: { value: "lung" } });
-  expect(await screen.findByText(/No panel computed for lung yet/)).toBeInTheDocument();
-  expect(screen.queryByLabelText("marker budget")).toBeNull();
-  expect(screen.queryByRole("heading", { name: /candidate panel/ })).toBeNull();
-  expect(await screen.findByText(parseCsv(lungCsv)[0].protein.split("|")[1])).toBeInTheDocument();
+  await screen.findByRole("heading", { name: /candidate panel · 8 markers/ });
+  const k8 = panelsLung.panels.find((p) => p.k === 8)!;
+  await waitFor(() => expect(screen.getByRole("list", { name: "Panel markers" }).textContent).toContain(k8.markers[0]));
+  expect(screen.getAllByText(k8.metrics.macro_f1.toFixed(2)).length).toBeGreaterThan(0);
+  expect(screen.getByText(/test patients with a histology label/)).toBeInTheDocument();
+
+  fireEvent.change(screen.getByLabelText("marker budget"), { target: { value: "20" } });
+  await screen.findByRole("heading", { name: /candidate panel · 20 markers/ });
+  const k20 = panelsLung.panels.find((p) => p.k === 20)!;
+  expect(screen.getAllByText(k20.metrics.macro_f1.toFixed(2)).length).toBeGreaterThan(0);
+  expect(screen.getByRole("list", { name: "Panel markers" }).querySelectorAll("li")).toHaveLength(20);
 
   fireEvent.change(screen.getByLabelText("disease"), { target: { value: "ov" } });
   expect(await screen.findByText(/No panel computed for ovarian yet/)).toBeInTheDocument();
-  expect(screen.queryByRole("table", { name: /marker ranking/i })).toBeNull();
+  expect(screen.queryByLabelText("marker budget")).toBeNull();
 
   fireEvent.change(screen.getByLabelText("disease"), { target: { value: "brca" } });
-  expect(await screen.findByRole("heading", { name: /candidate panel · 8 markers/ })).toBeInTheDocument();
+  expect(await screen.findByRole("heading", { name: /candidate panel · 20 markers/ })).toBeInTheDocument();
+  expect(screen.getByText(/test patients with a PAM50 call/)).toBeInTheDocument();
 });

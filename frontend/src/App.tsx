@@ -6,6 +6,7 @@ import { Patients } from "./pages/Patients";
 import { Evidence } from "./pages/Evidence";
 import { Results } from "./pages/Results";
 import { Jepa } from "./pages/Jepa";
+import { HowItWorks } from "./pages/HowItWorks";
 import { AppStateProvider } from "./state";
 
 export function App() {
@@ -18,6 +19,7 @@ export function App() {
           <Route path="patients" element={<Patients />} />
           <Route path="results" element={<Results />} />
           <Route path="jepa" element={<Jepa />} />
+          <Route path="how" element={<HowItWorks />} />
           <Route path="evidence" element={<Evidence />} />
           <Route path="methods" element={<Navigate to="/evidence#methods" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
