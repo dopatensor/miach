@@ -52,11 +52,11 @@ export function Designer() {
 
   return (
     <div className="space-y-6">
-      <div className="no-print section flex flex-wrap items-end gap-x-8 gap-y-4" role="group" aria-label="Panel settings">
+      <div className="no-print section flex flex-wrap items-end gap-x-10 gap-y-5" role="group" aria-label="Panel settings">
         <h1 className="sr-only">Design a panel</h1>
         <div>
           <label htmlFor="disease" className="label block">disease</label>
-          <select id="disease" value={cancer} onChange={(e) => setCancer(e.target.value)} className="mt-1 border border-line bg-bg px-2 py-1">
+          <select id="disease" value={cancer} onChange={(e) => setCancer(e.target.value)} className="mt-2">
             {(results.data?.cancers ?? [{ id: "brca", name: "Breast" }]).map((c) => (
               <option key={c.id} value={c.id}>{c.name.toLowerCase()}{PANEL_CANCERS.includes(c.id) ? " · live panel" : " · results only"}</option>
             ))}
@@ -67,24 +67,24 @@ export function Designer() {
         <div className="min-w-[220px] flex-1">
           <div className="flex items-baseline justify-between">
             <label htmlFor="budget" className="label">marker budget</label>
-            <output htmlFor="budget" className="text-lg font-bold tabular-nums">{k}</output>
+            <output htmlFor="budget" className="text-2xl font-bold text-acc tabular-nums">{k}</output>
           </div>
           <input id="budget" type="range" min={1} max={K_MAX} step={1} value={k}
             onChange={(e) => setK(Number(e.target.value))} aria-valuetext={`${k} markers`}
-            className="mt-2 w-full accent-[var(--acc)]" />
+            className="mt-2 h-2 w-full cursor-pointer" />
           <Ticks k={k} max={K_MAX} />
         </div>
         <details className="relative">
-          <summary className="cursor-pointer text-mute hover:text-fg">assay &amp; cost</summary>
-          <div className="mt-3 space-y-3 sm:absolute sm:right-0 sm:z-10 sm:w-64 sm:border sm:border-line sm:bg-bg sm:p-4">
+          <summary className="cursor-pointer rounded-full px-1 text-sm text-mute hover:text-fg">assay &amp; cost</summary>
+          <div className="mt-3 space-y-3 sm:absolute sm:right-0 sm:z-10 sm:w-72 sm:rounded-xl sm:border sm:border-line sm:bg-raise sm:p-5 sm:shadow-2xl">
             <Segmented label="assay" value={assay} options={["IHC", "qPCR"]} onChange={(v) => setAssay(v as "IHC" | "qPCR")} />
-            <p className="text-[11px] text-mute">informational; markers are ranked from protein data.</p>
+            <p className="text-xs text-mute">informational; markers are ranked from protein data.</p>
             <div>
               <label htmlFor="cost" className="label block">cost per marker</label>
               <input id="cost" type="number" min={0} step="0.01" inputMode="decimal" value={cost}
                 onChange={(e) => setCost(e.target.value)} placeholder="your lab's price"
-                className="mt-1 w-full border border-line bg-bg px-2 py-1" />
-              <p className="mt-1 text-[11px] text-mute">never estimated; enter your own.</p>
+                className="mt-2 w-full" />
+              <p className="mt-1 text-xs text-mute">never estimated; enter your own.</p>
             </div>
           </div>
         </details>
@@ -95,7 +95,7 @@ export function Designer() {
       {!live ? <CancerResults cancer={cancer} results={results.data} /> : <>
 
       <div className="print-only">
-        <h1 className="text-lg font-bold">miach · candidate panel report</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">miach · candidate panel report</h1>
         <p>{new Date().toISOString().slice(0, 10)} · {cancer === "brca" ? "breast cancer (TCGA BRCA, RPPA)" : `${cancerName} cancer (TCGA, RPPA; four-cancer split)`} · goal {goal} · assay {assay} · {k} markers</p>
         <Disclaimer />
       </div>
@@ -111,12 +111,12 @@ export function Designer() {
 
       {cancer !== "brca" ? <div className="no-print"><CancerResults cancer={cancer} results={results.data} panelLive /></div> : <>
       <section className="section no-print" aria-label="Cohort">
-        <div role="tablist" aria-label="Cohort views" className="mb-4 flex gap-5">
-          <span className="label text-fg" aria-hidden="true">03</span>
+        <div role="tablist" aria-label="Cohort views" className="mb-5 flex flex-wrap items-center gap-2">
+          <span aria-hidden="true" className="label mr-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accsoft px-1.5 text-[11px] text-acc">03</span>
           {TABS.map((t) => (
             <button key={t} role="tab" type="button" aria-selected={tab === t} aria-controls={`tab-${t}`} id={`tabbtn-${t}`}
               onClick={() => setTab(t)}
-              className={tab === t ? "label text-fg underline decoration-acc decoration-2 underline-offset-[6px]" : "label hover:text-fg"}>
+              className={`label rounded-full px-3 py-1.5 transition-colors ${tab === t ? "bg-raise-2 text-fg" : "hover:text-fg"}`}>
               {t === "map" ? "patient map" : t === "qc" ? "data qc" : "method"}
             </button>
           ))}
@@ -135,11 +135,11 @@ export function Designer() {
 
       <div className="print-only space-y-2">
         <QcCard qc={qc.data} />
-        <p className="text-[11px]">method: {markers.data?.method}. {panel?.method}.</p>
+        <p className="text-xs">method: {markers.data?.method}. {panel?.method}.</p>
       </div>
       </>}
       {cancer !== "brca" && (
-        <p className="print-only text-[11px]">method: {multiMarkers.data?.method}. {panel?.method}.</p>
+        <p className="print-only text-xs">method: {multiMarkers.data?.method}. {panel?.method}.</p>
       )}
       </>}
     </div>
@@ -163,9 +163,9 @@ function Segmented({ label, value, options, onChange }: {
   return (
     <fieldset>
       <legend className="label">{label}</legend>
-      <div className="mt-1 flex border border-line">
+      <div className="mt-2 inline-flex rounded-full border border-line bg-raise-2 p-0.5">
         {options.map((o) => (
-          <label key={o} className={`cursor-pointer px-3 py-1 has-[:focus-visible]:outline has-[:focus-visible]:outline-1 has-[:focus-visible]:outline-acc ${value === o ? "bg-fg text-bg" : "text-mute hover:text-fg"}`}>
+          <label key={o} className={`cursor-pointer rounded-full px-3.5 py-1 text-sm transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-1 has-[:focus-visible]:outline-acc ${value === o ? "bg-fg text-bg" : "text-mute hover:text-fg"}`}>
             <input type="radio" name={label} value={o} checked={value === o} onChange={() => onChange(o)} className="sr-only" />
             {o.toLowerCase()}
           </label>

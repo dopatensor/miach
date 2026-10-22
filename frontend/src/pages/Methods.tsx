@@ -8,7 +8,7 @@ export function Methods() {
     <article className="max-w-3xl space-y-6">
       <header className="space-y-2">
         <h2 className="text-lg font-bold">methods</h2>
-        <p className="text-[11px] text-mute">Artifacts built {health.data?.artifacts_built_at ?? "…"}.</p>
+        <p className="text-xs text-mute">Artifacts built {health.data?.artifacts_built_at ?? "…"}.</p>
       </header>
       <Section title="Data">
         <p>TCGA PanCancer Atlas breast invasive carcinoma (BRCA), reverse-phase protein array (RPPA), 198 proteins and

@@ -144,14 +144,16 @@ the response (`note`) that survival-specific ranking is not built yet. Don't fak
 
 ## Frontend screens
 
-Design language: **hyper-minimal, monospace, Vantablack by default.** One font (JetBrains Mono). Dark theme
-(`#000` background, `#EDEDED` text, `#222` hairlines) is the default; a light theme is a `[light]` toggle in
-the header (stored in localStorage). No shadows, glows, gradients or rounded cards: sections are 1px hairline
-boxes, numbered `01 02 03`. Colour is reserved for data (subtype tokens `--c-<Subtype>`: LumA cyan, LumB amber,
-Basal violet, Her2 green, Normal pink, validated for colour-blind separation in both themes; subtype names are
-also written on the map as the secondary encoding) and one accent (mismatches use a `≠` glyph, not a colour) (`--acc`: yellow `#EEE772` in dark, navy `#2E3F8F` in light). All colours are CSS
-tokens in `frontend/src/index.css`; don't hard-code hex in components. Check colour contrast (WCAG AA) and
-support keyboard navigation everywhere.
+Design language: **warm dark, minimal.** Warm charcoal background (`--bg #13100E`), cards on `--raise` with
+rounded corners (`rounded-2xl`), a 1px `--line` border and a soft shadow; warm white text (`--fg #F3EDE5`). Text is
+DM Sans; labels, numbers and data are JetBrains Mono (`.tabular-nums` is mono). One accent, the deck yellow
+`#EEE772` in dark (deck navy `#2E3F8F` in the light "paper" theme, a `light mode` toggle stored in localStorage),
+used for the panel's hero number, the budget, in-panel importance bars and focus. Pills for nav, buttons, toggles and
+marker chips. Sections stay numbered `01 02 03`. Colour beyond the accent is reserved for data (subtype tokens
+`--c-<Subtype>`: LumA cyan, LumB amber, Basal violet, Her2 green, Normal pink, CVD-separated in both themes; subtype
+names are also written on the map; mismatches use a `≠` glyph, not a colour). All colours are CSS tokens in
+`frontend/src/index.css`; don't hard-code hex in components. Keep WCAG AA contrast and keyboard navigation everywhere.
+Print (export) switches every token to black on white.
 
 1. **Landing:** one-line value prop, the problem in three numbers, CTA "Design a panel", disclaimer.
 2. **Designer** (the demo; build this first):

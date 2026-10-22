@@ -2,55 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme tokens. Dark (Vantablack) is the default; light is opt-in via data-theme="light". */
+/* Theme tokens. Warm dark is the default; light ("paper") is opt-in via data-theme="light".
+   Text sans (DM Sans), numbers and labels mono (JetBrains Mono). Colour is reserved for data and one accent. */
 :root, [data-theme="dark"] {
-  --bg: #000000;
-  --raise: #0B0B0B;
-  --fg: #EDEDED;
-  --mute: #8A8A8A;      /* 6.1:1 on #000 */
-  --line: #222222;
-  --acc: #EEE772;       /* the one accent */
-  --acc-fg: #000000;
-  --warn: #FF6B6B;      /* errors only */
-  /* Subtypes: cyan · amber · violet · green · pink, validated on #000 (CVD + 3:1 contrast). */
-  --c-LumA: #139FB4; --c-LumB: #BC891F; --c-Basal: #977AF0; --c-Her2: #31A55F; --c-Normal: #E2589F; --c-Unknown: #444444;
+  --bg: #13100E;        /* warm charcoal */
+  --raise: #1B1714;     /* cards */
+  --raise-2: #26201B;   /* inputs, hover, active nav */
+  --fg: #F3EDE5;        /* warm white: 15.6:1 on --bg */
+  --mute: #A99F94;      /* 7.0:1 on --bg, 6.6:1 on --raise */
+  --line: #332C26;
+  --acc: #EEE772;       /* deck yellow, the one accent */
+  --acc-fg: #13100E;
+  --acc-soft: rgba(238, 231, 114, 0.10);
+  --warn: #FF8A7A;      /* errors only */
+  --glow: rgba(238, 196, 114, 0.07);
+  --shadow: 0 1px 0 rgba(255, 244, 230, 0.03) inset, 0 14px 32px -18px rgba(0, 0, 0, 0.75);
+  /* Subtypes: cyan · amber · violet · green · pink (CVD-separated; 3:1+ on the warm background). */
+  --c-LumA: #1FB0C5; --c-LumB: #CC9426; --c-Basal: #A08AF3; --c-Her2: #3DB46C; --c-Normal: #E8679F; --c-Unknown: #6B6259;
   color-scheme: dark;
 }
 [data-theme="light"] {
-  --bg: #FFFFFF;
-  --raise: #F6F6F6;
-  --fg: #111111;
-  --mute: #5E5E5E;      /* 6.4:1 on #fff */
-  --line: #E2E2E2;
-  --acc: #2E3F8F;
+  --bg: #F8F4EE;        /* paper */
+  --raise: #FFFFFF;
+  --raise-2: #F0EAE1;
+  --fg: #1D1915;
+  --mute: #675E55;      /* 5.9:1 on --bg */
+  --line: #E4DBCF;
+  --acc: #2E3F8F;       /* deck navy */
   --acc-fg: #FFFFFF;
+  --acc-soft: rgba(46, 63, 143, 0.08);
   --warn: #B3261E;
-  --c-LumA: #0B8BA3; --c-LumB: #9C6F12; --c-Basal: #6E4FD8; --c-Her2: #23864A; --c-Normal: #C23C82; --c-Unknown: #BBBBBB;
+  --glow: rgba(212, 226, 255, 0.55);
+  --shadow: 0 1px 2px rgba(60, 40, 20, 0.05), 0 12px 28px -18px rgba(60, 40, 20, 0.25);
+  --c-LumA: #0B8BA3; --c-LumB: #9C6F12; --c-Basal: #6E4FD8; --c-Her2: #23864A; --c-Normal: #C23C82; --c-Unknown: #B3A99D;
   color-scheme: light;
 }
 
 @layer base {
   html { @apply bg-bg; }
-  body { @apply bg-bg font-mono text-[13px] leading-relaxed text-fg antialiased; }
-  :focus-visible { outline: 1px solid var(--acc); outline-offset: 2px; }
+  body { @apply bg-bg font-sans text-[15px] leading-relaxed text-fg antialiased; }
+  h1, h2, h3 { letter-spacing: -0.01em; }
+  :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; border-radius: 6px; }
   ::selection { background: var(--acc); color: var(--acc-fg); }
+  /* Every number is set in mono so figures line up and read as data. */
+  .tabular-nums { font-family: theme("fontFamily.mono"); font-variant-numeric: tabular-nums; }
+  select, input[type="number"], input[type="search"], input[type="text"] {
+    @apply rounded-lg border border-line bg-raise-2 px-3 py-1.5 text-fg;
+  }
+  input[type="range"] { accent-color: var(--acc); }
+  table { font-size: 14px; }
 }
 
 @layer components {
-  .section { @apply border border-line p-5; }
-  .label { @apply text-[11px] uppercase tracking-widest text-mute; }
-  .btn { @apply inline-flex items-center gap-2 border border-line px-3 py-1.5 hover:border-fg; }
-  .btn-acc { @apply inline-flex items-center gap-2 border border-acc bg-acc px-3 py-1.5 text-accfg disabled:opacity-40; }
-  .skeleton { @apply w-full bg-raise; }
+  .section {
+    @apply rounded-2xl border border-line bg-raise p-5 sm:p-7;
+    box-shadow: var(--shadow);
+  }
+  .label { @apply font-mono text-xs uppercase tracking-[0.14em] text-mute; }
+  .btn { @apply inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 transition-colors hover:border-fg; }
+  .btn-acc {
+    @apply inline-flex items-center gap-2 rounded-full border border-acc bg-acc px-4 py-2 font-medium text-accfg
+      transition-transform hover:-translate-y-px disabled:opacity-40 disabled:hover:translate-y-0;
+  }
+  .skeleton { @apply w-full animate-pulse rounded-xl bg-raise-2; }
   .hair { @apply border-t border-line; }
+  .chip { @apply inline-flex items-center rounded-full border border-line bg-raise-2 px-2.5 py-0.5 text-sm; }
+  .hero-glow { background: radial-gradient(60% 80% at 15% 0%, var(--glow), transparent 70%); }
 }
 
 @media print {
   :root, [data-theme] {
-    --bg: #fff; --raise: #f6f6f6; --fg: #111; --mute: #555; --line: #ccc; --acc: #111; --acc-fg: #fff;
+    --bg: #fff; --raise: #fff; --raise-2: #f3f3f3; --fg: #111; --mute: #555; --line: #ccc; --acc: #111; --acc-fg: #fff;
+    --acc-soft: transparent; --shadow: none; --glow: transparent;
   }
   .no-print { display: none !important; }
   .print-only { display: block !important; }
-  .section { break-inside: avoid; }
+  .section { break-inside: avoid; box-shadow: none; }
 }
 .print-only { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

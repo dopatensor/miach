@@ -22,7 +22,7 @@ export function BudgetCurve({ points, full, k, onPick }: {
   };
   return (
     <figure>
-      <figcaption className="mb-1 flex justify-between text-[11px] text-mute">
+      <figcaption className="mb-1 flex justify-between text-xs text-mute">
         <span>macro-f1 by marker budget</span>
         <span className="tabular-nums">{cur && <>k = {cur.k} · <span className="text-fg">{cur.f1.toFixed(2)}</span></>}</span>
       </figcaption>
@@ -37,15 +37,16 @@ export function BudgetCurve({ points, full, k, onPick }: {
           </g>
         ))}
         <line x1={PAD.l} x2={W - PAD.r} y1={y(full)} y2={y(full)} stroke="var(--mute)" strokeDasharray="3 4" />
-        <text x={W - PAD.r} y={y(full) - 4} textAnchor="end" fontSize={9} fill="var(--mute)">all 198 · {full.toFixed(2)}</text>
-        <path d={path} fill="none" stroke="var(--fg)" strokeWidth={1.5} strokeLinejoin="round" />
+        <text x={W - PAD.r} y={y(full) - 4} textAnchor="end" fontSize={9} fill="var(--mute)">all proteins · {full.toFixed(2)}</text>
+        <path d={`${path}L${x(kMax).toFixed(1)},${y(0).toFixed(1)}L${x(1).toFixed(1)},${y(0).toFixed(1)}Z`} fill="var(--acc-soft)" fillOpacity={0.6} stroke="none" />
+        <path d={path} fill="none" stroke="var(--fg)" strokeWidth={1.75} strokeLinejoin="round" strokeLinecap="round" />
         {[1, 10, 20, 30].filter((t) => t <= kMax).map((t) => (
           <text key={t} x={x(t)} y={H - 4} textAnchor="middle" fontSize={9} fill="var(--mute)">{t}</text>
         ))}
         {cur && (
           <g>
             <line x1={x(cur.k)} x2={x(cur.k)} y1={PAD.t} y2={H - PAD.b} stroke={hover ? "var(--mute)" : "var(--acc)"} strokeWidth={1} />
-            <rect x={x(cur.k) - 3.5} y={y(cur.f1) - 3.5} width={7} height={7} fill="var(--acc)" />
+            <circle cx={x(cur.k)} cy={y(cur.f1)} r={4.5} fill="var(--acc)" stroke="var(--raise)" strokeWidth={2} />
           </g>
         )}
       </svg>

@@ -58,7 +58,7 @@ export function CancerResults({ cancer, results, panelLive = false }: {
                   </tbody>
                 </table>
               </div>
-              {!hasTask && <p className="mt-3 text-[11px] text-mute">{OV_NOTE}, so there is no subtype marker ranking or panel.</p>}
+              {!hasTask && <p className="mt-3 text-xs text-mute">{OV_NOTE}, so there is no subtype marker ranking or panel.</p>}
             </>
           )}
         </Section>

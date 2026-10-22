@@ -26,7 +26,7 @@ export function Cell({ main, sub, ci, isBest }: { main: string; sub?: string; ci
       {sub && <span className="font-normal text-mute"> [{sub}]</span>}
       {isBest && <span className="sr-only"> (best for this cancer)</span>}
       {isBest && <span aria-hidden="true" className="ml-1 text-acc">★</span>}
-      {ci && <div className="text-[10px] font-normal text-mute">95% CI {ci}</div>}
+      {ci && <div className="text-[11px] font-normal text-mute">95% CI {ci}</div>}
     </td>
   );
 }
@@ -57,7 +57,7 @@ function ClassificationTable({ d }: { d: R }) {
                   ci={r?.f1_lo != null ? `${fmt(r.f1_lo)}–${fmt(r.f1_hi)}` : undefined} isBest={winners[c.id] === e} />;
               })}
               {surv.map((c) => i === 0 ? (
-                <td key={c.id} rowSpan={d.encoders.length} className="max-w-[10rem] pr-3 align-middle text-[11px] text-mute">{OV_NOTE}</td>
+                <td key={c.id} rowSpan={d.encoders.length} className="max-w-[10rem] pr-3 align-middle text-xs text-mute">{OV_NOTE}</td>
               ) : null)}
             </tr>
           ))}
@@ -99,7 +99,7 @@ function SurvivalTable({ d }: { d: R }) {
 
 function Tasks({ cancers }: { cancers: Cancer[] }) {
   return (
-    <ul className="grid gap-x-6 gap-y-1 text-[11px] text-mute sm:grid-cols-2">
+    <ul className="grid gap-x-6 gap-y-1 text-xs text-mute sm:grid-cols-2">
       {cancers.map((c) => (
         <li key={c.id}><span className="text-fg">{c.name.toLowerCase()}</span> · {c.task ?? OV_NOTE.toLowerCase()} · survival: {c.survival}</li>
       ))}
@@ -111,8 +111,8 @@ export function Results() {
   const { data, error } = useAsync(() => api.results());
   return (
     <div className="space-y-10">
-      <header className="max-w-3xl space-y-1">
-        <h1 className="text-lg font-bold">results · four cancers</h1>
+      <header className="max-w-3xl space-y-2">
+        <h1 className="text-2xl font-bold sm:text-3xl">results · four cancers</h1>
         <p className="text-mute">
           Five encoders, four TCGA cancers, protein (RPPA) data only. Every number is measured once on each
           cancer's locked test set and is <strong className="text-fg">preliminary</strong>. ★ marks the best model per cancer.
@@ -136,7 +136,7 @@ export function Results() {
           </Section>
           <Section index={3} title="tasks" id="tasks-title">
             <Tasks cancers={data.cancers} />
-            <p className="mt-3 text-[11px] text-mute">source: {data.source}</p>
+            <p className="mt-3 text-xs text-mute">source: {data.source}</p>
           </Section>
           <Disclaimer compact />
         </>

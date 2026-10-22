@@ -17,7 +17,7 @@ export function LatentMap({ latent, error }: { latent: Latent | null; error?: st
   const open = (p: LatentPoint) => p.id && navigate(`/patients?id=${encodeURIComponent(p.id)}`);
   return (
     <div>
-      <ul className="mb-2 flex flex-wrap gap-x-4 text-[11px] text-mute" aria-label="Legend">
+      <ul className="mb-2 flex flex-wrap gap-x-4 text-xs text-mute" aria-label="Legend">
         {GROUPS.map((g) => (
           <li key={g}><span aria-hidden="true" className="mr-1.5 inline-block h-2 w-2" style={{ background: `var(--c-${g})` }} />{g.toLowerCase()}</li>
         ))}
@@ -33,7 +33,7 @@ export function LatentMap({ latent, error }: { latent: Latent | null; error?: st
             <Tooltip cursor={false} content={({ payload }) => {
               const p = payload?.[0]?.payload as LatentPoint | undefined;
               if (!p) return null;
-              return <div className="border border-line bg-bg px-2 py-1 text-[11px]">{p.id ?? "training patient"} · {p.subtype}</div>;
+              return <div className="border border-line bg-bg px-2 py-1 text-xs">{p.id ?? "training patient"} · {p.subtype}</div>;
             }} />
             {GROUPS.map((g) => {
               const pts = latent.points.filter((p) => p.subtype === g);
@@ -54,7 +54,7 @@ export function LatentMap({ latent, error }: { latent: Latent | null; error?: st
           </ScatterChart>
         </ResponsiveContainer>
       </div>
-      <p className="mt-1 text-[11px] text-mute">{latent.method.toLowerCase()}. for orientation only; the panel model does not use these axes.</p>
+      <p className="mt-1 text-xs text-mute">{latent.method.toLowerCase()}. for orientation only; the panel model does not use these axes.</p>
     </div>
   );
 }
