@@ -30,8 +30,8 @@ export function HowItWorks() {
   const s = qc.data?.splits;
   return (
     <div className="space-y-8">
-      <header className="max-w-3xl space-y-1">
-        <h1 className="text-lg font-bold">how it works · in plain English</h1>
+      <header className="max-w-3xl space-y-2">
+        <h1 className="text-2xl font-bold sm:text-3xl">how it works · in plain English</h1>
         <p className="text-mute">No biology background needed. This is what happens between the raw data and the panel card.</p>
       </header>
 

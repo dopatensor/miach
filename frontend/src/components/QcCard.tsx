@@ -16,7 +16,7 @@ export function QcCard({ qc, error }: { qc: Qc | null; error?: string | null }) 
         <table className="w-full tabular-nums">
           <caption className="sr-only">Patients per split and PAM50 subtype</caption>
           <thead>
-            <tr className="text-left text-[11px] text-mute">
+            <tr className="text-left text-xs text-mute">
               <th scope="col" className="pb-2 pr-3 font-normal">split</th>
               <th scope="col" className="pr-3 font-normal">n</th>
               {SUBTYPES.map((s) => <th scope="col" key={s} className="pr-3 font-normal">{s}</th>)}
@@ -40,7 +40,7 @@ export function QcCard({ qc, error }: { qc: Qc | null; error?: string | null }) 
           </tbody>
         </table>
       </div>
-      <p className="text-[11px] text-mute">
+      <p className="text-xs text-mute">
         {qc.missingness.proteins_any_missing} proteins have missing values ({qc.missingness.proteins_fully_missing} not
         measured in this cohort). imputation: {qc.imputation}.
       </p>

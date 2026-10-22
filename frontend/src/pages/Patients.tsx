@@ -30,7 +30,7 @@ export function Patients() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-lg font-bold">patients · locked test set</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">patients · locked test set</h1>
           <p className="text-mute">176 TCGA breast tumours the panel never saw. predictions from the top-{k} panel.</p>
         </div>
         <div className="min-w-[200px]">
@@ -66,7 +66,7 @@ export function Patients() {
               <table className="w-full whitespace-nowrap tabular-nums">
                 <caption className="sr-only">Locked test patients with PAM50 subtype and panel prediction</caption>
                 <thead className="sticky top-0 bg-bg">
-                  <tr className="text-left text-[11px] text-mute">
+                  <tr className="text-left text-xs text-mute">
                     <th scope="col" className="pb-2 pr-3 font-normal">patient</th>
                     <th scope="col" className="pb-2 font-normal">pam50</th>
                     <th scope="col" className="pb-2 font-normal">panel call</th>
@@ -95,7 +95,7 @@ export function Patients() {
               </table>
             </div>
           )}
-          <p className="mt-3 text-[11px] text-mute">● progression event · <span className="text-acc">≠</span> panel call differs from pam50 (rna)</p>
+          <p className="mt-3 text-xs text-mute">● progression event · <span className="text-acc">≠</span> panel call differs from pam50 (rna)</p>
         </Section>
 
         <div className="order-1 lg:order-2 lg:sticky lg:top-6 lg:self-start">
@@ -153,7 +153,7 @@ function PatientCard({ d }: { d: Detail }) {
           );
         })}
       </ul>
-      <p className="mt-2 text-[11px] text-mute">imp. = not measured for this patient; imputed with the training median.</p>
+      <p className="mt-2 text-xs text-mute">imp. = not measured for this patient; imputed with the training median.</p>
       <div className="mt-5 border-t border-line pt-3"><Disclaimer compact /></div>
     </Section>
   );

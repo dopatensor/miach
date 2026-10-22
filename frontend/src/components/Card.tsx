@@ -6,11 +6,15 @@ export function Section({ title, children, className = "", aside, id, index }: {
   return (
     <section className={`section ${className}`} aria-labelledby={id}>
       {title && (
-        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id={id} className="label">
-            {index != null && <span aria-hidden="true" className="mr-3 text-fg">{String(index).padStart(2, "0")}</span>}{title}
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
+          <h2 id={id} className="label flex items-center">
+            {index != null && (
+              <span aria-hidden="true" className="mr-3 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accsoft px-1.5 text-[11px] text-acc">
+                {String(index).padStart(2, "0")}
+              </span>
+            )}{title}
           </h2>
-          {aside && <span className="text-[11px] text-mute">{aside}</span>}
+          {aside && <span className="chip font-mono text-xs text-mute">{aside}</span>}
         </div>
       )}
       {children}
@@ -27,7 +31,7 @@ export function ErrorNote({ error }: { error: string }) {
 }
 
 export function Dot({ subtype }: { subtype: string | null }) {
-  return <span aria-hidden="true" className="mr-2 inline-block h-2 w-2 align-middle"
+  return <span aria-hidden="true" className="mr-2 inline-block h-2.5 w-2.5 rounded-full align-middle"
     style={{ background: `var(--c-${subtype ?? "Unknown"})` }} />;
 }
 

@@ -11,14 +11,14 @@ export function ProteinGrid({ markers, k, cols = 22 }: { markers: MarkerRow[]; k
           const inPanel = m.rank <= k;
           const a = 0.16 + 0.6 * Math.sqrt(Math.max(0, m.importance) / max);
           return (
-            <li key={m.protein} title={`#${m.rank} ${m.protein}`} className="aspect-square"
+            <li key={m.protein} title={`#${m.rank} ${m.protein}`} className="aspect-square rounded-[3px]"
               style={inPanel ? { background: "var(--acc)" } : { background: "var(--fg)", opacity: a }}>
               <span className="sr-only">{m.rank}. {m.protein}{inPanel ? " (in panel)" : ""}</span>
             </li>
           );
         })}
       </ol>
-      <figcaption className="mt-3 text-[11px] text-mute">
+      <figcaption className="mt-3 text-xs text-mute">
         {markers.length} proteins in rank order · brightness = importance ·{" "}
         <span className="text-acc">■</span> the {k}-marker candidate panel
       </figcaption>

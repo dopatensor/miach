@@ -10,14 +10,14 @@ export function ModelChart({ models, error }: { models: Models | null; error?: s
     <Section index={1} title="six-model comparison · subtype macro-f1" id="models-title" aside={<TestSetTag />}>
       {error ? <ErrorNote error={error} /> : !models ? <Skeleton h="h-64" /> : (
         <>
-          <p className="mb-4 flex gap-6 text-[11px] text-mute">
+          <p className="mb-4 flex gap-6 text-xs text-mute">
             <span><span aria-hidden="true" className="mr-1.5 inline-block h-2 w-2 border border-fg align-middle" />10% labels</span>
             <span><span aria-hidden="true" className="mr-1.5 inline-block h-2 w-2 bg-fg align-middle" />100% labels</span>
           </p>
           <table className="w-full">
             <caption className="sr-only">Subtype macro-F1 per model with 10% and 100% of training labels</caption>
             <thead>
-              <tr className="text-left text-[11px] text-mute">
+              <tr className="text-left text-xs text-mute">
                 <th scope="col" className="pb-2 font-normal">model</th>
                 <th scope="col" className="hidden w-1/2 pb-2 font-normal md:table-cell">
                   <div className="flex justify-between"><span>0</span><span>0.4</span><span>0.8</span></div>
@@ -47,7 +47,7 @@ export function ModelChart({ models, error }: { models: Models | null; error?: s
               ))}
             </tbody>
           </table>
-          <p className="mt-3 text-[11px] text-mute">
+          <p className="mt-3 text-xs text-mute">
             source: {models.source}. this site's rebuild of the elastic net (own split, 100% labels) scores{" "}
             {models.rebuild_check.macro_f1.toFixed(3)} on its locked test set.
           </p>

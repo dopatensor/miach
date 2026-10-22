@@ -19,8 +19,8 @@ export function Evidence() {
   const qc = useAsync(() => api.qc());
   return (
     <div className="space-y-10">
-      <header className="max-w-3xl space-y-1">
-        <h1 className="text-lg font-bold">evidence &amp; methods</h1>
+      <header className="max-w-3xl space-y-2">
+        <h1 className="text-2xl font-bold sm:text-3xl">evidence &amp; methods</h1>
         <p className="text-mute">What we measured, what won, and where it falls short. Deep models below are a research track and are not used in the Designer.</p>
       </header>
 
@@ -44,7 +44,7 @@ export function Evidence() {
                   ))}
                 </tbody>
               </table>
-              <p className="mt-3 text-[11px] text-mute">{markers.data.note}</p>
+              <p className="mt-3 text-xs text-mute">{markers.data.note}</p>
             </>
           )}
         </Section>
