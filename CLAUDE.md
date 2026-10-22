@@ -202,6 +202,9 @@ cd frontend && npm install && npm run dev        # proxies /api to :8000
 cd backend && pytest
 cd frontend && npm run test && npm run build
 
+# Local demo, works offline once installed and built (http://localhost:8000)
+./demo.sh                 # --rebuild after pulling new frontend code
+
 # Container
 docker build -t miach . && docker run -p 8000:8000 miach
 ```
